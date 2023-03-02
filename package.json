@@ -17,6 +17,7 @@
   },
   "homepage": "https://gitlab.com/thiago_pereiraa/stage-case#readme",
   "dependencies": {
+    "@prisma/client": "^4.11.0",
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.17",
     "body-parser": "^1.20.2",
