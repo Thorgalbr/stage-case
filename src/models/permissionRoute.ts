@@ -1,85 +1,33 @@
 /*
-    * Configuração Permission CRUD routes
+    * Configuração das Rotas CRUD da tabela de Permissões 
 */
 
 // Importando o express e configurando o router 
-import express, {Request, Response} from 'express';
-const permitRouter = express.Router();
+
+import express from 'express';
+const permissionRouter = express.Router();
 
 // Importando o prisma client e configurando
+
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
-permitRouter.post('/permission/add', async (req: Request, res: Response) => {
+import permissionController from '../controller/permissionController';
 
-    const permTitle = req.body;
+/*
+    * Rotas da tabela de Permission importando do Controller referente
+*/
 
-    const regPermit = await prisma.permission.create({
-        data: {
-            permTitle: permTitle,
-        },
-    });
+permissionRouter.post('/permission', permissionController.createPermission);
 
-    return regPermit;
+permissionRouter.get('/permissions', permissionController.findAllPermissions);
 
-});
+permissionRouter.get('/permission/guid_permission', permissionController.findPermission);
 
-permitRouter.get('/permission/request', async (req: Request, res: Response) => {
+permissionRouter.patch('/permission/update/guid_permission', permissionController.updatePermission);
 
-    const reqPermit = await prisma.permission.findMany();
+permissionRouter.delete('/permission/delete/guid_permission', permissionController.deletePermission);
 
-    return reqPermit;
+// Exportando a rota no código
 
-});
-
-permitRouter.get('/permission/request/guid_permit', async (req: Request, res: Response) => {
-
-    const guid_permit = req.params.guid_permit;
-
-    const reqPermitId = await prisma.permission.findUnique({
-        where: {
-            guid_permission: guid_permit
-        },
-    });
-
-    return reqPermitId;
-
-});
-
-permitRouter.patch('/permission/update/guid_permit', async (req: Request, res: Response) => {
-
-    const guid_permit = req.params.guid_permit;
-
-    const permTitle: string = req.body;
-
-    const updtPermit = await prisma.permission.update({
-
-        where: {
-            guid_permission: guid_permit
-        },
-        data: {
-            permTitle: permTitle
-        },
-        
-    });
-
-    return updtPermit;
-
-});
-
-permitRouter.delete('/permission/delete/guid_permit', async (req: Request, res: Response) => {
-
-    const guid_permit = req.params.guid_permit;
-
-    const delPermit = await prisma.permission.delete({
-        where: {
-            guid_permission: guid_permit
-        },
-    });
-
-    return delPermit;
-
-});
-
-
-export { permitRouter };
+export { permissionRouter };
