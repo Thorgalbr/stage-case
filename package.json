@@ -4,7 +4,7 @@
   "description": "Stage Case",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ts-node src/index.js"
   },
   "repository": {
     "type": "git",
