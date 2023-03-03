@@ -1,0 +1,92 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./prismaClient"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  guid_user String      @id @default(uuid())
+  firstName String      @db.VarChar(75)
+  lastName  String      @db.VarChar(75)
+  email     String      @unique @db.VarChar(150)
+  password  String      @db.VarChar(150)
+  role_guid String      @default(uuid())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  employees employees[]
+  role      role        @relation(fields: [role_guid], references: [guid_role])
+}
+
+model permission {
+  guid_permission String            @id @default(uuid())
+  permTitle       String            @db.VarChar(75)
+  createdAt       DateTime          @default(now())
+  updatetAt       DateTime          @updatedAt
+  role_permission role_permission[]
+}
+
+model role {
+  guid_role       String            @id @default(uuid())
+  roleTitle       String            @db.VarChar(75)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  role_permission role_permission[]
+  user            user[]
+}
+
+model role_permission {
+  guid_role_perm  String     @id @default(uuid())
+  permission_guid String     @default(uuid())
+  role_guid       String     @default(uuid())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  permission      permission @relation(fields: [permission_guid], references: [guid_permission])
+  role            role       @relation(fields: [role_guid], references: [guid_role])
+}
+
+model departments {
+  guid_dept String     @id @default(uuid())
+  deptName  String     @db.VarChar(75)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  dept_emp  dept_emp[]
+}
+
+model employees {
+  guid_employee String     @id @default(uuid())
+  firstName     String     @db.VarChar(75)
+  lastName      String     @db.VarChar(75)
+  birthDate     DateTime   @db.Date
+  hire_date     DateTime   @db.Date
+  user_guid     String     @default(uuid())
+  salary_guid   String     @default(uuid())
+  createdBy     String     @default(uuid())
+  dept_emp      dept_emp[]
+  salary        salary     @relation(fields: [salary_guid], references: [guid_salary])
+  user          user       @relation(fields: [user_guid], references: [guid_user])
+}
+
+model dept_emp {
+  guid_dept_emp String      @id @default(uuid())
+  dept_guid     String      @default(uuid())
+  emp_guid      String      @default(uuid())
+  from_date     DateTime    @db.Date
+  to_date       DateTime    @db.Date
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  departments   departments @relation(fields: [dept_guid], references: [guid_dept])
+  employee      employees   @relation(fields: [emp_guid], references: [guid_employee])
+}
+
+model salary {
+  guid_salary String      @id @default(uuid())
+  salary      Decimal     @db.Money
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  employees   employees[]
+}
