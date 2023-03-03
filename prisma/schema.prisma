@@ -24,7 +24,7 @@ model user {
 
 model permission {
   guid_permission String            @id @default(uuid())
-  permTitle       String            @db.VarChar(75)
+  permTitle       String            @unique @db.VarChar(75)
   createdAt       DateTime          @default(now())
   updatetAt       DateTime          @updatedAt
   role_permission role_permission[]
@@ -32,7 +32,7 @@ model permission {
 
 model role {
   guid_role       String            @id @default(uuid())
-  roleTitle       String            @db.VarChar(75)
+  roleTitle       String            @unique @db.VarChar(75)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   role_permission role_permission[]
@@ -51,7 +51,7 @@ model role_permission {
 
 model departments {
   guid_dept String     @id @default(uuid())
-  deptName  String     @db.VarChar(75)
+  deptName  String     @unique @db.VarChar(75)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   dept_emp  dept_emp[]

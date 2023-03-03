@@ -9142,6 +9142,7 @@ export namespace Prisma {
 
   export type permissionWhereUniqueInput = {
     guid_permission?: string
+    permTitle?: string
   }
 
   export type permissionOrderByWithAggregationInput = {
@@ -9187,6 +9188,7 @@ export namespace Prisma {
 
   export type roleWhereUniqueInput = {
     guid_role?: string
+    roleTitle?: string
   }
 
   export type roleOrderByWithAggregationInput = {
@@ -9279,6 +9281,7 @@ export namespace Prisma {
 
   export type departmentsWhereUniqueInput = {
     guid_dept?: string
+    deptName?: string
   }
 
   export type departmentsOrderByWithAggregationInput = {
