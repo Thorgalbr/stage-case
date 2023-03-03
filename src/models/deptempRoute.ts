@@ -1,102 +1,41 @@
 /*
-    * Configuração Departments/Employees CRUD routes
+    * Configuração base do CRUD da tabela Departments/Employees 
 */
 
 // Importando o express e configurando o router 
-import express, {Request, Response} from 'express';
+
+import express from 'express';
 const deptEmpRouter = express.Router();
 
 // Importando o prisma client e configurando
+
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
-// Importando o moment para manipular as datas do código
-import moment from 'moment';
+// Importando os controllers dos dados da tabela
 
+import deptemployeeController from '../controller/deptemployeeController';
+
+// Utilizando a interface para configurar os datatypes
 interface IDeptEmp {
-    dept_guid: string,
-    emp_guid: string,
     from_date: string,
     to_date: string,
 };
 
-deptEmpRouter.post('/dept-employee/add', async (req: Request, res: Response) => {
+/*
+    * Rotas da tabela de Dept/Funcionarios importando do Controller referente a ela
+*/
 
-    const { dept_guid, emp_guid, from_date, to_date }: IDeptEmp = req.body;
+deptEmpRouter.post('/dept-employee/:guid_dept/:guid_employee', deptemployeeController.createDeptEmployee);
 
-    moment(from_date, to_date, "DD-MM-YYYY").format();
+deptEmpRouter.get('/dept-employees', deptemployeeController.findAllDeptEmployees );
 
-    const deptEmpReg = await prisma.dept_emp.create({
-        data: {
-            dept_guid:  dept_guid,
-            emp_guid: emp_guid,
-            from_date: from_date,
-            to_date: to_date
-        },
+deptEmpRouter.get('/dept-employee/guid_dept_emp',deptemployeeController.findDeptEmployee);
 
-    });
+deptEmpRouter.patch('/dept-employee/update/guid_dept_emp/:guid_dept/:guid_employee', deptemployeeController.updateDeptEmployee);
 
-    res.json(deptEmpReg);
+deptEmpRouter.delete('/dept-employee/delete/guid_dept_emp', deptemployeeController.deleteDeptEmployee);
 
-});
+// Exportando a rota e a interface no código
 
-deptEmpRouter.get('/dept-employee/request', async (req: Request, res: Response) => {
-
-    const deptEmpReq = await prisma.dept_emp.findMany();
-
-    res.json(deptEmpReq);
-
-});
-
-deptEmpRouter.get('/dept-employee/request/guid_dept_emp', async (req: Request, res: Response) => {
-
-    const guid_dept_emp = req.params.guid_dept_emp;
-
-    const deptEmpReqId = await prisma.dept_emp.findUnique({
-        where: {
-            guid_dept_emp: guid_dept_emp
-        },
-    });
-
-    res.json(deptEmpReqId);
-
-});
-
-deptEmpRouter.patch('/dept-employee/update/guid_dept_emp', async (req: Request, res: Response) => {
-
-    const guid_dept_emp = req.params.guid_dept_emp;
-
-    const { dept_guid, emp_guid, from_date, to_date }: IDeptEmp = req.body;
-
-    moment(from_date, to_date, "DD-MM-YYYY").format();
-
-    const deptEmpUpdt = await prisma.dept_emp.update({
-        where: {
-            guid_dept_emp: guid_dept_emp
-        },
-        data: {
-            dept_guid:  dept_guid,
-            emp_guid: emp_guid,
-            from_date: from_date,
-            to_date: to_date
-        },
-    });
-
-    res.json(deptEmpUpdt);
-
-});
-
-deptEmpRouter.delete('/dept-employee/delete/guid_dept_emp', async (req: Request, res: Response) => {
-    const guid_dept_emp = req.params.guid_dept_emp;
-
-    const deptEmpDel = await prisma.dept_emp.delete({
-        where: {
-            guid_dept_emp: guid_dept_emp
-        },
-    });
-
-    res.json(deptEmpDel);
-
-});
-
-export { deptEmpRouter };
+export { deptEmpRouter, IDeptEmp };

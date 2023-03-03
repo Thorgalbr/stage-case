@@ -11,7 +11,7 @@ import {Request, Response} from 'express';
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
-// Exportando o controle das rotas
+// Exportando os controllers para a rota
 
 export default {
 

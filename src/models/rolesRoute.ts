@@ -1,5 +1,5 @@
 /*
-    * Configuração CRUD tabela de Roles
+    * Configuração base do CRUD da tabela de Roles
 */
 
 // Importando o express e configurando o router 

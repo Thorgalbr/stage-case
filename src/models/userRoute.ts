@@ -1,25 +1,26 @@
 /*
-    * Configuração CRUD da tabela de usuários
+    * Configuração base do CRUD da tabela de usuários
 */
 
 // Importando o express e configurando o router 
+
 import express from 'express';
 const userRouter = express.Router();
 
 // Importando os controles dos dados da tabela
+
 import userController from '../controller/userController';
 
-// Interface configurada para configurar os datatypes
+// Utilizando a interface para configurar os datatypes
 interface IUser{
     firstName: string,
     lastName: string,
     email: string,
     password: string,
-    role_guid: string
 };
 
 /*
-    * Rotas da tabela de Users importando dos Controller referente a ela
+    * Rotas da tabela de Users importando do Controller referente a ela
 */
 
 userRouter.post('/user', userController.createUser);

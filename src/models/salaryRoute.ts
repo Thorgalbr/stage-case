@@ -1,83 +1,30 @@
 /*
-    * Configuração Salary CRUD routes
+    * Configuração base do CRUD da tabela de salários
 */
 
 // Importando o express e configurando o router 
+
 import express, {Request, Response} from 'express';
 const salRouter = express.Router();
 
-// Importando o prisma client e configurando
-import { PrismaClient } from '../../prisma/prismaClient'
-import { Decimal } from '@prisma/client/runtime';
-const prisma = new PrismaClient();
+// Importando os controles dos dados da tabela
 
-salRouter.post('/salary/add', async (req: Request, res: Response) => {
+import salaryController from '../controller/salaryController';
 
-    const salary: Decimal = req.body;
+/*
+    * Rotas da tabela de salarios importando do controller referente a ela
+*/
 
-    const salReg = await prisma.salary.create({
-        data: {
-            salary: salary
-        },
-    });
+salRouter.post('/salary/add', salaryController.createSalary);
 
-    res.json(salReg);
+salRouter.get('/salary/request', salaryController.findAllSalary);
 
-});
+salRouter.get('/salary/request/guid_salary', salaryController.findSalary);
 
-salRouter.get('/salary/request', async (req: Request, res: Response) => {
+salRouter.patch('/salary/update/guid_salary', salaryController.updateSalary);
 
-    const salReq = await prisma.salary.findMany();
+salRouter.delete('/salary/delete/guid_salary', salaryController.deleteSalary);
 
-    res.json(salReq);
-
-});
-
-salRouter.get('/salary/request/guid_salary', async (req: Request, res: Response) => {
-
-    const guid_salary = req.params.guid_salary;
-
-    const salReqId = await prisma.salary.findUnique({
-        where: {
-            guid_salary: guid_salary
-        },
-    });
-
-    res.json(salReqId);
-
-});
-
-salRouter.patch('/salary/update/guid_salary', async (req: Request, res: Response) => {
-
-    const guid_salary = req.params.guid_salary;
-
-    const salary: Decimal = req.body;
-
-    const salUpdt = await prisma.salary.update({
-        where: {
-            guid_salary: guid_salary
-        },
-        data: {
-            salary: salary
-        }
-    });
-
-    res.json(salUpdt);
-
-});
-
-salRouter.patch('/salary/delete/guid_salary', async (req: Request, res: Response) => {
-    
-    const guid_salary = req.params.guid_salary;
-
-    const salDel = await prisma.salary.delete({
-        where: {
-            guid_salary: guid_salary
-        },
-    });
-
-    res.json(salDel);
-
-});
+// Exportando a rota no código
 
 export { salRouter };

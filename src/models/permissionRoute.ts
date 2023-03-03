@@ -1,5 +1,5 @@
 /*
-    * Configuração das Rotas CRUD da tabela de Permissões 
+    * Configuração base do CRUD da tabela de Permissões 
 */
 
 // Importando o express e configurando o router 
@@ -12,10 +12,12 @@ const permissionRouter = express.Router();
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
+// Importando os controllers dos dados da tabela
+
 import permissionController from '../controller/permissionController';
 
 /*
-    * Rotas da tabela de Permission importando do Controller referente
+    * Rotas da tabela de Permissões importando do Controller referente a ela
 */
 
 permissionRouter.post('/permission', permissionController.createPermission);

@@ -1,104 +1,36 @@
 /*
-    * Configuração Employees CRUD routes
+    * Configuração base do CRUD da tabela de Funcionários
 */
 
 // Importando o express e configurando o router 
-import express, {Request, Response} from 'express';
+import express from 'express';
 const employeesRouter = express.Router();
 
-// Importando o prisma client e configurando
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
+// Importando os controles dos dados da tabela
+import employeesController from '../controller/employeesController';
 
-import moment from 'moment';
-
+// Utilizando a interface para configurar os datatypes
 interface IEmployees {
     firstName: string,
     lastName: string,
     birthDate: string,
     hire_date: string,
-    user_guid: string,
-    salary_guid: string
 };
 
-employeesRouter.post('/employees/add', async (req: Request, res: Response) => {
+/*
+    * Rotas da tabela de Funcionários importando dos Controller referente a ela
+*/
 
-    const { firstName, lastName, birthDate, hire_date, user_guid, salary_guid }: IEmployees = req.body;
+employeesRouter.post('/employee/:guid_user/:guid_salary', employeesController.createEmployee);
 
-    moment(birthDate, hire_date, "DD-MM-YYYY").format();
+employeesRouter.get('/employees', employeesController.findAllEmployees);
 
-    const emploReg = await prisma.employees.create({
-        data: {
-            firstName: firstName,
-            lastName: lastName,
-            birthDate: birthDate,
-            hire_date: hire_date,
-            user_guid: user_guid,
-            salary_guid: salary_guid
-        }
-    });
+employeesRouter.get('/employee/guid_employee', employeesController.findEmployee);
 
-    res.json(emploReg);
+employeesRouter.patch('/employees/update/:guid_employee/:guid_user/:guid_salary', employeesController.updateEmployee);
 
-});
+employeesRouter.delete('/employees/delete/:guid_employee', employeesController.deleteEmployee);
 
-employeesRouter.get('/employees/request', async (req: Request, res: Response) => {
+// Exportando a rota e a interface no código
 
-    const emploReq = await prisma.employees.findMany();
-
-    res.json(emploReq);
-
-});
-
-employeesRouter.get('/employees/request/guid_employee', async (req: Request, res: Response) => {
-
-    const guid_employee = req.params.guid_employee;
-
-    const emploReqId = await prisma.employees.findUnique({
-        where: {
-            guid_employee: guid_employee
-        },
-    });
-
-    res.json(emploReqId);
-
-});
-
-employeesRouter.patch('/employees/update/guid_employee', async (req: Request, res: Response) => {
-
-    const guid_employee = req.params.guid_employee;
-
-    const { firstName, lastName, birthDate, hire_date, user_guid, salary_guid }: IEmployees = req.body;
-
-    moment(birthDate, hire_date, "DD-MM-YYYY").format();
-
-    const emploUpdt = await prisma.employees.update({
-        where: {
-            guid_employee: guid_employee
-        },
-        data: {
-            firstName: firstName,
-            lastName: lastName,
-            birthDate: birthDate,
-            hire_date: hire_date,
-            user_guid: user_guid,
-            salary_guid: salary_guid
-        }
-    })
-});
-
-employeesRouter.patch('/employees/delete/guid_employee', async (req: Request, res: Response) => {
-
-    const guid_employee = req.params.guid_employee;
-
-    const emploDel = await prisma.employees.delete({
-        where: {
-            guid_employee: guid_employee
-        },
-    });
-
-    res.json(emploDel);
-
-});
-
-export { employeesRouter };
+export { employeesRouter, IEmployees };

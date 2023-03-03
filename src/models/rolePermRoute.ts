@@ -1,89 +1,30 @@
 /*
-    * Configuração Role/Permission CRUD routes
+    * Configuração base do CRUD da tabela Role/Permission 
 */
 
 // Importando o express e configurando o router 
-import express, {Request, Response} from 'express';
+
+import express from 'express';
 const rolePermRouter = express.Router();
 
-// Importando o prisma client e configurando
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
+// Importando os controles dos dados da tabela
 
-interface IRolePerm{
-    permission_guid: string,
-    role_guid: string
-};
+import rolePermController from '../controller/rolePermController';
 
-rolePermRouter.post('/role-permission/add', async (req: Request, res: Response) => {
+/*
+    * Rotas da tabela de salarios importando do controller referente a ela
+*/
 
-    const { permission_guid, role_guid }: IRolePerm = req.body;
-    
-    const rolePermReg = await prisma.role_permission.create({
-        data: {
-            permission_guid: permission_guid,
-            role_guid: role_guid
-        },
-    });
+rolePermRouter.post('/role-permission/add', rolePermController.createRolePermission);
 
-    res.json(rolePermReg);
+rolePermRouter.get('/role-permission/request', rolePermController.findAllRolePermission);
 
-});
+rolePermRouter.get('/role-permission/request/guid_role_perm', rolePermController.findRolePermission);
 
-rolePermRouter.get('/role-permission/request', async (req: Request, res: Response) => {
+rolePermRouter.patch('/role-permission/update/guid_role_perm', rolePermController.updateRolePermission);
 
-    const rolePermReq = await prisma.role_permission.findMany();
+rolePermRouter.delete('/role-permission/delete/guid_role_perm', rolePermController.deleteRolePermission);
 
-    res.json(rolePermReq);
-
-});
-
-rolePermRouter.get('/role-permission/request/guid_role_perm', async (req: Request, res: Response) => {
-
-    const guid_role_perm = req.params.guid_role_perm;
-
-    const rolePermReqId = await prisma.role_permission.findUnique({
-        where: {
-            guid_role_perm: guid_role_perm
-        },
-    });
-
-    res.json(rolePermReqId);
-
-});
-
-rolePermRouter.patch('/role-permission/update/guid_role_perm', async (req: Request, res: Response) => {
-
-    const guid_role_perm = req.params.guid_role_perm;
-
-    const { permission_guid, role_guid }: IRolePerm = req.body;
-
-    const rolePermUpdt = await prisma.role_permission.update({
-        where: {
-            guid_role_perm: guid_role_perm
-        },
-        data: {
-            permission_guid: permission_guid,
-            role_guid: role_guid
-        }
-    });
-
-    res.json(rolePermUpdt);
-
-});
-
-rolePermRouter.delete('/role-permission/delete/guid_role_perm', async (req: Request, res: Response) => {
-
-    const guid_role_perm = req.params.guid_role_perm;
-
-    const rolePermDel = await prisma.role_permission.delete({
-        where: {
-            guid_role_perm: guid_role_perm
-        },
-    });
-
-    res.json(rolePermDel);
-
-});
+// Exportando a rota no código
 
 export { rolePermRouter };

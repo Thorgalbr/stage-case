@@ -1,12 +1,14 @@
 /*
-    * Configuração do CRUD tabela de Departamentos
+    * Configuração base do CRUD tabela de Departamentos
 */
 
 // Importando o express e configurando o router 
+
 import express from 'express';
 const deptRouter = express.Router();
 
 // Importando o prisma client e configurando
+
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 

@@ -12,6 +12,8 @@ import { PrismaClient } from '../../prisma/prismaClient'
 
 const prisma = new PrismaClient();
 
+// Exportando os controllers para a rota
+
 export default {
 
     async createDepartment(req: Request, res: Response) {
