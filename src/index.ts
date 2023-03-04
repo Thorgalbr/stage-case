@@ -25,18 +25,25 @@ import 'dotenv/config';
 
 import { userRouter } from './User/userRoute';
 app.use(userRouter);
+
 import { rolesRouter } from './Roles/rolesRoute';
 app.use(rolesRouter);
+
 import { deptRouter } from './Departments/departamentRoute';
 app.use(deptRouter);
+
 import { deptEmpRouter } from './dept-employee/deptempRoute';
 app.use(deptEmpRouter);
+
 import { employeesRouter } from './Employees/employeesRoute';
 app.use(employeesRouter);
+
 import { permissionRouter } from './Permissions/permissionRoute';
 app.use(permissionRouter);
+
 import { rolePermRouter } from './roles-permission/rolePermRoute';
 app.use(rolePermRouter);
+
 import { salRouter } from './Salary/salaryRoute';
 app.use(salRouter);
 
