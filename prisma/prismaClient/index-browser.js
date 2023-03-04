@@ -156,6 +156,14 @@ exports.Prisma.SortOrder = makeEnum({
   desc: 'desc'
 });
 
+exports.Prisma.TokensScalarFieldEnum = makeEnum({
+  guid_token: 'guid_token',
+  token: 'token',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  users_guid: 'users_guid'
+});
+
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -177,6 +185,7 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
 
 exports.Prisma.ModelName = makeEnum({
   user: 'user',
+  tokens: 'tokens',
   permission: 'permission',
   role: 'role',
   role_permission: 'role_permission',

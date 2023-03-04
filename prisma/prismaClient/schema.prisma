@@ -15,11 +15,21 @@ model user {
   lastName  String      @db.VarChar(75)
   email     String      @unique @db.VarChar(150)
   password  String      @db.VarChar(150)
-  role_guid String      @default(uuid())
+  role_guid String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   employees employees[]
   role      role        @relation(fields: [role_guid], references: [guid_role])
+  tokens    tokens[]
+}
+
+model tokens {
+  guid_token String   @id @default(uuid())
+  token      String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  users_guid String
+  user       user     @relation(fields: [users_guid], references: [guid_user])
 }
 
 model permission {
@@ -41,8 +51,8 @@ model role {
 
 model role_permission {
   guid_role_perm  String     @id @default(uuid())
-  permission_guid String     @default(uuid())
-  role_guid       String     @default(uuid())
+  permission_guid String
+  role_guid       String
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
   permission      permission @relation(fields: [permission_guid], references: [guid_permission])
@@ -63,9 +73,9 @@ model employees {
   lastName      String     @db.VarChar(75)
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
-  user_guid     String     @default(uuid())
-  salary_guid   String     @default(uuid())
-  createdBy     String     @default(uuid())
+  user_guid     String
+  salary_guid   String
+  createdBy     String
   dept_emp      dept_emp[]
   salary        salary     @relation(fields: [salary_guid], references: [guid_salary])
   user          user       @relation(fields: [user_guid], references: [guid_user])
@@ -73,8 +83,8 @@ model employees {
 
 model dept_emp {
   guid_dept_emp String      @id @default(uuid())
-  dept_guid     String      @default(uuid())
-  emp_guid      String      @default(uuid())
+  dept_guid     String
+  emp_guid      String
   from_date     DateTime    @db.Date
   to_date       DateTime    @db.Date
   createdAt     DateTime    @default(now())
@@ -85,7 +95,7 @@ model dept_emp {
 
 model salary {
   guid_salary String      @id @default(uuid())
-  salary      Decimal     @db.Money
+  salary      String      @db.VarChar(25)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   employees   employees[]

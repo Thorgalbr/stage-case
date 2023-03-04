@@ -26,6 +26,18 @@ export type user = {
 }
 
 /**
+ * Model tokens
+ * 
+ */
+export type tokens = {
+  guid_token: string
+  token: string
+  createdAt: Date
+  updatedAt: Date
+  users_guid: string
+}
+
+/**
  * Model permission
  * 
  */
@@ -105,7 +117,7 @@ export type dept_emp = {
  */
 export type salary = {
   guid_salary: string
-  salary: Prisma.Decimal
+  salary: string
   createdAt: Date
   updatedAt: Date
 }
@@ -237,6 +249,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.userDelegate<GlobalReject>;
+
+  /**
+   * `prisma.tokens`: Exposes CRUD operations for the **tokens** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tokens
+    * const tokens = await prisma.tokens.findMany()
+    * ```
+    */
+  get tokens(): Prisma.tokensDelegate<GlobalReject>;
 
   /**
    * `prisma.permission`: Exposes CRUD operations for the **permission** model.
@@ -777,6 +799,7 @@ export namespace Prisma {
 
   export const ModelName: {
     user: 'user',
+    tokens: 'tokens',
     permission: 'permission',
     role: 'role',
     role_permission: 'role_permission',
@@ -951,10 +974,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     employees: number
+    tokens: number
   }
 
   export type UserCountOutputTypeSelect = {
     employees?: boolean
+    tokens?: boolean
   }
 
   export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
@@ -1400,6 +1425,7 @@ export namespace Prisma {
     updatedAt?: boolean
     employees?: boolean | user$employeesArgs
     role?: boolean | roleArgs
+    tokens?: boolean | user$tokensArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
@@ -1407,6 +1433,7 @@ export namespace Prisma {
   export type userInclude = {
     employees?: boolean | user$employeesArgs
     role?: boolean | roleArgs
+    tokens?: boolean | user$tokensArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
@@ -1419,6 +1446,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['include']>]:
         P extends 'employees' ? Array < employeesGetPayload<S['include'][P]>>  :
         P extends 'role' ? roleGetPayload<S['include'][P]> :
+        P extends 'tokens' ? Array < tokensGetPayload<S['include'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (userArgs | userFindManyArgs)
@@ -1426,6 +1454,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['select']>]:
         P extends 'employees' ? Array < employeesGetPayload<S['select'][P]>>  :
         P extends 'role' ? roleGetPayload<S['select'][P]> :
+        P extends 'tokens' ? Array < tokensGetPayload<S['select'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof user ? user[P] : never
   } 
       : user
@@ -1801,6 +1830,8 @@ export namespace Prisma {
     employees<T extends user$employeesArgs= {}>(args?: Subset<T, user$employeesArgs>): Prisma.PrismaPromise<Array<employeesGetPayload<T>>| Null>;
 
     role<T extends roleArgs= {}>(args?: Subset<T, roleArgs>): Prisma__roleClient<roleGetPayload<T> | Null>;
+
+    tokens<T extends user$tokensArgs= {}>(args?: Subset<T, user$tokensArgs>): Prisma.PrismaPromise<Array<tokensGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -2179,6 +2210,27 @@ export namespace Prisma {
 
 
   /**
+   * user.tokens
+   */
+  export type user$tokensArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    where?: tokensWhereInput
+    orderBy?: Enumerable<tokensOrderByWithRelationInput>
+    cursor?: tokensWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<TokensScalarFieldEnum>
+  }
+
+
+  /**
    * user without action
    */
   export type userArgs = {
@@ -2190,6 +2242,937 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: userInclude | null
+  }
+
+
+
+  /**
+   * Model tokens
+   */
+
+
+  export type AggregateTokens = {
+    _count: TokensCountAggregateOutputType | null
+    _min: TokensMinAggregateOutputType | null
+    _max: TokensMaxAggregateOutputType | null
+  }
+
+  export type TokensMinAggregateOutputType = {
+    guid_token: string | null
+    token: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    users_guid: string | null
+  }
+
+  export type TokensMaxAggregateOutputType = {
+    guid_token: string | null
+    token: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    users_guid: string | null
+  }
+
+  export type TokensCountAggregateOutputType = {
+    guid_token: number
+    token: number
+    createdAt: number
+    updatedAt: number
+    users_guid: number
+    _all: number
+  }
+
+
+  export type TokensMinAggregateInputType = {
+    guid_token?: true
+    token?: true
+    createdAt?: true
+    updatedAt?: true
+    users_guid?: true
+  }
+
+  export type TokensMaxAggregateInputType = {
+    guid_token?: true
+    token?: true
+    createdAt?: true
+    updatedAt?: true
+    users_guid?: true
+  }
+
+  export type TokensCountAggregateInputType = {
+    guid_token?: true
+    token?: true
+    createdAt?: true
+    updatedAt?: true
+    users_guid?: true
+    _all?: true
+  }
+
+  export type TokensAggregateArgs = {
+    /**
+     * Filter which tokens to aggregate.
+     */
+    where?: tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tokens to fetch.
+     */
+    orderBy?: Enumerable<tokensOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tokens
+    **/
+    _count?: true | TokensCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TokensMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TokensMaxAggregateInputType
+  }
+
+  export type GetTokensAggregateType<T extends TokensAggregateArgs> = {
+        [P in keyof T & keyof AggregateTokens]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTokens[P]>
+      : GetScalarType<T[P], AggregateTokens[P]>
+  }
+
+
+
+
+  export type TokensGroupByArgs = {
+    where?: tokensWhereInput
+    orderBy?: Enumerable<tokensOrderByWithAggregationInput>
+    by: TokensScalarFieldEnum[]
+    having?: tokensScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TokensCountAggregateInputType | true
+    _min?: TokensMinAggregateInputType
+    _max?: TokensMaxAggregateInputType
+  }
+
+
+  export type TokensGroupByOutputType = {
+    guid_token: string
+    token: string
+    createdAt: Date
+    updatedAt: Date
+    users_guid: string
+    _count: TokensCountAggregateOutputType | null
+    _min: TokensMinAggregateOutputType | null
+    _max: TokensMaxAggregateOutputType | null
+  }
+
+  type GetTokensGroupByPayload<T extends TokensGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<TokensGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TokensGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TokensGroupByOutputType[P]>
+            : GetScalarType<T[P], TokensGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tokensSelect = {
+    guid_token?: boolean
+    token?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    users_guid?: boolean
+    user?: boolean | userArgs
+  }
+
+
+  export type tokensInclude = {
+    user?: boolean | userArgs
+  }
+
+  export type tokensGetPayload<S extends boolean | null | undefined | tokensArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? tokens :
+    S extends undefined ? never :
+    S extends { include: any } & (tokensArgs | tokensFindManyArgs)
+    ? tokens  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'user' ? userGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (tokensArgs | tokensFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'user' ? userGetPayload<S['select'][P]> :  P extends keyof tokens ? tokens[P] : never
+  } 
+      : tokens
+
+
+  type tokensCountArgs = 
+    Omit<tokensFindManyArgs, 'select' | 'include'> & {
+      select?: TokensCountAggregateInputType | true
+    }
+
+  export interface tokensDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Tokens that matches the filter.
+     * @param {tokensFindUniqueArgs} args - Arguments to find a Tokens
+     * @example
+     * // Get one Tokens
+     * const tokens = await prisma.tokens.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends tokensFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, tokensFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'tokens'> extends True ? Prisma__tokensClient<tokensGetPayload<T>> : Prisma__tokensClient<tokensGetPayload<T> | null, null>
+
+    /**
+     * Find one Tokens that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {tokensFindUniqueOrThrowArgs} args - Arguments to find a Tokens
+     * @example
+     * // Get one Tokens
+     * const tokens = await prisma.tokens.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends tokensFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, tokensFindUniqueOrThrowArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Find the first Tokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tokensFindFirstArgs} args - Arguments to find a Tokens
+     * @example
+     * // Get one Tokens
+     * const tokens = await prisma.tokens.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends tokensFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, tokensFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'tokens'> extends True ? Prisma__tokensClient<tokensGetPayload<T>> : Prisma__tokensClient<tokensGetPayload<T> | null, null>
+
+    /**
+     * Find the first Tokens that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tokensFindFirstOrThrowArgs} args - Arguments to find a Tokens
+     * @example
+     * // Get one Tokens
+     * const tokens = await prisma.tokens.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends tokensFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, tokensFindFirstOrThrowArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Find zero or more Tokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tokensFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tokens
+     * const tokens = await prisma.tokens.findMany()
+     * 
+     * // Get first 10 Tokens
+     * const tokens = await prisma.tokens.findMany({ take: 10 })
+     * 
+     * // Only select the `guid_token`
+     * const tokensWithGuid_tokenOnly = await prisma.tokens.findMany({ select: { guid_token: true } })
+     * 
+    **/
+    findMany<T extends tokensFindManyArgs>(
+      args?: SelectSubset<T, tokensFindManyArgs>
+    ): Prisma.PrismaPromise<Array<tokensGetPayload<T>>>
+
+    /**
+     * Create a Tokens.
+     * @param {tokensCreateArgs} args - Arguments to create a Tokens.
+     * @example
+     * // Create one Tokens
+     * const Tokens = await prisma.tokens.create({
+     *   data: {
+     *     // ... data to create a Tokens
+     *   }
+     * })
+     * 
+    **/
+    create<T extends tokensCreateArgs>(
+      args: SelectSubset<T, tokensCreateArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Create many Tokens.
+     *     @param {tokensCreateManyArgs} args - Arguments to create many Tokens.
+     *     @example
+     *     // Create many Tokens
+     *     const tokens = await prisma.tokens.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends tokensCreateManyArgs>(
+      args?: SelectSubset<T, tokensCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Tokens.
+     * @param {tokensDeleteArgs} args - Arguments to delete one Tokens.
+     * @example
+     * // Delete one Tokens
+     * const Tokens = await prisma.tokens.delete({
+     *   where: {
+     *     // ... filter to delete one Tokens
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends tokensDeleteArgs>(
+      args: SelectSubset<T, tokensDeleteArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Update one Tokens.
+     * @param {tokensUpdateArgs} args - Arguments to update one Tokens.
+     * @example
+     * // Update one Tokens
+     * const tokens = await prisma.tokens.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends tokensUpdateArgs>(
+      args: SelectSubset<T, tokensUpdateArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Delete zero or more Tokens.
+     * @param {tokensDeleteManyArgs} args - Arguments to filter Tokens to delete.
+     * @example
+     * // Delete a few Tokens
+     * const { count } = await prisma.tokens.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends tokensDeleteManyArgs>(
+      args?: SelectSubset<T, tokensDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tokensUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tokens
+     * const tokens = await prisma.tokens.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends tokensUpdateManyArgs>(
+      args: SelectSubset<T, tokensUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Tokens.
+     * @param {tokensUpsertArgs} args - Arguments to update or create a Tokens.
+     * @example
+     * // Update or create a Tokens
+     * const tokens = await prisma.tokens.upsert({
+     *   create: {
+     *     // ... data to create a Tokens
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tokens we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends tokensUpsertArgs>(
+      args: SelectSubset<T, tokensUpsertArgs>
+    ): Prisma__tokensClient<tokensGetPayload<T>>
+
+    /**
+     * Count the number of Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tokensCountArgs} args - Arguments to filter Tokens to count.
+     * @example
+     * // Count the number of Tokens
+     * const count = await prisma.tokens.count({
+     *   where: {
+     *     // ... the filter for the Tokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends tokensCountArgs>(
+      args?: Subset<T, tokensCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TokensCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokensAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TokensAggregateArgs>(args: Subset<T, TokensAggregateArgs>): Prisma.PrismaPromise<GetTokensAggregateType<T>>
+
+    /**
+     * Group by Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokensGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TokensGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TokensGroupByArgs['orderBy'] }
+        : { orderBy?: TokensGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TokensGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTokensGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tokens.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__tokensClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * tokens base type for findUnique actions
+   */
+  export type tokensFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter, which tokens to fetch.
+     */
+    where: tokensWhereUniqueInput
+  }
+
+  /**
+   * tokens findUnique
+   */
+  export interface tokensFindUniqueArgs extends tokensFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * tokens findUniqueOrThrow
+   */
+  export type tokensFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter, which tokens to fetch.
+     */
+    where: tokensWhereUniqueInput
+  }
+
+
+  /**
+   * tokens base type for findFirst actions
+   */
+  export type tokensFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter, which tokens to fetch.
+     */
+    where?: tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tokens to fetch.
+     */
+    orderBy?: Enumerable<tokensOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tokens.
+     */
+    cursor?: tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tokens.
+     */
+    distinct?: Enumerable<TokensScalarFieldEnum>
+  }
+
+  /**
+   * tokens findFirst
+   */
+  export interface tokensFindFirstArgs extends tokensFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * tokens findFirstOrThrow
+   */
+  export type tokensFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter, which tokens to fetch.
+     */
+    where?: tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tokens to fetch.
+     */
+    orderBy?: Enumerable<tokensOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tokens.
+     */
+    cursor?: tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tokens.
+     */
+    distinct?: Enumerable<TokensScalarFieldEnum>
+  }
+
+
+  /**
+   * tokens findMany
+   */
+  export type tokensFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter, which tokens to fetch.
+     */
+    where?: tokensWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tokens to fetch.
+     */
+    orderBy?: Enumerable<tokensOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tokens.
+     */
+    cursor?: tokensWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tokens.
+     */
+    skip?: number
+    distinct?: Enumerable<TokensScalarFieldEnum>
+  }
+
+
+  /**
+   * tokens create
+   */
+  export type tokensCreateArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * The data needed to create a tokens.
+     */
+    data: XOR<tokensCreateInput, tokensUncheckedCreateInput>
+  }
+
+
+  /**
+   * tokens createMany
+   */
+  export type tokensCreateManyArgs = {
+    /**
+     * The data used to create many tokens.
+     */
+    data: Enumerable<tokensCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * tokens update
+   */
+  export type tokensUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * The data needed to update a tokens.
+     */
+    data: XOR<tokensUpdateInput, tokensUncheckedUpdateInput>
+    /**
+     * Choose, which tokens to update.
+     */
+    where: tokensWhereUniqueInput
+  }
+
+
+  /**
+   * tokens updateMany
+   */
+  export type tokensUpdateManyArgs = {
+    /**
+     * The data used to update tokens.
+     */
+    data: XOR<tokensUpdateManyMutationInput, tokensUncheckedUpdateManyInput>
+    /**
+     * Filter which tokens to update
+     */
+    where?: tokensWhereInput
+  }
+
+
+  /**
+   * tokens upsert
+   */
+  export type tokensUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * The filter to search for the tokens to update in case it exists.
+     */
+    where: tokensWhereUniqueInput
+    /**
+     * In case the tokens found by the `where` argument doesn't exist, create a new tokens with this data.
+     */
+    create: XOR<tokensCreateInput, tokensUncheckedCreateInput>
+    /**
+     * In case the tokens was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tokensUpdateInput, tokensUncheckedUpdateInput>
+  }
+
+
+  /**
+   * tokens delete
+   */
+  export type tokensDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
+    /**
+     * Filter which tokens to delete.
+     */
+    where: tokensWhereUniqueInput
+  }
+
+
+  /**
+   * tokens deleteMany
+   */
+  export type tokensDeleteManyArgs = {
+    /**
+     * Filter which tokens to delete
+     */
+    where?: tokensWhereInput
+  }
+
+
+  /**
+   * tokens without action
+   */
+  export type tokensArgs = {
+    /**
+     * Select specific fields to fetch from the tokens
+     */
+    select?: tokensSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: tokensInclude | null
   }
 
 
@@ -7954,30 +8937,20 @@ export namespace Prisma {
 
   export type AggregateSalary = {
     _count: SalaryCountAggregateOutputType | null
-    _avg: SalaryAvgAggregateOutputType | null
-    _sum: SalarySumAggregateOutputType | null
     _min: SalaryMinAggregateOutputType | null
     _max: SalaryMaxAggregateOutputType | null
   }
 
-  export type SalaryAvgAggregateOutputType = {
-    salary: Decimal | null
-  }
-
-  export type SalarySumAggregateOutputType = {
-    salary: Decimal | null
-  }
-
   export type SalaryMinAggregateOutputType = {
     guid_salary: string | null
-    salary: Decimal | null
+    salary: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type SalaryMaxAggregateOutputType = {
     guid_salary: string | null
-    salary: Decimal | null
+    salary: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7990,14 +8963,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type SalaryAvgAggregateInputType = {
-    salary?: true
-  }
-
-  export type SalarySumAggregateInputType = {
-    salary?: true
-  }
 
   export type SalaryMinAggregateInputType = {
     guid_salary?: true
@@ -8059,18 +9024,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: SalaryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SalarySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: SalaryMinAggregateInputType
@@ -8101,8 +9054,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SalaryCountAggregateInputType | true
-    _avg?: SalaryAvgAggregateInputType
-    _sum?: SalarySumAggregateInputType
     _min?: SalaryMinAggregateInputType
     _max?: SalaryMaxAggregateInputType
   }
@@ -8110,12 +9061,10 @@ export namespace Prisma {
 
   export type SalaryGroupByOutputType = {
     guid_salary: string
-    salary: Decimal
+    salary: string
     createdAt: Date
     updatedAt: Date
     _count: SalaryCountAggregateOutputType | null
-    _avg: SalaryAvgAggregateOutputType | null
-    _sum: SalarySumAggregateOutputType | null
     _min: SalaryMinAggregateOutputType | null
     _max: SalaryMaxAggregateOutputType | null
   }
@@ -9030,6 +9979,17 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const TokensScalarFieldEnum: {
+    guid_token: 'guid_token',
+    token: 'token',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    users_guid: 'users_guid'
+  };
+
+  export type TokensScalarFieldEnum = (typeof TokensScalarFieldEnum)[keyof typeof TokensScalarFieldEnum]
+
+
   export const TransactionIsolationLevel: {
     ReadUncommitted: 'ReadUncommitted',
     ReadCommitted: 'ReadCommitted',
@@ -9073,6 +10033,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter | Date | string
     employees?: EmployeesListRelationFilter
     role?: XOR<RoleRelationFilter, roleWhereInput>
+    tokens?: TokensListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -9086,6 +10047,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     employees?: employeesOrderByRelationAggregateInput
     role?: roleOrderByWithRelationInput
+    tokens?: tokensOrderByRelationAggregateInput
   }
 
   export type userWhereUniqueInput = {
@@ -9119,6 +10081,54 @@ export namespace Prisma {
     role_guid?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type tokensWhereInput = {
+    AND?: Enumerable<tokensWhereInput>
+    OR?: Enumerable<tokensWhereInput>
+    NOT?: Enumerable<tokensWhereInput>
+    guid_token?: StringFilter | string
+    token?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    users_guid?: StringFilter | string
+    user?: XOR<UserRelationFilter, userWhereInput>
+  }
+
+  export type tokensOrderByWithRelationInput = {
+    guid_token?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users_guid?: SortOrder
+    user?: userOrderByWithRelationInput
+  }
+
+  export type tokensWhereUniqueInput = {
+    guid_token?: string
+    token?: string
+  }
+
+  export type tokensOrderByWithAggregationInput = {
+    guid_token?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users_guid?: SortOrder
+    _count?: tokensCountOrderByAggregateInput
+    _max?: tokensMaxOrderByAggregateInput
+    _min?: tokensMinOrderByAggregateInput
+  }
+
+  export type tokensScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<tokensScalarWhereWithAggregatesInput>
+    OR?: Enumerable<tokensScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<tokensScalarWhereWithAggregatesInput>
+    guid_token?: StringWithAggregatesFilter | string
+    token?: StringWithAggregatesFilter | string
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    users_guid?: StringWithAggregatesFilter | string
   }
 
   export type permissionWhereInput = {
@@ -9429,7 +10439,7 @@ export namespace Prisma {
     OR?: Enumerable<salaryWhereInput>
     NOT?: Enumerable<salaryWhereInput>
     guid_salary?: StringFilter | string
-    salary?: DecimalFilter | Decimal | DecimalJsLike | number | string
+    salary?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     employees?: EmployeesListRelationFilter
@@ -9453,10 +10463,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: salaryCountOrderByAggregateInput
-    _avg?: salaryAvgOrderByAggregateInput
     _max?: salaryMaxOrderByAggregateInput
     _min?: salaryMinOrderByAggregateInput
-    _sum?: salarySumOrderByAggregateInput
   }
 
   export type salaryScalarWhereWithAggregatesInput = {
@@ -9464,7 +10472,7 @@ export namespace Prisma {
     OR?: Enumerable<salaryScalarWhereWithAggregatesInput>
     NOT?: Enumerable<salaryScalarWhereWithAggregatesInput>
     guid_salary?: StringWithAggregatesFilter | string
-    salary?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    salary?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -9478,7 +10486,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
-    role?: roleCreateNestedOneWithoutUserInput
+    role: roleCreateNestedOneWithoutUserInput
+    tokens?: tokensCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -9487,10 +10496,11 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid?: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
+    tokens?: tokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -9503,6 +10513,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
     role?: roleUpdateOneRequiredWithoutUserNestedInput
+    tokens?: tokensUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -9515,6 +10526,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -9523,7 +10535,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid?: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9547,6 +10559,61 @@ export namespace Prisma {
     role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tokensCreateInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: userCreateNestedOneWithoutTokensInput
+  }
+
+  export type tokensUncheckedCreateInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users_guid: string
+  }
+
+  export type tokensUpdateInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: userUpdateOneRequiredWithoutTokensNestedInput
+  }
+
+  export type tokensUncheckedUpdateInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users_guid?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tokensCreateManyInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users_guid: string
+  }
+
+  export type tokensUpdateManyMutationInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tokensUncheckedUpdateManyInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users_guid?: StringFieldUpdateOperationsInput | string
   }
 
   export type permissionCreateInput = {
@@ -9663,14 +10730,14 @@ export namespace Prisma {
     guid_role_perm?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    permission?: permissionCreateNestedOneWithoutRole_permissionInput
-    role?: roleCreateNestedOneWithoutRole_permissionInput
+    permission: permissionCreateNestedOneWithoutRole_permissionInput
+    role: roleCreateNestedOneWithoutRole_permissionInput
   }
 
   export type role_permissionUncheckedCreateInput = {
     guid_role_perm?: string
-    permission_guid?: string
-    role_guid?: string
+    permission_guid: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9693,8 +10760,8 @@ export namespace Prisma {
 
   export type role_permissionCreateManyInput = {
     guid_role_perm?: string
-    permission_guid?: string
-    role_guid?: string
+    permission_guid: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9772,10 +10839,10 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    createdBy?: string
+    createdBy: string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    salary?: salaryCreateNestedOneWithoutEmployeesInput
-    user?: userCreateNestedOneWithoutEmployeesInput
+    salary: salaryCreateNestedOneWithoutEmployeesInput
+    user: userCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateInput = {
@@ -9784,9 +10851,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    user_guid?: string
-    salary_guid?: string
-    createdBy?: string
+    user_guid: string
+    salary_guid: string
+    createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -9820,9 +10887,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    user_guid?: string
-    salary_guid?: string
-    createdBy?: string
+    user_guid: string
+    salary_guid: string
+    createdBy: string
   }
 
   export type employeesUpdateManyMutationInput = {
@@ -9851,14 +10918,14 @@ export namespace Prisma {
     to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    departments?: departmentsCreateNestedOneWithoutDept_empInput
-    employee?: employeesCreateNestedOneWithoutDept_empInput
+    departments: departmentsCreateNestedOneWithoutDept_empInput
+    employee: employeesCreateNestedOneWithoutDept_empInput
   }
 
   export type dept_empUncheckedCreateInput = {
     guid_dept_emp?: string
-    dept_guid?: string
-    emp_guid?: string
+    dept_guid: string
+    emp_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -9887,8 +10954,8 @@ export namespace Prisma {
 
   export type dept_empCreateManyInput = {
     guid_dept_emp?: string
-    dept_guid?: string
-    emp_guid?: string
+    dept_guid: string
+    emp_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -9915,7 +10982,7 @@ export namespace Prisma {
 
   export type salaryCreateInput = {
     guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
+    salary: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutSalaryInput
@@ -9923,7 +10990,7 @@ export namespace Prisma {
 
   export type salaryUncheckedCreateInput = {
     guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
+    salary: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutSalaryInput
@@ -9931,7 +10998,7 @@ export namespace Prisma {
 
   export type salaryUpdateInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutSalaryNestedInput
@@ -9939,7 +11006,7 @@ export namespace Prisma {
 
   export type salaryUncheckedUpdateInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutSalaryNestedInput
@@ -9947,21 +11014,21 @@ export namespace Prisma {
 
   export type salaryCreateManyInput = {
     guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
+    salary: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type salaryUpdateManyMutationInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type salaryUncheckedUpdateManyInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10003,7 +11070,17 @@ export namespace Prisma {
     isNot?: roleWhereInput
   }
 
+  export type TokensListRelationFilter = {
+    every?: tokensWhereInput
+    some?: tokensWhereInput
+    none?: tokensWhereInput
+  }
+
   export type employeesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type tokensOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10070,6 +11147,35 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
+  }
+
+  export type UserRelationFilter = {
+    is?: userWhereInput
+    isNot?: userWhereInput
+  }
+
+  export type tokensCountOrderByAggregateInput = {
+    guid_token?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users_guid?: SortOrder
+  }
+
+  export type tokensMaxOrderByAggregateInput = {
+    guid_token?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users_guid?: SortOrder
+  }
+
+  export type tokensMinOrderByAggregateInput = {
+    guid_token?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users_guid?: SortOrder
   }
 
   export type Role_permissionListRelationFilter = {
@@ -10199,11 +11305,6 @@ export namespace Prisma {
     isNot?: salaryWhereInput
   }
 
-  export type UserRelationFilter = {
-    is?: userWhereInput
-    isNot?: userWhereInput
-  }
-
   export type employeesCountOrderByAggregateInput = {
     guid_employee?: SortOrder
     firstName?: SortOrder
@@ -10277,26 +11378,11 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type DecimalFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
-  }
-
   export type salaryCountOrderByAggregateInput = {
     guid_salary?: SortOrder
     salary?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type salaryAvgOrderByAggregateInput = {
-    salary?: SortOrder
   }
 
   export type salaryMaxOrderByAggregateInput = {
@@ -10313,26 +11399,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type salarySumOrderByAggregateInput = {
-    salary?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
-  }
-
   export type employeesCreateNestedManyWithoutUserInput = {
     create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
@@ -10346,11 +11412,25 @@ export namespace Prisma {
     connect?: roleWhereUniqueInput
   }
 
+  export type tokensCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
+    createMany?: tokensCreateManyUserInputEnvelope
+    connect?: Enumerable<tokensWhereUniqueInput>
+  }
+
   export type employeesUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
     createMany?: employeesCreateManyUserInputEnvelope
     connect?: Enumerable<employeesWhereUniqueInput>
+  }
+
+  export type tokensUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
+    createMany?: tokensCreateManyUserInputEnvelope
+    connect?: Enumerable<tokensWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10383,6 +11463,20 @@ export namespace Prisma {
     update?: XOR<roleUpdateWithoutUserInput, roleUncheckedUpdateWithoutUserInput>
   }
 
+  export type tokensUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<tokensUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: tokensCreateManyUserInputEnvelope
+    set?: Enumerable<tokensWhereUniqueInput>
+    disconnect?: Enumerable<tokensWhereUniqueInput>
+    delete?: Enumerable<tokensWhereUniqueInput>
+    connect?: Enumerable<tokensWhereUniqueInput>
+    update?: Enumerable<tokensUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<tokensUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<tokensScalarWhereInput>
+  }
+
   export type employeesUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
@@ -10395,6 +11489,34 @@ export namespace Prisma {
     update?: Enumerable<employeesUpdateWithWhereUniqueWithoutUserInput>
     updateMany?: Enumerable<employeesUpdateManyWithWhereWithoutUserInput>
     deleteMany?: Enumerable<employeesScalarWhereInput>
+  }
+
+  export type tokensUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<tokensUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: tokensCreateManyUserInputEnvelope
+    set?: Enumerable<tokensWhereUniqueInput>
+    disconnect?: Enumerable<tokensWhereUniqueInput>
+    delete?: Enumerable<tokensWhereUniqueInput>
+    connect?: Enumerable<tokensWhereUniqueInput>
+    update?: Enumerable<tokensUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<tokensUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<tokensScalarWhereInput>
+  }
+
+  export type userCreateNestedOneWithoutTokensInput = {
+    create?: XOR<userCreateWithoutTokensInput, userUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: userCreateOrConnectWithoutTokensInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type userUpdateOneRequiredWithoutTokensNestedInput = {
+    create?: XOR<userCreateWithoutTokensInput, userUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: userCreateOrConnectWithoutTokensInput
+    upsert?: userUpsertWithoutTokensInput
+    connect?: userWhereUniqueInput
+    update?: XOR<userUpdateWithoutTokensInput, userUncheckedUpdateWithoutTokensInput>
   }
 
   export type role_permissionCreateNestedManyWithoutPermissionInput = {
@@ -10705,14 +11827,6 @@ export namespace Prisma {
     connect?: Enumerable<employeesWhereUniqueInput>
   }
 
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
   export type employeesUpdateManyWithoutSalaryNestedInput = {
     create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
@@ -10808,42 +11922,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type NestedDecimalFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDecimalWithAggregatesFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
-  }
-
   export type employeesCreateWithoutUserInput = {
     guid_employee?: string
     firstName: string
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    createdBy?: string
+    createdBy: string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    salary?: salaryCreateNestedOneWithoutEmployeesInput
+    salary: salaryCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateWithoutUserInput = {
@@ -10852,8 +11939,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    salary_guid?: string
-    createdBy?: string
+    salary_guid: string
+    createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -10886,6 +11973,30 @@ export namespace Prisma {
   export type roleCreateOrConnectWithoutUserInput = {
     where: roleWhereUniqueInput
     create: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
+  }
+
+  export type tokensCreateWithoutUserInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type tokensUncheckedCreateWithoutUserInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type tokensCreateOrConnectWithoutUserInput = {
+    where: tokensWhereUniqueInput
+    create: XOR<tokensCreateWithoutUserInput, tokensUncheckedCreateWithoutUserInput>
+  }
+
+  export type tokensCreateManyUserInputEnvelope = {
+    data: Enumerable<tokensCreateManyUserInput>
+    skipDuplicates?: boolean
   }
 
   export type employeesUpsertWithWhereUniqueWithoutUserInput = {
@@ -10939,16 +12050,101 @@ export namespace Prisma {
     role_permission?: role_permissionUncheckedUpdateManyWithoutRoleNestedInput
   }
 
+  export type tokensUpsertWithWhereUniqueWithoutUserInput = {
+    where: tokensWhereUniqueInput
+    update: XOR<tokensUpdateWithoutUserInput, tokensUncheckedUpdateWithoutUserInput>
+    create: XOR<tokensCreateWithoutUserInput, tokensUncheckedCreateWithoutUserInput>
+  }
+
+  export type tokensUpdateWithWhereUniqueWithoutUserInput = {
+    where: tokensWhereUniqueInput
+    data: XOR<tokensUpdateWithoutUserInput, tokensUncheckedUpdateWithoutUserInput>
+  }
+
+  export type tokensUpdateManyWithWhereWithoutUserInput = {
+    where: tokensScalarWhereInput
+    data: XOR<tokensUpdateManyMutationInput, tokensUncheckedUpdateManyWithoutTokensInput>
+  }
+
+  export type tokensScalarWhereInput = {
+    AND?: Enumerable<tokensScalarWhereInput>
+    OR?: Enumerable<tokensScalarWhereInput>
+    NOT?: Enumerable<tokensScalarWhereInput>
+    guid_token?: StringFilter | string
+    token?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    users_guid?: StringFilter | string
+  }
+
+  export type userCreateWithoutTokensInput = {
+    guid_user?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: employeesCreateNestedManyWithoutUserInput
+    role: roleCreateNestedOneWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutTokensInput = {
+    guid_user?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    role_guid: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: employeesUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutTokensInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutTokensInput, userUncheckedCreateWithoutTokensInput>
+  }
+
+  export type userUpsertWithoutTokensInput = {
+    update: XOR<userUpdateWithoutTokensInput, userUncheckedUpdateWithoutTokensInput>
+    create: XOR<userCreateWithoutTokensInput, userUncheckedCreateWithoutTokensInput>
+  }
+
+  export type userUpdateWithoutTokensInput = {
+    guid_user?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: employeesUpdateManyWithoutUserNestedInput
+    role?: roleUpdateOneRequiredWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutTokensInput = {
+    guid_user?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role_guid?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type role_permissionCreateWithoutPermissionInput = {
     guid_role_perm?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: roleCreateNestedOneWithoutRole_permissionInput
+    role: roleCreateNestedOneWithoutRole_permissionInput
   }
 
   export type role_permissionUncheckedCreateWithoutPermissionInput = {
     guid_role_perm?: string
-    role_guid?: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10994,12 +12190,12 @@ export namespace Prisma {
     guid_role_perm?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    permission?: permissionCreateNestedOneWithoutRole_permissionInput
+    permission: permissionCreateNestedOneWithoutRole_permissionInput
   }
 
   export type role_permissionUncheckedCreateWithoutRoleInput = {
     guid_role_perm?: string
-    permission_guid?: string
+    permission_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11023,6 +12219,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
+    tokens?: tokensCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutRoleInput = {
@@ -11034,6 +12231,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
+    tokens?: tokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutRoleInput = {
@@ -11178,12 +12376,12 @@ export namespace Prisma {
     to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    employee?: employeesCreateNestedOneWithoutDept_empInput
+    employee: employeesCreateNestedOneWithoutDept_empInput
   }
 
   export type dept_empUncheckedCreateWithoutDepartmentsInput = {
     guid_dept_emp?: string
-    emp_guid?: string
+    emp_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -11235,12 +12433,12 @@ export namespace Prisma {
     to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    departments?: departmentsCreateNestedOneWithoutDept_empInput
+    departments: departmentsCreateNestedOneWithoutDept_empInput
   }
 
   export type dept_empUncheckedCreateWithoutEmployeeInput = {
     guid_dept_emp?: string
-    dept_guid?: string
+    dept_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -11259,14 +12457,14 @@ export namespace Prisma {
 
   export type salaryCreateWithoutEmployeesInput = {
     guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
+    salary: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type salaryUncheckedCreateWithoutEmployeesInput = {
     guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
+    salary: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11284,7 +12482,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: roleCreateNestedOneWithoutUserInput
+    role: roleCreateNestedOneWithoutUserInput
+    tokens?: tokensCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutEmployeesInput = {
@@ -11293,9 +12492,10 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid?: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tokens?: tokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutEmployeesInput = {
@@ -11326,14 +12526,14 @@ export namespace Prisma {
 
   export type salaryUpdateWithoutEmployeesInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type salaryUncheckedUpdateWithoutEmployeesInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    salary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11352,6 +12552,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: roleUpdateOneRequiredWithoutUserNestedInput
+    tokens?: tokensUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutEmployeesInput = {
@@ -11363,6 +12564,7 @@ export namespace Prisma {
     role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type departmentsCreateWithoutDept_empInput = {
@@ -11390,9 +12592,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    createdBy?: string
-    salary?: salaryCreateNestedOneWithoutEmployeesInput
-    user?: userCreateNestedOneWithoutEmployeesInput
+    createdBy: string
+    salary: salaryCreateNestedOneWithoutEmployeesInput
+    user: userCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateWithoutDept_empInput = {
@@ -11401,9 +12603,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    user_guid?: string
-    salary_guid?: string
-    createdBy?: string
+    user_guid: string
+    salary_guid: string
+    createdBy: string
   }
 
   export type employeesCreateOrConnectWithoutDept_empInput = {
@@ -11463,9 +12665,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    createdBy?: string
+    createdBy: string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    user?: userCreateNestedOneWithoutEmployeesInput
+    user: userCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateWithoutSalaryInput = {
@@ -11474,8 +12676,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    user_guid?: string
-    createdBy?: string
+    user_guid: string
+    createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -11511,8 +12713,15 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    salary_guid?: string
-    createdBy?: string
+    salary_guid: string
+    createdBy: string
+  }
+
+  export type tokensCreateManyUserInput = {
+    guid_token?: string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type employeesUpdateWithoutUserInput = {
@@ -11547,9 +12756,30 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
   }
 
+  export type tokensUpdateWithoutUserInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tokensUncheckedUpdateWithoutUserInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tokensUncheckedUpdateManyWithoutTokensInput = {
+    guid_token?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type role_permissionCreateManyPermissionInput = {
     guid_role_perm?: string
-    role_guid?: string
+    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11577,7 +12807,7 @@ export namespace Prisma {
 
   export type role_permissionCreateManyRoleInput = {
     guid_role_perm?: string
-    permission_guid?: string
+    permission_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11615,6 +12845,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
+    tokens?: tokensUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutRoleInput = {
@@ -11626,6 +12857,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateManyWithoutUserInput = {
@@ -11640,7 +12872,7 @@ export namespace Prisma {
 
   export type dept_empCreateManyDepartmentsInput = {
     guid_dept_emp?: string
-    emp_guid?: string
+    emp_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -11676,7 +12908,7 @@ export namespace Prisma {
 
   export type dept_empCreateManyEmployeeInput = {
     guid_dept_emp?: string
-    dept_guid?: string
+    dept_guid: string
     from_date: Date | string
     to_date: Date | string
     createdAt?: Date | string
@@ -11707,8 +12939,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    user_guid?: string
-    createdBy?: string
+    user_guid: string
+    createdBy: string
   }
 
   export type employeesUpdateWithoutSalaryInput = {
