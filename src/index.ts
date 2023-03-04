@@ -23,6 +23,9 @@ import 'dotenv/config';
 
 // Importando as rotas para o index e passando no express
 
+import { authRouter } from './Authentication/authRouter';
+app.use(authRouter);
+
 import { userRouter } from './User/userRoute';
 app.use(userRouter);
 
