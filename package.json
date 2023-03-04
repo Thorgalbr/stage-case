@@ -4,7 +4,7 @@
   "description": "Stage Case",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon ts-node src/index.ts"
+    "dev": "nodemon src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -18,11 +18,15 @@
   "homepage": "https://gitlab.com/thiago_pereiraa/stage-case#readme",
   "dependencies": {
     "@prisma/client": "^4.11.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4"
   },
   "devDependencies": {
