@@ -11,10 +11,6 @@ const rolesRouter = express.Router();
 
 import rolesController from './rolesController';
 
-interface IRoles {
-    roleTitle: string
-};
-
 /*
     * Rotas da tabela de Roles importando do Controller referente a ela
 */
@@ -31,4 +27,4 @@ rolesRouter.delete('/role/delete/:guid_role', rolesController.deleteRole);
 
 // Exportando a rota no código
 
-export { rolesRouter, IRoles };
+export { rolesRouter };

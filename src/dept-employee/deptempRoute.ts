@@ -7,20 +7,9 @@
 import express from 'express';
 const deptEmpRouter = express.Router();
 
-// Importando o prisma client e configurando
-
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
-
 // Importando os controllers dos dados da tabela
 
 import deptemployeeController from './deptemployeeController';
-
-// Utilizando a interface para configurar os datatypes
-interface IDeptEmp {
-    from_date: string,
-    to_date: string,
-};
 
 /*
     * Rotas da tabela de Dept/Funcionarios importando do Controller referente a ela
@@ -38,4 +27,4 @@ deptEmpRouter.delete('/dept-employee/delete/:guid_dept_emp', deptemployeeControl
 
 // Exportando a rota e a interface no código
 
-export { deptEmpRouter, IDeptEmp };
+export { deptEmpRouter };

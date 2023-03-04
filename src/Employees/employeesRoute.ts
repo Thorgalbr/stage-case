@@ -9,14 +9,6 @@ const employeesRouter = express.Router();
 // Importando os controles dos dados da tabela
 import employeesController from './employeesController';
 
-// Utilizando a interface para configurar os datatypes
-interface IEmployees {
-    firstName: string,
-    lastName: string,
-    birthDate: string,
-    hire_date: string,
-};
-
 /*
     * Rotas da tabela de Funcionários importando dos Controller referente a ela
 */
@@ -33,4 +25,4 @@ employeesRouter.delete('/employees/delete/:guid_employee', employeesController.d
 
 // Exportando a rota e a interface no código
 
-export { employeesRouter, IEmployees };
+export { employeesRouter };

@@ -7,11 +7,6 @@
 import express from 'express';
 const permissionRouter = express.Router();
 
-// Importando o prisma client e configurando
-
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
-
 // Importando os controllers dos dados da tabela
 
 import permissionController from './permissionController';

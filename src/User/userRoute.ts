@@ -11,14 +11,6 @@ const userRouter = express.Router();
 
 import userController from './userController';
 
-// Utilizando a interface para configurar os datatypes
-interface IUser{
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-};
-
 /*
     * Rotas da tabela de Users importando do Controller referente a ela
 */
@@ -36,6 +28,6 @@ userRouter.delete('/user/delete/:guid_user', userController.deleteUser);
 
 // Exportando a rota no código
 
-export { userRouter, IUser };
+export { userRouter };
 
 

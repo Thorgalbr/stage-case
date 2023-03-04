@@ -8,9 +8,7 @@ import {Request, Response} from 'express';
 
 // Importando o prisma client e configurando
 
-import { PrismaClient } from '../../prisma/prismaClient'
-
-const prisma = new PrismaClient();
+import { prisma } from '../utils/prisma';
 
 // Exportando os controllers para a rota
 

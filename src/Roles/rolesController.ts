@@ -6,15 +6,13 @@
 
 import {Request, Response} from 'express';
 
-// Importando o prisma client e configurando
+// Importando o prisma client
 
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
+import { prisma } from '../utils/prisma';
 
 // Importando a interface IRoles para configurar os datatypes
 
-import { IRoles } from './rolesRoute';
-
+import { IRoles } from '../utils/interfaces';
 
 // Exportando os controllers para a rota
 

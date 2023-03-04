@@ -6,12 +6,13 @@
 
 import {Request, Response} from 'express';
 
-// Importando o prisma client e configurando
+// Importando o prisma client
 
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
+import { prisma } from '../utils/prisma';
 
-import { IDeptEmp } from './deptempRoute';
+// Importando a interface IDeptEmp para informar os datatypes
+
+import { IDeptEmp } from '../utils/interfaces';
 
 // Importando o moment para manipular as datas do código
 

@@ -7,11 +7,6 @@
 import express from 'express';
 const deptRouter = express.Router();
 
-// Importando o prisma client e configurando
-
-import { PrismaClient } from '../../prisma/prismaClient'
-const prisma = new PrismaClient();
-
 // Importando a rota de controller da tabela de Departamentos
 
 import departmentsController from './departmentsController';
