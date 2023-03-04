@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 
 // Importando os controllers dos dados da tabela
 
-import permissionController from '../controller/permissionController';
+import permissionController from './permissionController';
 
 /*
     * Rotas da tabela de Permissões importando do Controller referente a ela

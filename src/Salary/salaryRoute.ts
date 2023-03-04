@@ -9,7 +9,7 @@ const salRouter = express.Router();
 
 // Importando os controles dos dados da tabela
 
-import salaryController from '../controller/salaryController';
+import salaryController from './salaryController';
 
 /*
     * Rotas da tabela de salarios importando do controller referente a ela

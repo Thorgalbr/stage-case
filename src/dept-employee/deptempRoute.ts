@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 
 // Importando os controllers dos dados da tabela
 
-import deptemployeeController from '../controller/deptemployeeController';
+import deptemployeeController from './deptemployeeController';
 
 // Utilizando a interface para configurar os datatypes
 interface IDeptEmp {

@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 // Importando os controles dos dados da tabela
 
-import userController from '../controller/userController';
+import userController from './userController';
 
 // Utilizando a interface para configurar os datatypes
 interface IUser{

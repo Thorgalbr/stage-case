@@ -11,7 +11,7 @@ import {Request, Response} from 'express';
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
-import { IDeptEmp } from '../models/deptempRoute';
+import { IDeptEmp } from './deptempRoute';
 
 // Importando o moment para manipular as datas do código
 

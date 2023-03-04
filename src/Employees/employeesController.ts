@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 
 // Importando a interface IEmployees para o controller
 
-import { IEmployees } from '../models/employeesRoute';
+import { IEmployees } from './employeesRoute';
 
 // Importando o moment para manipular datas no controller
 

@@ -9,7 +9,7 @@ const rolesRouter = express.Router();
 
 // Importando a rota de controller da tabela de roles
 
-import rolesController from '../controller/rolesController';
+import rolesController from './rolesController';
 
 /*
     * Rotas da tabela de Roles importando do Controller referente a ela

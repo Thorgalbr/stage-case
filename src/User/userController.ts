@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 
 // Importando a interface IUser para configurar os datatypes
 
-import { IUser } from '../models/userRoute';
+import { IUser } from './userRoute';
 
 // Exportando os controllers para a rota
 

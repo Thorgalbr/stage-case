@@ -7,7 +7,7 @@ import express from 'express';
 const employeesRouter = express.Router();
 
 // Importando os controles dos dados da tabela
-import employeesController from '../controller/employeesController';
+import employeesController from './employeesController';
 
 // Utilizando a interface para configurar os datatypes
 interface IEmployees {

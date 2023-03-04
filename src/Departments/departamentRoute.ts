@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 
 // Importando a rota de controller da tabela de Departamentos
 
-import departmentsController from '../controller/departmentsController';
+import departmentsController from './departmentsController';
 
 /*
     * Rotas da tabela de Departamentos importando do Controller referente a ela

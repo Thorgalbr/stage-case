@@ -9,7 +9,7 @@ const rolePermRouter = express.Router();
 
 // Importando os controles dos dados da tabela
 
-import rolePermController from '../controller/rolePermController';
+import rolePermController from './rolePermController';
 
 /*
     * Rotas da tabela de salarios importando do controller referente a ela
