@@ -14,6 +14,10 @@ import { prisma } from '../utils/prisma';
 
 import { IUser } from '../utils/interfaces';
 
+// Importando o metodo hash do bcrypt para efetuar a criptografia do password
+
+import { hash } from 'bcryptjs';
+
 // Exportando os controllers para a rota
 
 export default {
@@ -23,6 +27,8 @@ export default {
         try {
 
             const { firstName, lastName, email, password }: IUser = req.body;
+
+            const hash_password = await hash(password, 8);
 
             const guid_role = req.params.guid_role;
 
@@ -76,7 +82,7 @@ export default {
                    firstName: firstName,
                    lastName,
                    email, 
-                   password,
+                   password: hash_password,
                    role_guid: guid_role
 
                 },
@@ -166,6 +172,8 @@ async updateUser(req: Request, res: Response) {
 
         const { firstName, lastName, email, password }: IUser = req.body;
 
+        const hash_password = await hash(password, 8);
+
         const guid_role = req.params.guid_role;
 
             if(!firstName || !lastName) {
@@ -208,7 +216,7 @@ async updateUser(req: Request, res: Response) {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                password: password,
+                password: hash_password,
                 role_guid: guid_role
 
             },
