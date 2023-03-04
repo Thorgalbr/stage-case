@@ -20,15 +20,15 @@ import permissionController from './permissionController';
     * Rotas da tabela de Permissões importando do Controller referente a ela
 */
 
-permissionRouter.post('/permission', permissionController.createPermission);
+permissionRouter.post('/permission/add', permissionController.createPermission);
 
 permissionRouter.get('/permissions', permissionController.findAllPermissions);
 
-permissionRouter.get('/permission/guid_permission', permissionController.findPermission);
+permissionRouter.get('/permission/:guid_permission', permissionController.findPermission);
 
-permissionRouter.patch('/permission/update/guid_permission', permissionController.updatePermission);
+permissionRouter.patch('/permission/update/:guid_permission', permissionController.updatePermission);
 
-permissionRouter.delete('/permission/delete/guid_permission', permissionController.deletePermission);
+permissionRouter.delete('/permission/delete/:guid_permission', permissionController.deletePermission);
 
 // Exportando a rota no código
 

@@ -64,11 +64,11 @@ export default {
                 
             });
         
-            res.status(200).json(rolePermReg);
+            res.status(201).json(rolePermReg);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -84,7 +84,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -94,7 +94,7 @@ export default {
 
         try {
 
-            const guid_role_perm = req.params.guid_role_perm;
+            const { guid_role_perm } = req.params;
 
             const checkRolePermId = await prisma.role_permission.findUnique({
     
@@ -125,7 +125,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -135,7 +135,7 @@ export default {
 
         try {
 
-            const guid_role_perm = req.params.guid_role_perm;
+            const { guid_role_perm } = req.params;
 
             const checkRolePermId = await prisma.role_permission.findUnique({
     
@@ -203,11 +203,11 @@ export default {
     
             });
         
-            res.status(200).json(rolePermUpdt);
+            res.status(201).json(rolePermUpdt);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -229,7 +229,7 @@ export default {
     
             });
     
-            if(!checkRolePermId){
+            if(!checkRolePermId) {
     
                 res.status(422).json({message:"GUID role/Permission não encontrado"});
     
@@ -249,7 +249,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 

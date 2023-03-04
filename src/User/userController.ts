@@ -27,23 +27,35 @@ export default {
 
             const guid_role = req.params.guid_role;
 
-            const roleReqId = await prisma.role.findUnique({
+            if(!firstName || !lastName) {
+
+                res.status(422).json({erro:"Nome e sobrenome obrigatorios!"});
+
+            };
+
+            if(!email || !password) {
+
+                res.status(422).json({erro:"email e senha obrigatorios!"}); 
+
+            };
+
+            if(!guid_role){
+
+                res.status(422).json({erro:"GUID role obrigatorio!"}); 
+
+            };
+
+            const reqRoleGuid = await prisma.role.findUnique({
 
                 where: {
 
                     guid_role
 
                 },
-                
+
             });
 
-            if(!roleReqId) {
-
-                res.status(422).json({error:"Role inexistente"});
-                
-            };
-    
-            let userReg = await prisma.user.findUnique({
+            let emailCheck = await prisma.user.findUnique({
                 
                 where: {
 
@@ -52,13 +64,14 @@ export default {
                 },
             });
     
-            if(email) {
+            if(emailCheck) {
 
-                return res.json({error: "Este usuário já existe!"});
+                return res.status(422).json({error: "Este usuário já existe!"});
 
             };
     
-            userReg = await prisma.user.create({
+            const userReg = await prisma.user.create({
+
                 data: {
 
                    firstName: firstName,
@@ -76,11 +89,11 @@ export default {
 
             });
         
-            return res.status(200).json(userReg);
+            return res.status(201).json(userReg);
     
         } catch (error) {
 
-            return res.json({error});
+            return res.status(400).json({error});
 
         };
     
@@ -102,7 +115,7 @@ export default {
             
             } catch (error) {
 
-                res.json(error);
+                res.status(404).json(error);
 
             };
 
@@ -134,8 +147,8 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
-
+            res.status(404).json(error);
+ 
         };
         
 },
@@ -154,22 +167,35 @@ async updateUser(req: Request, res: Response) {
 
         const { firstName, lastName, email, password }: IUser = req.body;
 
-        const role_guid = req.params.role_guid;
+        const guid_role = req.params.guid_role;
 
-        const roleReqId = await prisma.role.findUnique({
+            if(!firstName || !lastName) {
+
+                res.status(422).json({erro:"Nome e sobrenome obrigatorios!"});
+
+            };
+
+            if(!email || !password) {
+
+                res.status(422).json({erro:"email e senha obrigatorios!"}); 
+
+            };
+
+            if(!guid_role){
+
+                res.status(422).json({erro:"GUID role obrigatorio!"}); 
+
+            };
+
+        const reqRoleGuid = await prisma.role.findUnique({
 
             where: {
 
-                guid_role: role_guid
+                guid_role
 
             },
+
         });
-
-        if(!roleReqId) {
-
-            res.status(422).json({error:"Role inexistente"});
-            
-        };
     
         const userUpdt = await prisma.user.update({
 
@@ -184,17 +210,17 @@ async updateUser(req: Request, res: Response) {
                 lastName: lastName,
                 email: email,
                 password: password,
-                role_guid: role_guid 
+                role_guid: guid_role
 
             },
 
         });
     
-        return res.status(200).json(userUpdt);
+        return res.status(201).json(userUpdt);
 
     } catch (error) {
 
-        res.json(error);
+        res.status(400).json(error);
 
     };
 
@@ -216,11 +242,11 @@ async deleteUser(req: Request, res: Response) {
 
         });
     
-        return res.status(200).json({Message: "Usuário Deletado!"});
+        return res.status(200).json({message: "Usuário Deletado!"});
     
     } catch (error) {
 
-        res.json(error);
+        res.status(400).json(error);
 
     };
 

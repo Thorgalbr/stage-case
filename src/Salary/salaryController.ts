@@ -9,7 +9,6 @@ import {Request, Response} from 'express';
 // Importando o prisma client e configurando
 
 import { PrismaClient } from '../../prisma/prismaClient'
-import { Decimal } from '@prisma/client/runtime';
 const prisma = new PrismaClient();
 
 // Exportando os controllers para a rota
@@ -20,12 +19,11 @@ export default {
 
     try {
 
-        const salary: Decimal = req.body;
+        const salary: string = req.body;
 
-        if(!salary){
+        if(!salary) {
 
             res.status(422).json({erro:"Valor do salário obrigatorio"});
-            return;
 
         };
     
@@ -36,19 +34,14 @@ export default {
                 salary: salary
 
             },
-            include: {
-
-                employees: true,
-
-            },
 
         });
     
-        res.status(200).json(salReg);
+        res.status(201).json(salReg);
     
     } catch (error) {
 
-        res.json(error);
+        res.status(400).json(error);
 
     };
     
@@ -64,7 +57,7 @@ export default {
          
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -74,24 +67,14 @@ export default {
 
         try {
 
-            const guid_salary = req.params.guid_salary;
+            const { guid_salary } = req.params;
 
-            const checkSalId = await prisma.salary.findUnique({
+            if(!guid_salary){
 
-                where: {
-
-                    guid_salary
-
-                },
-
-            });
-
-            if(!checkSalId) {
-
-                res.status(422).json({erro:"Salário inexistente"});
+                res.status(422).json({erro:"O GUID do salário é obrigatorio"});
 
             };
-    
+ 
             const salReqId = await prisma.salary.findUnique({
 
                 where: {
@@ -106,7 +89,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -116,9 +99,15 @@ export default {
 
         try {
 
-            const guid_salary = req.params.guid_salary;
+            const { guid_salary } = req.params;
 
-            const checkSalId = await prisma.salary.findUnique({
+            if(!guid_salary){
+
+                res.status(422).json({erro:"O GUID do salário é obrigatorio"});
+
+            };
+
+            const checkSalGuid = await prisma.salary.findUnique({
 
                 where: {
 
@@ -128,18 +117,17 @@ export default {
 
             });
 
-            if(!checkSalId) {
+            if(!checkSalGuid) {
 
                 res.status(422).json({erro:"Salário inexistente"});
 
             };
     
-            const salary: Decimal = req.body;
+            const salary: string = req.body;
 
-            if(!salary){
+            if(!salary) {
 
                 res.status(422).json({erro:"Valor do salário obrigatorio"});
-                return;
                 
             };
         
@@ -158,11 +146,11 @@ export default {
 
             });
         
-            res.status(200).json(salUpdt);
+            res.status(201).json(salUpdt);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -172,7 +160,7 @@ export default {
 
         try {
 
-            const guid_salary = req.params.guid_salary;
+            const { guid_salary } = req.params;
 
             const checkSalId = await prisma.salary.findUnique({
 
@@ -204,7 +192,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 

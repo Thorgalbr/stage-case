@@ -23,13 +23,13 @@ interface IUser{
     * Rotas da tabela de Users importando do Controller referente a ela
 */
 
-userRouter.post('/user', userController.createUser);
+userRouter.post('/user/add/:guid_role', userController.createUser);
 
-userRouter.get('/users', userController.findAllUsers);
+userRouter.get('/users/request', userController.findAllUsers);
 
-userRouter.get('/user/:guid_user', userController.findUser);
+userRouter.get('/user/request/:guid_user', userController.findUser);
 
-userRouter.patch('/user/update/:guid_user', userController.updateUser);
+userRouter.patch('/user/update/:guid_user/:guid_role', userController.updateUser);
 
 userRouter.delete('/user/delete/:guid_user', userController.deleteUser);
 

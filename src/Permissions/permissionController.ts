@@ -48,11 +48,11 @@ export default {
 
             });
         
-            return res.status(200).json(regPermit);
+            return res.status(201).json(regPermit);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -68,7 +68,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -76,101 +76,129 @@ export default {
 
     async findPermission (req: Request, res: Response) {
 
-        const guid_permission = req.params.guid_permission;
+        try {
 
-        const guidCheckPermit = await prisma.permission.findUnique({
-            where: {
-                guid_permission
-            },
-        });
+            const guid_permission = req.params.guid_permission;
 
-        if(!guidCheckPermit){
-            res.status(422).json({error: "Este GUID de permissão não existe"});
+            const guidCheckPermit = await prisma.permission.findUnique({
+                where: {
+                    guid_permission
+                },
+            });
+    
+            if(!guidCheckPermit){
+                res.status(422).json({error: "Este GUID de permissão não existe"});
+            };
+        
+            const reqPermitId = await prisma.permission.findUnique({
+    
+                where: {
+    
+                    guid_permission: guid_permission
+    
+                },
+    
+            });
+        
+            return res.status(200).json(reqPermitId);
+        
+        } catch (error) {
+
+            res.status(404).json(error);
+
         };
-    
-        const reqPermitId = await prisma.permission.findUnique({
 
-            where: {
-
-                guid_permission: guid_permission
-
-            },
-
-        });
-    
-        return res.status(200).json(reqPermitId);
-    
     },
 
     async updatePermission (req: Request, res: Response){
 
-        const guid_permission = req.params.guid_permission;
+        try {
 
-        const guidCheckPermit = await prisma.permission.findUnique({
-            where: {
-                guid_permission
-            },
-        });
+            const { guid_permission } = req.params;
 
-        if(!guidCheckPermit){
+            const guidCheckPermit = await prisma.permission.findUnique({
 
-            res.status(422).json({error: "Este GUID de permissão não existe"});
+                where: {
+
+                    guid_permission
+
+                },
+
+            });
+    
+            if(!guidCheckPermit){
+    
+                res.status(422).json({error: "Este GUID de permissão não existe"});
+    
+            };
+        
+            const permTitle: string = req.body;
+        
+            const updtPermit = await prisma.permission.update({
+        
+                where: {
+    
+                    guid_permission: guid_permission
+    
+                },
+                data: {
+    
+                    permTitle: permTitle
+    
+                },
+                
+            });
+        
+            return res.status(201).json(updtPermit);
+        
+        } catch (error) {
+
+            res.status(400).json(error);
 
         };
-    
-        const permTitle: string = req.body;
-    
-        const updtPermit = await prisma.permission.update({
-    
-            where: {
 
-                guid_permission: guid_permission
-
-            },
-            data: {
-
-                permTitle: permTitle
-
-            },
-            
-        });
-    
-        return res.status(200).json(updtPermit);
-    
     },
 
     async deletePermission (req: Request, res: Response){
 
-        const guid_permission = req.params.guid_permission;
+        try {
 
-        const guidCheckPermit = await prisma.permission.findUnique({
+            const { guid_permission } = req.params;
 
-            where: {
+            const guidCheckPermit = await prisma.permission.findUnique({
+    
+                where: {
+    
+                    guid_permission
+    
+                },
+    
+            });
+    
+            if(!guidCheckPermit){
+    
+                res.status(422).json({error: "Este GUID de permissão não existe"});
+    
+            };
+        
+            const delPermit = await prisma.permission.delete({
+    
+                where: {
+    
+                    guid_permission: guid_permission
+    
+                },
+    
+            });
+        
+            return res.status(200).json({Message: "A permissão foi deletada!"});
+        
+        } catch (error) {
 
-                guid_permission
-
-            },
-
-        });
-
-        if(!guidCheckPermit){
-
-            res.status(422).json({error: "Este GUID de permissão não existe"});
+            res.json(400).json(error);
 
         };
-    
-        const delPermit = await prisma.permission.delete({
 
-            where: {
-
-                guid_permission: guid_permission
-
-            },
-
-        });
-    
-        return res.status(200).json({Message: "A permissão foi deletada!"});
-    
     },
 
 };

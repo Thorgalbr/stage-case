@@ -11,33 +11,59 @@ import {Request, Response} from 'express';
 import { PrismaClient } from '../../prisma/prismaClient'
 const prisma = new PrismaClient();
 
+// Importando a interface IRoles para configurar os datatypes
+
+import { IRoles } from './rolesRoute';
+
+
 // Exportando os controllers para a rota
 
 export default {
 
-    async createRole (req: Request, res: Response) {
-
-        const roleTitle: string = req.body;
-
-        if(roleTitle) {
-
-            res.json({erro: "Esta role já existe!"})
-            
-        };
+    async createRole(req: Request, res: Response) {
 
         try {
+            
+            const { roleTitle }: IRoles = req.body;
+
+            if(!roleTitle) {
+
+                res.status(422).json({erro:"O nome da role é obrigatório!"});
+                
+            };
+
+            let roleTitleCheck = await prisma.role.findUnique({
+                
+                where: {
+
+                    roleTitle
+
+                },
+            });
+    
+            if(roleTitleCheck) {
+
+                return res.json({error: "Esta role já existe!"});
+
+            };
 
             const regRole = await prisma.role.create({
+
                 data: {
+
                     roleTitle: roleTitle
+
                 }
+
             });
         
-            return regRole;
+            return res.status(201).json(regRole);
 
         } catch (error) {
-            res.json(error)
-        }
+
+            res.status(400).json({erro:"Não foi possível adicionar a role"});
+
+        };
     
     },
 
@@ -45,113 +71,99 @@ export default {
 
         try {
 
-            const reqRole = await prisma.role.findMany();
+            const reqRoles = await prisma.role.findMany();
     
-            return res.status(200).json(reqRole);
+            return res.status(200).json(reqRoles);
 
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
-        }
+        };
 
     },
 
     async findRole(req: Request, res: Response) {
 
-        const guid_role = req.params.guid_role;
-    
-        if(!guid_role) {
-
-            res.status(422).json({erro: "Esta role não foi encontrada"});
-
-        };
-
         try {
 
-            const reqRoleId = await prisma.role.findUnique({
+            const guid_role = req.params.guid_role;
+
+            const reqRoleGuid = await prisma.role.findUnique({
+
                 where: {
-                    guid_role: guid_role
+
+                    guid_role
+
                 },
+
             });
         
-            return res.status(200).json(reqRoleId);
+            return res.status(200).json(reqRoleGuid);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
     },
 
-    async updateRole (req: Request, res: Response) {
+    async updateRole(req: Request, res: Response) {
 
         try {
 
             const guid_role = req.params.guid_role;
-    
-            const roleTitle: string = req.body;
 
-            const checkRoleGuid = await prisma.role.findUnique({
-                where: {
+            const { roleTitle }: IRoles = req.body;
 
-                    guid_role,
+        if(!guid_role) {
 
-                }
-                
-            });
+            res.status(422).json({erro:"O GUID da role é obrigatório!"});
 
-            if(!checkRoleGuid){
+        };
 
-                res.json({erro: "Esta role GUID não existe..."});
+        if(!roleTitle) {
 
-            };
+            res.status(422).json({erro:"O nome da role é obrigatório!"});
+
+        };
 
             const updtRole = await prisma.role.update({
 
                 where: {
     
-                    guid_role: guid_role
+                    guid_role
     
                 },
                 data: {
     
-                    roleTitle: roleTitle
+                    roleTitle
     
                 },
     
             });
         
-            return res.status(200).json(updtRole);
+            return res.status(201).json(updtRole);
 
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
     },
 
-    async deleteRole (req: Request, res: Response){
+    async deleteRole(req: Request, res: Response) {
 
         try {
 
             const guid_role = req.params.guid_role;
 
-            const checkRoleGuid = await prisma.role.findUnique({
-                where: {
+            if(!guid_role) {
 
-                    guid_role,
-
-                }
+                res.status(422).json({erro:"O GUID da role é obrigatório!"});
                 
-            });
-
-            if(!checkRoleGuid){
-
-                res.json({erro: "Esta role GUID não existe..."});
-
             };
     
             const delRole = await prisma.role.delete({
@@ -161,13 +173,14 @@ export default {
                     guid_role: guid_role
 
                 },
+
             });
         
-            return res.json({Message:"Role deletada!"});
+            return res.status(200).json({message:"Role deletada!"});
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 

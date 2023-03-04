@@ -25,7 +25,7 @@ employeesRouter.post('/employee/:guid_user/:guid_salary', employeesController.cr
 
 employeesRouter.get('/employees', employeesController.findAllEmployees);
 
-employeesRouter.get('/employee/guid_employee', employeesController.findEmployee);
+employeesRouter.get('/employee/:guid_employee', employeesController.findEmployee);
 
 employeesRouter.patch('/employees/update/:guid_employee/:guid_user/:guid_salary', employeesController.updateEmployee);
 

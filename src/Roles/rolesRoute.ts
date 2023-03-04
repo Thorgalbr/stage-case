@@ -11,20 +11,24 @@ const rolesRouter = express.Router();
 
 import rolesController from './rolesController';
 
+interface IRoles {
+    roleTitle: string
+};
+
 /*
     * Rotas da tabela de Roles importando do Controller referente a ela
 */
 
-rolesRouter.post('/role', rolesController.createRole);
+rolesRouter.post('/role/add', rolesController.createRole);
 
-rolesRouter.get('/roles', rolesController.findAllRoles);
+rolesRouter.get('/roles/request', rolesController.findAllRoles);
 
-rolesRouter.get('/role/guid_role', rolesController.findRole);
+rolesRouter.get('/role/request/:guid_role', rolesController.findRole);
 
-rolesRouter.patch('/role/update/guid_role', rolesController.updateRole);
+rolesRouter.patch('/role/update/:guid_role', rolesController.updateRole);
 
-rolesRouter.delete('/role/delete/guid_role', rolesController.deleteRole);
+rolesRouter.delete('/role/delete/:guid_role', rolesController.deleteRole);
 
 // Exportando a rota no código
 
-export { rolesRouter };
+export { rolesRouter, IRoles };

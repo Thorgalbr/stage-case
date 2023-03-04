@@ -73,17 +73,32 @@ export default {
                 birthDate: birthDate,
                 hire_date: hire_date,
                 user_guid: guid_user,
-                salary_guid: guid_salary
+                salary_guid: guid_salary,
+                createdBy: guid_user
 
             },
+            select: {
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        role: {
+                            select: {
+                                roleTitle: true
+                            }
+                        }
+                    }
+                }
+            }
 
         });
     
-        res.status(200).json(emploReg);
+        res.status(201).json(emploReg);
     
     } catch (error) {
 
-        res.json(error);
+        res.status(400).json(error);
 
     };
     
@@ -99,7 +114,7 @@ export default {
         
         } catch (error) {
 
-           res.json(error); 
+            res.status(404).json(error); 
 
         };
 
@@ -109,7 +124,7 @@ export default {
 
         try {
 
-            const guid_employee = req.params.guid_employee;
+            const { guid_employee } = req.params;
 
             const checkEmploId = await prisma.employees.findUnique({
 
@@ -141,7 +156,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -151,7 +166,7 @@ export default {
 
         try {
 
-            const guid_employee = req.params.guid_employee;
+            const { guid_employee } = req.params;
 
             const checkEmploId = await prisma.employees.findUnique({
 
@@ -220,17 +235,18 @@ export default {
                     birthDate: birthDate,
                     hire_date: hire_date,
                     user_guid: guid_user,
-                    salary_guid: guid_salary
+                    salary_guid: guid_salary,
+                    createdBy: guid_user
     
                 },
                 
             });
 
-            res.status(200).json(emploUpdt);
+            res.status(201).json(emploUpdt);
 
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -238,36 +254,44 @@ export default {
 
     async deleteEmployee (req: Request, res: Response) {
 
-        const guid_employee = req.params.guid_employee;
+        try {
 
-        const checkEmploId = await prisma.employees.findUnique({
+            const { guid_employee } = req.params;
 
-            where: {
+            const checkEmploId = await prisma.employees.findUnique({
+    
+                where: {
+    
+                    guid_employee
+    
+                },
+    
+            });
+    
+            if(!checkEmploId) {
+    
+                res.status(422).json({erro:"Funcionário inexistente"});
+    
+            };
+        
+            const emploDel = await prisma.employees.delete({
+    
+                where: {
+    
+                    guid_employee: guid_employee
+    
+                },
+    
+            });
+        
+            res.status(200).json({Message:"Funcionário deletado"});
+        
+        } catch (error) {
 
-                guid_employee
-
-            },
-
-        });
-
-        if(!checkEmploId) {
-
-            res.status(422).json({erro:"Funcionário inexistente"});
+           res.status(400).json(error); 
 
         };
-    
-        const emploDel = await prisma.employees.delete({
 
-            where: {
-
-                guid_employee: guid_employee
-
-            },
-
-        });
-    
-        res.status(200).json({Message:"Funcionário deletado"});
-    
     },
 
 };

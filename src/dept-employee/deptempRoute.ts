@@ -30,11 +30,11 @@ deptEmpRouter.post('/dept-employee/:guid_dept/:guid_employee', deptemployeeContr
 
 deptEmpRouter.get('/dept-employees', deptemployeeController.findAllDeptEmployees );
 
-deptEmpRouter.get('/dept-employee/guid_dept_emp',deptemployeeController.findDeptEmployee);
+deptEmpRouter.get('/dept-employee/:guid_dept_emp',deptemployeeController.findDeptEmployee);
 
-deptEmpRouter.patch('/dept-employee/update/guid_dept_emp/:guid_dept/:guid_employee', deptemployeeController.updateDeptEmployee);
+deptEmpRouter.patch('/dept-employee/update/:guid_dept_emp/:guid_dept/:guid_employee', deptemployeeController.updateDeptEmployee);
 
-deptEmpRouter.delete('/dept-employee/delete/guid_dept_emp', deptemployeeController.deleteDeptEmployee);
+deptEmpRouter.delete('/dept-employee/delete/:guid_dept_emp', deptemployeeController.deleteDeptEmployee);
 
 // Exportando a rota e a interface no código
 

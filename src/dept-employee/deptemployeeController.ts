@@ -37,7 +37,7 @@ export default {
     
             });
 
-            if(!deptGuid){
+            if(!deptGuid) {
 
                 res.status(422).json({erro:"GUID do departamento obrigatorio"});
 
@@ -53,7 +53,7 @@ export default {
     
             });
 
-            if(!empGuid){
+            if(!empGuid) {
 
                 res.status(422).json({erro:"GUID dos funcionários obrigatorio"});
                 
@@ -82,11 +82,11 @@ export default {
         
             });
         
-            res.status(200).json(deptEmpReg);
+            res.status(201).json(deptEmpReg);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -102,7 +102,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -144,7 +144,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(404).json(error);
 
         };
 
@@ -154,7 +154,7 @@ export default {
 
         try {
 
-            const guid_dept_emp = req.params.guid_dept_emp;
+            const { guid_dept_emp } = req.params;
 
             const checkDeptEmpGuid = await prisma.dept_emp.findUnique({
 
@@ -184,7 +184,7 @@ export default {
     
             });
 
-            if(!deptGuid){
+            if(!deptGuid) {
 
                 res.status(422).json({erro:"GUID do departamento obrigatorio"});
 
@@ -211,8 +211,11 @@ export default {
             moment(from_date, to_date, "DD-MM-YYYY").format();
         
             const deptEmpUpdt = await prisma.dept_emp.update({
+
                 where: {
+
                     guid_dept_emp: guid_dept_emp
+
                 },
                 data: {
 
@@ -222,13 +225,14 @@ export default {
                     to_date: to_date
 
                 },
+
             });
         
-            res.status(200).json(deptEmpUpdt);
+            res.status(201).json(deptEmpUpdt);
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
@@ -238,7 +242,7 @@ export default {
 
         try {
 
-            const guid_dept_emp = req.params.guid_dept_emp;
+            const { guid_dept_emp } = req.params;
 
             const checkDeptEmpGuid = await prisma.dept_emp.findUnique({
     
@@ -270,7 +274,7 @@ export default {
         
         } catch (error) {
 
-            res.json(error);
+            res.status(400).json(error);
 
         };
 
