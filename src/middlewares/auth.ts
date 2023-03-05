@@ -1,36 +1,35 @@
 import { NextFunction, Request, Response,  } from "express";
 import { verify } from "jsonwebtoken";
 
-
-type TokenPayload = {
-
-    guid_user: string;
-    iat: number;
-    exp: number;
-
+interface JwtPayload {
+    userId: string
 };
 
 export function authMiddlewares (req: Request, res: Response, next: NextFunction) {
 
-const { authorization } = req.headers;
-
-    if(!authorization){
-
-        res.status(401).json({erro: "Token não informado, usuário não autenticado!"});
-
-    };
-
-const [, token] = authorization?.split(" ");
-
     try {
 
-        const authKey = process.env.AUTH_KEY
-        const decoded = verify(token, `${authKey}`);
-        const { guid_user } = decoded as TokenPayload;
+        const token: string = req.headers.authorization?.split(' ')[1]!;
 
-        req.userId = guid_user;
+        if(!token){
 
-        next();
+            res.status(401).json({erro: "Token não informado, usuário não autenticado!"});
+    
+        };
+
+        const decoded = verify(token, process.env.RANDOM_TOKEN_SECRET!) as JwtPayload;
+
+        const userId = decoded.userId;
+
+        if(req.body.userId && req.body.userId !== userId){
+
+            throw 'GUID de usuário inválido';
+
+        } else {
+
+            next();
+
+        };
 
     } catch (error) {
 
