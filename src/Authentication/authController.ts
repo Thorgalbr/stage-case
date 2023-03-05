@@ -63,9 +63,7 @@ export default {
 
             };
 
-            const authKey = process.env.AUTH_KEY;
-
-            const token = sign({guid_user: user.guid_user}, `${authKey}`, { expiresIn: "1d" });
+            const token = sign({guid_user: user.guid_user}, process.env.RANDOM_TOKEN_SECRET!, { expiresIn: "1d" });
 
             const { guid_user } = user;
         
