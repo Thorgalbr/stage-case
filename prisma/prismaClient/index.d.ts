@@ -20,7 +20,6 @@ export type user = {
   lastName: string
   email: string
   password: string
-  role_guid: string
   createdAt: Date
   updatedAt: Date
 }
@@ -57,6 +56,7 @@ export type role = {
   roleTitle: string
   createdAt: Date
   updatedAt: Date
+  user_guid: string
 }
 
 /**
@@ -975,11 +975,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     employees: number
     tokens: number
+    role: number
   }
 
   export type UserCountOutputTypeSelect = {
     employees?: boolean
     tokens?: boolean
+    role?: boolean
   }
 
   export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
@@ -1062,12 +1064,10 @@ export namespace Prisma {
 
   export type RoleCountOutputType = {
     role_permission: number
-    user: number
   }
 
   export type RoleCountOutputTypeSelect = {
     role_permission?: boolean
-    user?: boolean
   }
 
   export type RoleCountOutputTypeGetPayload<S extends boolean | null | undefined | RoleCountOutputTypeArgs> =
@@ -1250,7 +1250,6 @@ export namespace Prisma {
     lastName: string | null
     email: string | null
     password: string | null
-    role_guid: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1261,7 +1260,6 @@ export namespace Prisma {
     lastName: string | null
     email: string | null
     password: string | null
-    role_guid: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1272,7 +1270,6 @@ export namespace Prisma {
     lastName: number
     email: number
     password: number
-    role_guid: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1285,7 +1282,6 @@ export namespace Prisma {
     lastName?: true
     email?: true
     password?: true
-    role_guid?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1296,7 +1292,6 @@ export namespace Prisma {
     lastName?: true
     email?: true
     password?: true
-    role_guid?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1307,7 +1302,6 @@ export namespace Prisma {
     lastName?: true
     email?: true
     password?: true
-    role_guid?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1392,7 +1386,6 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1420,20 +1413,19 @@ export namespace Prisma {
     lastName?: boolean
     email?: boolean
     password?: boolean
-    role_guid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     employees?: boolean | user$employeesArgs
-    role?: boolean | roleArgs
     tokens?: boolean | user$tokensArgs
+    role?: boolean | user$roleArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
 
   export type userInclude = {
     employees?: boolean | user$employeesArgs
-    role?: boolean | roleArgs
     tokens?: boolean | user$tokensArgs
+    role?: boolean | user$roleArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
@@ -1445,16 +1437,16 @@ export namespace Prisma {
     ? user  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'employees' ? Array < employeesGetPayload<S['include'][P]>>  :
-        P extends 'role' ? roleGetPayload<S['include'][P]> :
         P extends 'tokens' ? Array < tokensGetPayload<S['include'][P]>>  :
+        P extends 'role' ? Array < roleGetPayload<S['include'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (userArgs | userFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'employees' ? Array < employeesGetPayload<S['select'][P]>>  :
-        P extends 'role' ? roleGetPayload<S['select'][P]> :
         P extends 'tokens' ? Array < tokensGetPayload<S['select'][P]>>  :
+        P extends 'role' ? Array < roleGetPayload<S['select'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof user ? user[P] : never
   } 
       : user
@@ -1829,9 +1821,9 @@ export namespace Prisma {
 
     employees<T extends user$employeesArgs= {}>(args?: Subset<T, user$employeesArgs>): Prisma.PrismaPromise<Array<employeesGetPayload<T>>| Null>;
 
-    role<T extends roleArgs= {}>(args?: Subset<T, roleArgs>): Prisma__roleClient<roleGetPayload<T> | Null>;
-
     tokens<T extends user$tokensArgs= {}>(args?: Subset<T, user$tokensArgs>): Prisma.PrismaPromise<Array<tokensGetPayload<T>>| Null>;
+
+    role<T extends user$roleArgs= {}>(args?: Subset<T, user$roleArgs>): Prisma.PrismaPromise<Array<roleGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -2227,6 +2219,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<TokensScalarFieldEnum>
+  }
+
+
+  /**
+   * user.role
+   */
+  export type user$roleArgs = {
+    /**
+     * Select specific fields to fetch from the role
+     */
+    select?: roleSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: roleInclude | null
+    where?: roleWhereInput
+    orderBy?: Enumerable<roleOrderByWithRelationInput>
+    cursor?: roleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<RoleScalarFieldEnum>
   }
 
 
@@ -4141,6 +4154,7 @@ export namespace Prisma {
     roleTitle: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    user_guid: string | null
   }
 
   export type RoleMaxAggregateOutputType = {
@@ -4148,6 +4162,7 @@ export namespace Prisma {
     roleTitle: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    user_guid: string | null
   }
 
   export type RoleCountAggregateOutputType = {
@@ -4155,6 +4170,7 @@ export namespace Prisma {
     roleTitle: number
     createdAt: number
     updatedAt: number
+    user_guid: number
     _all: number
   }
 
@@ -4164,6 +4180,7 @@ export namespace Prisma {
     roleTitle?: true
     createdAt?: true
     updatedAt?: true
+    user_guid?: true
   }
 
   export type RoleMaxAggregateInputType = {
@@ -4171,6 +4188,7 @@ export namespace Prisma {
     roleTitle?: true
     createdAt?: true
     updatedAt?: true
+    user_guid?: true
   }
 
   export type RoleCountAggregateInputType = {
@@ -4178,6 +4196,7 @@ export namespace Prisma {
     roleTitle?: true
     createdAt?: true
     updatedAt?: true
+    user_guid?: true
     _all?: true
   }
 
@@ -4259,6 +4278,7 @@ export namespace Prisma {
     roleTitle: string
     createdAt: Date
     updatedAt: Date
+    user_guid: string
     _count: RoleCountAggregateOutputType | null
     _min: RoleMinAggregateOutputType | null
     _max: RoleMaxAggregateOutputType | null
@@ -4283,15 +4303,16 @@ export namespace Prisma {
     roleTitle?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user_guid?: boolean
+    user?: boolean | userArgs
     role_permission?: boolean | role$role_permissionArgs
-    user?: boolean | role$userArgs
     _count?: boolean | RoleCountOutputTypeArgs
   }
 
 
   export type roleInclude = {
+    user?: boolean | userArgs
     role_permission?: boolean | role$role_permissionArgs
-    user?: boolean | role$userArgs
     _count?: boolean | RoleCountOutputTypeArgs
   }
 
@@ -4302,15 +4323,15 @@ export namespace Prisma {
     S extends { include: any } & (roleArgs | roleFindManyArgs)
     ? role  & {
     [P in TruthyKeys<S['include']>]:
+        P extends 'user' ? userGetPayload<S['include'][P]> :
         P extends 'role_permission' ? Array < role_permissionGetPayload<S['include'][P]>>  :
-        P extends 'user' ? Array < userGetPayload<S['include'][P]>>  :
         P extends '_count' ? RoleCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (roleArgs | roleFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
+        P extends 'user' ? userGetPayload<S['select'][P]> :
         P extends 'role_permission' ? Array < role_permissionGetPayload<S['select'][P]>>  :
-        P extends 'user' ? Array < userGetPayload<S['select'][P]>>  :
         P extends '_count' ? RoleCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof role ? role[P] : never
   } 
       : role
@@ -4683,9 +4704,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    role_permission<T extends role$role_permissionArgs= {}>(args?: Subset<T, role$role_permissionArgs>): Prisma.PrismaPromise<Array<role_permissionGetPayload<T>>| Null>;
+    user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
 
-    user<T extends role$userArgs= {}>(args?: Subset<T, role$userArgs>): Prisma.PrismaPromise<Array<userGetPayload<T>>| Null>;
+    role_permission<T extends role$role_permissionArgs= {}>(args?: Subset<T, role$role_permissionArgs>): Prisma.PrismaPromise<Array<role_permissionGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -5060,27 +5081,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<Role_permissionScalarFieldEnum>
-  }
-
-
-  /**
-   * role.user
-   */
-  export type role$userArgs = {
-    /**
-     * Select specific fields to fetch from the user
-     */
-    select?: userSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    where?: userWhereInput
-    orderBy?: Enumerable<userOrderByWithRelationInput>
-    cursor?: userWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<UserScalarFieldEnum>
   }
 
 
@@ -9944,7 +9944,8 @@ export namespace Prisma {
     guid_role: 'guid_role',
     roleTitle: 'roleTitle',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    user_guid: 'user_guid'
   };
 
   export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
@@ -10006,7 +10007,6 @@ export namespace Prisma {
     lastName: 'lastName',
     email: 'email',
     password: 'password',
-    role_guid: 'role_guid',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10028,12 +10028,11 @@ export namespace Prisma {
     lastName?: StringFilter | string
     email?: StringFilter | string
     password?: StringFilter | string
-    role_guid?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     employees?: EmployeesListRelationFilter
-    role?: XOR<RoleRelationFilter, roleWhereInput>
     tokens?: TokensListRelationFilter
+    role?: RoleListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -10042,12 +10041,11 @@ export namespace Prisma {
     lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role_guid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     employees?: employeesOrderByRelationAggregateInput
-    role?: roleOrderByWithRelationInput
     tokens?: tokensOrderByRelationAggregateInput
+    role?: roleOrderByRelationAggregateInput
   }
 
   export type userWhereUniqueInput = {
@@ -10061,7 +10059,6 @@ export namespace Prisma {
     lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role_guid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: userCountOrderByAggregateInput
@@ -10078,7 +10075,6 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter | string
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
-    role_guid?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -10183,8 +10179,9 @@ export namespace Prisma {
     roleTitle?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
+    user_guid?: StringFilter | string
+    user?: XOR<UserRelationFilter, userWhereInput>
     role_permission?: Role_permissionListRelationFilter
-    user?: UserListRelationFilter
   }
 
   export type roleOrderByWithRelationInput = {
@@ -10192,8 +10189,9 @@ export namespace Prisma {
     roleTitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user_guid?: SortOrder
+    user?: userOrderByWithRelationInput
     role_permission?: role_permissionOrderByRelationAggregateInput
-    user?: userOrderByRelationAggregateInput
   }
 
   export type roleWhereUniqueInput = {
@@ -10206,6 +10204,7 @@ export namespace Prisma {
     roleTitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user_guid?: SortOrder
     _count?: roleCountOrderByAggregateInput
     _max?: roleMaxOrderByAggregateInput
     _min?: roleMinOrderByAggregateInput
@@ -10219,6 +10218,7 @@ export namespace Prisma {
     roleTitle?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    user_guid?: StringWithAggregatesFilter | string
   }
 
   export type role_permissionWhereInput = {
@@ -10486,8 +10486,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
-    role: roleCreateNestedOneWithoutUserInput
     tokens?: tokensCreateNestedManyWithoutUserInput
+    role?: roleCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -10496,11 +10496,11 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
     tokens?: tokensUncheckedCreateNestedManyWithoutUserInput
+    role?: roleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -10512,8 +10512,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
-    role?: roleUpdateOneRequiredWithoutUserNestedInput
     tokens?: tokensUpdateManyWithoutUserNestedInput
+    role?: roleUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -10522,11 +10522,11 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
     tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
+    role?: roleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -10535,7 +10535,6 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10556,7 +10555,6 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10674,8 +10672,8 @@ export namespace Prisma {
     roleTitle: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: userCreateNestedOneWithoutRoleInput
     role_permission?: role_permissionCreateNestedManyWithoutRoleInput
-    user?: userCreateNestedManyWithoutRoleInput
   }
 
   export type roleUncheckedCreateInput = {
@@ -10683,8 +10681,8 @@ export namespace Prisma {
     roleTitle: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user_guid: string
     role_permission?: role_permissionUncheckedCreateNestedManyWithoutRoleInput
-    user?: userUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type roleUpdateInput = {
@@ -10692,8 +10690,8 @@ export namespace Prisma {
     roleTitle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: userUpdateOneRequiredWithoutRoleNestedInput
     role_permission?: role_permissionUpdateManyWithoutRoleNestedInput
-    user?: userUpdateManyWithoutRoleNestedInput
   }
 
   export type roleUncheckedUpdateInput = {
@@ -10701,8 +10699,8 @@ export namespace Prisma {
     roleTitle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_guid?: StringFieldUpdateOperationsInput | string
     role_permission?: role_permissionUncheckedUpdateManyWithoutRoleNestedInput
-    user?: userUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type roleCreateManyInput = {
@@ -10710,6 +10708,7 @@ export namespace Prisma {
     roleTitle: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user_guid: string
   }
 
   export type roleUpdateManyMutationInput = {
@@ -10724,6 +10723,7 @@ export namespace Prisma {
     roleTitle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_guid?: StringFieldUpdateOperationsInput | string
   }
 
   export type role_permissionCreateInput = {
@@ -11065,15 +11065,16 @@ export namespace Prisma {
     none?: employeesWhereInput
   }
 
-  export type RoleRelationFilter = {
-    is?: roleWhereInput
-    isNot?: roleWhereInput
-  }
-
   export type TokensListRelationFilter = {
     every?: tokensWhereInput
     some?: tokensWhereInput
     none?: tokensWhereInput
+  }
+
+  export type RoleListRelationFilter = {
+    every?: roleWhereInput
+    some?: roleWhereInput
+    none?: roleWhereInput
   }
 
   export type employeesOrderByRelationAggregateInput = {
@@ -11084,13 +11085,16 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type roleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type userCountOrderByAggregateInput = {
     guid_user?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role_guid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11101,7 +11105,6 @@ export namespace Prisma {
     lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role_guid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11112,7 +11115,6 @@ export namespace Prisma {
     lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role_guid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11209,21 +11211,12 @@ export namespace Prisma {
     updatetAt?: SortOrder
   }
 
-  export type UserListRelationFilter = {
-    every?: userWhereInput
-    some?: userWhereInput
-    none?: userWhereInput
-  }
-
-  export type userOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type roleCountOrderByAggregateInput = {
     guid_role?: SortOrder
     roleTitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user_guid?: SortOrder
   }
 
   export type roleMaxOrderByAggregateInput = {
@@ -11231,6 +11224,7 @@ export namespace Prisma {
     roleTitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user_guid?: SortOrder
   }
 
   export type roleMinOrderByAggregateInput = {
@@ -11238,11 +11232,17 @@ export namespace Prisma {
     roleTitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user_guid?: SortOrder
   }
 
   export type PermissionRelationFilter = {
     is?: permissionWhereInput
     isNot?: permissionWhereInput
+  }
+
+  export type RoleRelationFilter = {
+    is?: roleWhereInput
+    isNot?: roleWhereInput
   }
 
   export type role_permissionCountOrderByAggregateInput = {
@@ -11406,17 +11406,18 @@ export namespace Prisma {
     connect?: Enumerable<employeesWhereUniqueInput>
   }
 
-  export type roleCreateNestedOneWithoutUserInput = {
-    create?: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
-    connectOrCreate?: roleCreateOrConnectWithoutUserInput
-    connect?: roleWhereUniqueInput
-  }
-
   export type tokensCreateNestedManyWithoutUserInput = {
     create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
     createMany?: tokensCreateManyUserInputEnvelope
     connect?: Enumerable<tokensWhereUniqueInput>
+  }
+
+  export type roleCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<roleCreateWithoutUserInput>, Enumerable<roleUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<roleCreateOrConnectWithoutUserInput>
+    createMany?: roleCreateManyUserInputEnvelope
+    connect?: Enumerable<roleWhereUniqueInput>
   }
 
   export type employeesUncheckedCreateNestedManyWithoutUserInput = {
@@ -11431,6 +11432,13 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
     createMany?: tokensCreateManyUserInputEnvelope
     connect?: Enumerable<tokensWhereUniqueInput>
+  }
+
+  export type roleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<roleCreateWithoutUserInput>, Enumerable<roleUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<roleCreateOrConnectWithoutUserInput>
+    createMany?: roleCreateManyUserInputEnvelope
+    connect?: Enumerable<roleWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11455,14 +11463,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<employeesScalarWhereInput>
   }
 
-  export type roleUpdateOneRequiredWithoutUserNestedInput = {
-    create?: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
-    connectOrCreate?: roleCreateOrConnectWithoutUserInput
-    upsert?: roleUpsertWithoutUserInput
-    connect?: roleWhereUniqueInput
-    update?: XOR<roleUpdateWithoutUserInput, roleUncheckedUpdateWithoutUserInput>
-  }
-
   export type tokensUpdateManyWithoutUserNestedInput = {
     create?: XOR<Enumerable<tokensCreateWithoutUserInput>, Enumerable<tokensUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<tokensCreateOrConnectWithoutUserInput>
@@ -11475,6 +11475,20 @@ export namespace Prisma {
     update?: Enumerable<tokensUpdateWithWhereUniqueWithoutUserInput>
     updateMany?: Enumerable<tokensUpdateManyWithWhereWithoutUserInput>
     deleteMany?: Enumerable<tokensScalarWhereInput>
+  }
+
+  export type roleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<roleCreateWithoutUserInput>, Enumerable<roleUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<roleCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<roleUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: roleCreateManyUserInputEnvelope
+    set?: Enumerable<roleWhereUniqueInput>
+    disconnect?: Enumerable<roleWhereUniqueInput>
+    delete?: Enumerable<roleWhereUniqueInput>
+    connect?: Enumerable<roleWhereUniqueInput>
+    update?: Enumerable<roleUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<roleUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<roleScalarWhereInput>
   }
 
   export type employeesUncheckedUpdateManyWithoutUserNestedInput = {
@@ -11503,6 +11517,20 @@ export namespace Prisma {
     update?: Enumerable<tokensUpdateWithWhereUniqueWithoutUserInput>
     updateMany?: Enumerable<tokensUpdateManyWithWhereWithoutUserInput>
     deleteMany?: Enumerable<tokensScalarWhereInput>
+  }
+
+  export type roleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<roleCreateWithoutUserInput>, Enumerable<roleUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<roleCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<roleUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: roleCreateManyUserInputEnvelope
+    set?: Enumerable<roleWhereUniqueInput>
+    disconnect?: Enumerable<roleWhereUniqueInput>
+    delete?: Enumerable<roleWhereUniqueInput>
+    connect?: Enumerable<roleWhereUniqueInput>
+    update?: Enumerable<roleUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<roleUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<roleScalarWhereInput>
   }
 
   export type userCreateNestedOneWithoutTokensInput = {
@@ -11561,18 +11589,17 @@ export namespace Prisma {
     deleteMany?: Enumerable<role_permissionScalarWhereInput>
   }
 
+  export type userCreateNestedOneWithoutRoleInput = {
+    create?: XOR<userCreateWithoutRoleInput, userUncheckedCreateWithoutRoleInput>
+    connectOrCreate?: userCreateOrConnectWithoutRoleInput
+    connect?: userWhereUniqueInput
+  }
+
   export type role_permissionCreateNestedManyWithoutRoleInput = {
     create?: XOR<Enumerable<role_permissionCreateWithoutRoleInput>, Enumerable<role_permissionUncheckedCreateWithoutRoleInput>>
     connectOrCreate?: Enumerable<role_permissionCreateOrConnectWithoutRoleInput>
     createMany?: role_permissionCreateManyRoleInputEnvelope
     connect?: Enumerable<role_permissionWhereUniqueInput>
-  }
-
-  export type userCreateNestedManyWithoutRoleInput = {
-    create?: XOR<Enumerable<userCreateWithoutRoleInput>, Enumerable<userUncheckedCreateWithoutRoleInput>>
-    connectOrCreate?: Enumerable<userCreateOrConnectWithoutRoleInput>
-    createMany?: userCreateManyRoleInputEnvelope
-    connect?: Enumerable<userWhereUniqueInput>
   }
 
   export type role_permissionUncheckedCreateNestedManyWithoutRoleInput = {
@@ -11582,11 +11609,12 @@ export namespace Prisma {
     connect?: Enumerable<role_permissionWhereUniqueInput>
   }
 
-  export type userUncheckedCreateNestedManyWithoutRoleInput = {
-    create?: XOR<Enumerable<userCreateWithoutRoleInput>, Enumerable<userUncheckedCreateWithoutRoleInput>>
-    connectOrCreate?: Enumerable<userCreateOrConnectWithoutRoleInput>
-    createMany?: userCreateManyRoleInputEnvelope
-    connect?: Enumerable<userWhereUniqueInput>
+  export type userUpdateOneRequiredWithoutRoleNestedInput = {
+    create?: XOR<userCreateWithoutRoleInput, userUncheckedCreateWithoutRoleInput>
+    connectOrCreate?: userCreateOrConnectWithoutRoleInput
+    upsert?: userUpsertWithoutRoleInput
+    connect?: userWhereUniqueInput
+    update?: XOR<userUpdateWithoutRoleInput, userUncheckedUpdateWithoutRoleInput>
   }
 
   export type role_permissionUpdateManyWithoutRoleNestedInput = {
@@ -11603,20 +11631,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<role_permissionScalarWhereInput>
   }
 
-  export type userUpdateManyWithoutRoleNestedInput = {
-    create?: XOR<Enumerable<userCreateWithoutRoleInput>, Enumerable<userUncheckedCreateWithoutRoleInput>>
-    connectOrCreate?: Enumerable<userCreateOrConnectWithoutRoleInput>
-    upsert?: Enumerable<userUpsertWithWhereUniqueWithoutRoleInput>
-    createMany?: userCreateManyRoleInputEnvelope
-    set?: Enumerable<userWhereUniqueInput>
-    disconnect?: Enumerable<userWhereUniqueInput>
-    delete?: Enumerable<userWhereUniqueInput>
-    connect?: Enumerable<userWhereUniqueInput>
-    update?: Enumerable<userUpdateWithWhereUniqueWithoutRoleInput>
-    updateMany?: Enumerable<userUpdateManyWithWhereWithoutRoleInput>
-    deleteMany?: Enumerable<userScalarWhereInput>
-  }
-
   export type role_permissionUncheckedUpdateManyWithoutRoleNestedInput = {
     create?: XOR<Enumerable<role_permissionCreateWithoutRoleInput>, Enumerable<role_permissionUncheckedCreateWithoutRoleInput>>
     connectOrCreate?: Enumerable<role_permissionCreateOrConnectWithoutRoleInput>
@@ -11629,20 +11643,6 @@ export namespace Prisma {
     update?: Enumerable<role_permissionUpdateWithWhereUniqueWithoutRoleInput>
     updateMany?: Enumerable<role_permissionUpdateManyWithWhereWithoutRoleInput>
     deleteMany?: Enumerable<role_permissionScalarWhereInput>
-  }
-
-  export type userUncheckedUpdateManyWithoutRoleNestedInput = {
-    create?: XOR<Enumerable<userCreateWithoutRoleInput>, Enumerable<userUncheckedCreateWithoutRoleInput>>
-    connectOrCreate?: Enumerable<userCreateOrConnectWithoutRoleInput>
-    upsert?: Enumerable<userUpsertWithWhereUniqueWithoutRoleInput>
-    createMany?: userCreateManyRoleInputEnvelope
-    set?: Enumerable<userWhereUniqueInput>
-    disconnect?: Enumerable<userWhereUniqueInput>
-    delete?: Enumerable<userWhereUniqueInput>
-    connect?: Enumerable<userWhereUniqueInput>
-    update?: Enumerable<userUpdateWithWhereUniqueWithoutRoleInput>
-    updateMany?: Enumerable<userUpdateManyWithWhereWithoutRoleInput>
-    deleteMany?: Enumerable<userScalarWhereInput>
   }
 
   export type permissionCreateNestedOneWithoutRole_permissionInput = {
@@ -11954,27 +11954,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type roleCreateWithoutUserInput = {
-    guid_role?: string
-    roleTitle: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    role_permission?: role_permissionCreateNestedManyWithoutRoleInput
-  }
-
-  export type roleUncheckedCreateWithoutUserInput = {
-    guid_role?: string
-    roleTitle: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    role_permission?: role_permissionUncheckedCreateNestedManyWithoutRoleInput
-  }
-
-  export type roleCreateOrConnectWithoutUserInput = {
-    where: roleWhereUniqueInput
-    create: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
-  }
-
   export type tokensCreateWithoutUserInput = {
     guid_token?: string
     token: string
@@ -11996,6 +11975,32 @@ export namespace Prisma {
 
   export type tokensCreateManyUserInputEnvelope = {
     data: Enumerable<tokensCreateManyUserInput>
+    skipDuplicates?: boolean
+  }
+
+  export type roleCreateWithoutUserInput = {
+    guid_role?: string
+    roleTitle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role_permission?: role_permissionCreateNestedManyWithoutRoleInput
+  }
+
+  export type roleUncheckedCreateWithoutUserInput = {
+    guid_role?: string
+    roleTitle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role_permission?: role_permissionUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type roleCreateOrConnectWithoutUserInput = {
+    where: roleWhereUniqueInput
+    create: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
+  }
+
+  export type roleCreateManyUserInputEnvelope = {
+    data: Enumerable<roleCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
@@ -12029,27 +12034,6 @@ export namespace Prisma {
     createdBy?: StringFilter | string
   }
 
-  export type roleUpsertWithoutUserInput = {
-    update: XOR<roleUpdateWithoutUserInput, roleUncheckedUpdateWithoutUserInput>
-    create: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
-  }
-
-  export type roleUpdateWithoutUserInput = {
-    guid_role?: StringFieldUpdateOperationsInput | string
-    roleTitle?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role_permission?: role_permissionUpdateManyWithoutRoleNestedInput
-  }
-
-  export type roleUncheckedUpdateWithoutUserInput = {
-    guid_role?: StringFieldUpdateOperationsInput | string
-    roleTitle?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role_permission?: role_permissionUncheckedUpdateManyWithoutRoleNestedInput
-  }
-
   export type tokensUpsertWithWhereUniqueWithoutUserInput = {
     where: tokensWhereUniqueInput
     update: XOR<tokensUpdateWithoutUserInput, tokensUncheckedUpdateWithoutUserInput>
@@ -12077,6 +12061,33 @@ export namespace Prisma {
     users_guid?: StringFilter | string
   }
 
+  export type roleUpsertWithWhereUniqueWithoutUserInput = {
+    where: roleWhereUniqueInput
+    update: XOR<roleUpdateWithoutUserInput, roleUncheckedUpdateWithoutUserInput>
+    create: XOR<roleCreateWithoutUserInput, roleUncheckedCreateWithoutUserInput>
+  }
+
+  export type roleUpdateWithWhereUniqueWithoutUserInput = {
+    where: roleWhereUniqueInput
+    data: XOR<roleUpdateWithoutUserInput, roleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type roleUpdateManyWithWhereWithoutUserInput = {
+    where: roleScalarWhereInput
+    data: XOR<roleUpdateManyMutationInput, roleUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type roleScalarWhereInput = {
+    AND?: Enumerable<roleScalarWhereInput>
+    OR?: Enumerable<roleScalarWhereInput>
+    NOT?: Enumerable<roleScalarWhereInput>
+    guid_role?: StringFilter | string
+    roleTitle?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    user_guid?: StringFilter | string
+  }
+
   export type userCreateWithoutTokensInput = {
     guid_user?: string
     firstName: string
@@ -12086,7 +12097,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
-    role: roleCreateNestedOneWithoutUserInput
+    role?: roleCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutTokensInput = {
@@ -12095,10 +12106,10 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
+    role?: roleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutTokensInput = {
@@ -12120,7 +12131,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
-    role?: roleUpdateOneRequiredWithoutUserNestedInput
+    role?: roleUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutTokensInput = {
@@ -12129,10 +12140,10 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
+    role?: roleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type role_permissionCreateWithoutPermissionInput = {
@@ -12186,30 +12197,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter | Date | string
   }
 
-  export type role_permissionCreateWithoutRoleInput = {
-    guid_role_perm?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    permission: permissionCreateNestedOneWithoutRole_permissionInput
-  }
-
-  export type role_permissionUncheckedCreateWithoutRoleInput = {
-    guid_role_perm?: string
-    permission_guid: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type role_permissionCreateOrConnectWithoutRoleInput = {
-    where: role_permissionWhereUniqueInput
-    create: XOR<role_permissionCreateWithoutRoleInput, role_permissionUncheckedCreateWithoutRoleInput>
-  }
-
-  export type role_permissionCreateManyRoleInputEnvelope = {
-    data: Enumerable<role_permissionCreateManyRoleInput>
-    skipDuplicates?: boolean
-  }
-
   export type userCreateWithoutRoleInput = {
     guid_user?: string
     firstName: string
@@ -12239,9 +12226,57 @@ export namespace Prisma {
     create: XOR<userCreateWithoutRoleInput, userUncheckedCreateWithoutRoleInput>
   }
 
-  export type userCreateManyRoleInputEnvelope = {
-    data: Enumerable<userCreateManyRoleInput>
+  export type role_permissionCreateWithoutRoleInput = {
+    guid_role_perm?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    permission: permissionCreateNestedOneWithoutRole_permissionInput
+  }
+
+  export type role_permissionUncheckedCreateWithoutRoleInput = {
+    guid_role_perm?: string
+    permission_guid: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type role_permissionCreateOrConnectWithoutRoleInput = {
+    where: role_permissionWhereUniqueInput
+    create: XOR<role_permissionCreateWithoutRoleInput, role_permissionUncheckedCreateWithoutRoleInput>
+  }
+
+  export type role_permissionCreateManyRoleInputEnvelope = {
+    data: Enumerable<role_permissionCreateManyRoleInput>
     skipDuplicates?: boolean
+  }
+
+  export type userUpsertWithoutRoleInput = {
+    update: XOR<userUpdateWithoutRoleInput, userUncheckedUpdateWithoutRoleInput>
+    create: XOR<userCreateWithoutRoleInput, userUncheckedCreateWithoutRoleInput>
+  }
+
+  export type userUpdateWithoutRoleInput = {
+    guid_user?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: employeesUpdateManyWithoutUserNestedInput
+    tokens?: tokensUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutRoleInput = {
+    guid_user?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type role_permissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -12258,36 +12293,6 @@ export namespace Prisma {
   export type role_permissionUpdateManyWithWhereWithoutRoleInput = {
     where: role_permissionScalarWhereInput
     data: XOR<role_permissionUpdateManyMutationInput, role_permissionUncheckedUpdateManyWithoutRole_permissionInput>
-  }
-
-  export type userUpsertWithWhereUniqueWithoutRoleInput = {
-    where: userWhereUniqueInput
-    update: XOR<userUpdateWithoutRoleInput, userUncheckedUpdateWithoutRoleInput>
-    create: XOR<userCreateWithoutRoleInput, userUncheckedCreateWithoutRoleInput>
-  }
-
-  export type userUpdateWithWhereUniqueWithoutRoleInput = {
-    where: userWhereUniqueInput
-    data: XOR<userUpdateWithoutRoleInput, userUncheckedUpdateWithoutRoleInput>
-  }
-
-  export type userUpdateManyWithWhereWithoutRoleInput = {
-    where: userScalarWhereInput
-    data: XOR<userUpdateManyMutationInput, userUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type userScalarWhereInput = {
-    AND?: Enumerable<userScalarWhereInput>
-    OR?: Enumerable<userScalarWhereInput>
-    NOT?: Enumerable<userScalarWhereInput>
-    guid_user?: StringFilter | string
-    firstName?: StringFilter | string
-    lastName?: StringFilter | string
-    email?: StringFilter | string
-    password?: StringFilter | string
-    role_guid?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
   }
 
   export type permissionCreateWithoutRole_permissionInput = {
@@ -12314,7 +12319,7 @@ export namespace Prisma {
     roleTitle: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: userCreateNestedManyWithoutRoleInput
+    user: userCreateNestedOneWithoutRoleInput
   }
 
   export type roleUncheckedCreateWithoutRole_permissionInput = {
@@ -12322,7 +12327,7 @@ export namespace Prisma {
     roleTitle: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: userUncheckedCreateNestedManyWithoutRoleInput
+    user_guid: string
   }
 
   export type roleCreateOrConnectWithoutRole_permissionInput = {
@@ -12359,7 +12364,7 @@ export namespace Prisma {
     roleTitle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateManyWithoutRoleNestedInput
+    user?: userUpdateOneRequiredWithoutRoleNestedInput
   }
 
   export type roleUncheckedUpdateWithoutRole_permissionInput = {
@@ -12367,7 +12372,7 @@ export namespace Prisma {
     roleTitle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUncheckedUpdateManyWithoutRoleNestedInput
+    user_guid?: StringFieldUpdateOperationsInput | string
   }
 
   export type dept_empCreateWithoutDepartmentsInput = {
@@ -12482,8 +12487,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    role: roleCreateNestedOneWithoutUserInput
     tokens?: tokensCreateNestedManyWithoutUserInput
+    role?: roleCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutEmployeesInput = {
@@ -12492,10 +12497,10 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role_guid: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: tokensUncheckedCreateNestedManyWithoutUserInput
+    role?: roleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutEmployeesInput = {
@@ -12551,8 +12556,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: roleUpdateOneRequiredWithoutUserNestedInput
     tokens?: tokensUpdateManyWithoutUserNestedInput
+    role?: roleUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutEmployeesInput = {
@@ -12561,10 +12566,10 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role_guid?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
+    role?: roleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type departmentsCreateWithoutDept_empInput = {
@@ -12724,6 +12729,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type roleCreateManyUserInput = {
+    guid_role?: string
+    roleTitle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type employeesUpdateWithoutUserInput = {
     guid_employee?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -12777,6 +12789,29 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type roleUpdateWithoutUserInput = {
+    guid_role?: StringFieldUpdateOperationsInput | string
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role_permission?: role_permissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type roleUncheckedUpdateWithoutUserInput = {
+    guid_role?: StringFieldUpdateOperationsInput | string
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role_permission?: role_permissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type roleUncheckedUpdateManyWithoutRoleInput = {
+    guid_role?: StringFieldUpdateOperationsInput | string
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type role_permissionCreateManyPermissionInput = {
     guid_role_perm?: string
     role_guid: string
@@ -12812,16 +12847,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type userCreateManyRoleInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type role_permissionUpdateWithoutRoleInput = {
     guid_role_perm?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12832,40 +12857,6 @@ export namespace Prisma {
   export type role_permissionUncheckedUpdateWithoutRoleInput = {
     guid_role_perm?: StringFieldUpdateOperationsInput | string
     permission_guid?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type userUpdateWithoutRoleInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUpdateManyWithoutUserNestedInput
-    tokens?: tokensUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutRoleInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
-    tokens?: tokensUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateManyWithoutUserInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -133,7 +133,8 @@ exports.Prisma.RoleScalarFieldEnum = makeEnum({
   guid_role: 'guid_role',
   roleTitle: 'roleTitle',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  user_guid: 'user_guid'
 });
 
 exports.Prisma.Role_permissionScalarFieldEnum = makeEnum({
@@ -177,7 +178,6 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   lastName: 'lastName',
   email: 'email',
   password: 'password',
-  role_guid: 'role_guid',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });

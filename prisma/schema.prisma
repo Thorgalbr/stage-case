@@ -15,12 +15,11 @@ model user {
   lastName  String      @db.VarChar(75)
   email     String      @unique @db.VarChar(150)
   password  String      @db.VarChar(150)
-  role_guid String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   employees employees[]
-  role      role        @relation(fields: [role_guid], references: [guid_role])
   tokens    tokens[]
+  role      role[]
 }
 
 model tokens {
@@ -45,8 +44,9 @@ model role {
   roleTitle       String            @unique @db.VarChar(75)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
+  user_guid       String            
+  user            user              @relation(fields: [user_guid], references: [guid_user])
   role_permission role_permission[]
-  user            user[]
 }
 
 model role_permission {
