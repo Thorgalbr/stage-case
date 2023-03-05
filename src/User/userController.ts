@@ -30,8 +30,6 @@ export default {
 
             const hash_password = await hash(password, 8);
 
-            const guid_role = req.params.guid_role;
-
             if(!firstName || !lastName) {
 
                 res.status(422).json({erro:"Nome e sobrenome obrigatorios!"});
@@ -43,22 +41,6 @@ export default {
                 res.status(422).json({erro:"email e senha obrigatorios!"}); 
 
             };
-
-            if(!guid_role){
-
-                res.status(422).json({erro:"GUID role obrigatorio!"}); 
-
-            };
-
-            const reqRoleGuid = await prisma.role.findUnique({
-
-                where: {
-
-                    guid_role
-
-                },
-
-            });
 
             let emailCheck = await prisma.user.findUnique({
                 
@@ -83,7 +65,6 @@ export default {
                    lastName,
                    email, 
                    password: hash_password,
-                   role_guid: guid_role
 
                 },
                 include: {
@@ -174,7 +155,6 @@ async updateUser(req: Request, res: Response) {
 
         const hash_password = await hash(password, 8);
 
-        const guid_role = req.params.guid_role;
 
             if(!firstName || !lastName) {
 
@@ -187,23 +167,7 @@ async updateUser(req: Request, res: Response) {
                 res.status(422).json({erro:"email e senha obrigatorios!"}); 
 
             };
-
-            if(!guid_role){
-
-                res.status(422).json({erro:"GUID role obrigatorio!"}); 
-
-            };
-
-        const reqRoleGuid = await prisma.role.findUnique({
-
-            where: {
-
-                guid_role
-
-            },
-
-        });
-    
+ 
         const userUpdt = await prisma.user.update({
 
             where: {
@@ -217,7 +181,6 @@ async updateUser(req: Request, res: Response) {
                 lastName: lastName,
                 email: email,
                 password: hash_password,
-                role_guid: guid_role
 
             },
 
