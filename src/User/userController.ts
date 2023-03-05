@@ -67,11 +67,6 @@ export default {
                    password: hash_password,
 
                 },
-                include: {
-
-                    role: true
-
-                },
 
             });
         
