@@ -33,3 +33,7 @@ export interface IDeptEmp {
 export interface IRoles {
     roleTitle: string
 };
+
+export interface JwtPayload {
+    userId: string
+};
