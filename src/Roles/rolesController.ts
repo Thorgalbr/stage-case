@@ -24,9 +24,17 @@ export default {
             
             const { roleTitle }: IRoles = req.body;
 
+            const { user_guid }  = req.params;
+
             if(!roleTitle) {
 
                 res.status(422).json({erro:"O nome da role é obrigatório!"});
+                
+            };
+
+            if(!user_guid) {
+
+                res.status(422).json({erro:"O GUID de usuário é obrigatório!"});
                 
             };
 
@@ -49,7 +57,8 @@ export default {
 
                 data: {
 
-                    roleTitle: roleTitle
+                    roleTitle,
+                    user_guid
 
                 }
 

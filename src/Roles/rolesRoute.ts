@@ -15,13 +15,13 @@ import rolesController from './rolesController';
     * Rotas da tabela de Roles importando do Controller referente a ela
 */
 
-rolesRouter.post('/role/add', rolesController.createRole);
+rolesRouter.post('/role/add/:user_guid', rolesController.createRole);
 
 rolesRouter.get('/roles/request', rolesController.findAllRoles);
 
 rolesRouter.get('/role/request/:guid_role', rolesController.findRole);
 
-rolesRouter.patch('/role/update/:guid_role', rolesController.updateRole);
+rolesRouter.patch('/role/update/:guid_role/:user_guid', rolesController.updateRole);
 
 rolesRouter.delete('/role/delete/:guid_role', rolesController.deleteRole);
 
