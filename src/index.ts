@@ -19,7 +19,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
 // Importando o Dotenv para o projeto
+
 import 'dotenv/config';
+
+// Importando o Cors para o projeto para permitir acesso do front-end
+
+import cors from 'cors';
+app.use(cors());
 
 // Importando as rotas para o index e passando pelo express
 
