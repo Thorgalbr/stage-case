@@ -1,9 +1,20 @@
+/* 
+    * Arquivo Auth referente ao middleware de autenticação da aplicação
+*/
+
+// Importando o Request e Response do express
+
 import { NextFunction, Request, Response,  } from "express";
+
+// Importando a função verify do jwt
+
 import { verify } from "jsonwebtoken";
 
-interface JwtPayload {
-    userId: string
-};
+// Importando a interface JwtPayload
+
+import { JwtPayload } from "../utils/interfaces";
+
+// Exportando a função AuthMiddlewares para checagem de autenticação da aplicação
 
 export function authMiddlewares (req: Request, res: Response, next: NextFunction) {
 
