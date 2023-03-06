@@ -1,6 +1,6 @@
 /*
- * Configuração base do CRUD da tabela de usuários
- *         Autor: Thiago Pereira
+      Configuração base do CRUD da tabela de usuários
+          Autor: Thiago Pereira
  */
 
 // Importando o express e configurando o router
@@ -13,7 +13,7 @@ const userRouter = express.Router();
 import userController from "./userController";
 
 /*
- * Rotas da tabela de Users importando do Controller referente a ela
+     Rotas da tabela de Users importadas do controller referente a ela
  */
 
 userRouter.post("/user/add", userController.createUser);
@@ -26,6 +26,6 @@ userRouter.patch("/user/update/:guid_user", userController.updateUser);
 
 userRouter.delete("/user/delete/:guid_user", userController.deleteUser);
 
-// Exportando a rota no código
+// Exportando a rota na estrutura da aplicação
 
 export { userRouter };
