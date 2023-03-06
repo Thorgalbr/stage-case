@@ -1,19 +1,19 @@
 /*
-    * Arquivo AuthRouter - configuração da rota de autenticação
-*/
+ * Arquivo AuthRouter - configuração da rota de autenticação
+ */
 
-// Importando o express e configurando o router 
+// Importando o express e configurando o router
 
-import express from 'express';
+import express from "express";
 const authRouter = express.Router();
 
-import authController from './authController';
+import authController from "./authController";
 
 /*
-    * Rota de Autenticação de Usuários - Retorna GUID,Email e Token quando obtém sucesso
-*/
+ * Rota de Autenticação de Usuários - Retorna GUID,Email e Token quando obtém sucesso
+ */
 
-authRouter.post('/auth', authController.authenticate);
+authRouter.post("/auth", authController.authenticate);
 
 // Exportando a rota no código
 

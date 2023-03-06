@@ -1,5 +1,6 @@
 /*
-    * Configuração base do CRUD da tabela Role/Permission 
+ * Configuração base do CRUD da tabela Role/Permission 
+ *              Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 
