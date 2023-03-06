@@ -117,7 +117,7 @@ export type dept_emp = {
  */
 export type salary = {
   guid_salary: string
-  salary: string
+  salary: Prisma.Decimal
   createdAt: Date
   updatedAt: Date
 }
@@ -8937,20 +8937,30 @@ export namespace Prisma {
 
   export type AggregateSalary = {
     _count: SalaryCountAggregateOutputType | null
+    _avg: SalaryAvgAggregateOutputType | null
+    _sum: SalarySumAggregateOutputType | null
     _min: SalaryMinAggregateOutputType | null
     _max: SalaryMaxAggregateOutputType | null
   }
 
+  export type SalaryAvgAggregateOutputType = {
+    salary: Decimal | null
+  }
+
+  export type SalarySumAggregateOutputType = {
+    salary: Decimal | null
+  }
+
   export type SalaryMinAggregateOutputType = {
     guid_salary: string | null
-    salary: string | null
+    salary: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type SalaryMaxAggregateOutputType = {
     guid_salary: string | null
-    salary: string | null
+    salary: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8963,6 +8973,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type SalaryAvgAggregateInputType = {
+    salary?: true
+  }
+
+  export type SalarySumAggregateInputType = {
+    salary?: true
+  }
 
   export type SalaryMinAggregateInputType = {
     guid_salary?: true
@@ -9024,6 +9042,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalarySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SalaryMinAggregateInputType
@@ -9054,6 +9084,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SalaryCountAggregateInputType | true
+    _avg?: SalaryAvgAggregateInputType
+    _sum?: SalarySumAggregateInputType
     _min?: SalaryMinAggregateInputType
     _max?: SalaryMaxAggregateInputType
   }
@@ -9061,10 +9093,12 @@ export namespace Prisma {
 
   export type SalaryGroupByOutputType = {
     guid_salary: string
-    salary: string
+    salary: Decimal
     createdAt: Date
     updatedAt: Date
     _count: SalaryCountAggregateOutputType | null
+    _avg: SalaryAvgAggregateOutputType | null
+    _sum: SalarySumAggregateOutputType | null
     _min: SalaryMinAggregateOutputType | null
     _max: SalaryMaxAggregateOutputType | null
   }
@@ -10439,7 +10473,7 @@ export namespace Prisma {
     OR?: Enumerable<salaryWhereInput>
     NOT?: Enumerable<salaryWhereInput>
     guid_salary?: StringFilter | string
-    salary?: StringFilter | string
+    salary?: DecimalFilter | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     employees?: EmployeesListRelationFilter
@@ -10463,8 +10497,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: salaryCountOrderByAggregateInput
+    _avg?: salaryAvgOrderByAggregateInput
     _max?: salaryMaxOrderByAggregateInput
     _min?: salaryMinOrderByAggregateInput
+    _sum?: salarySumOrderByAggregateInput
   }
 
   export type salaryScalarWhereWithAggregatesInput = {
@@ -10472,7 +10508,7 @@ export namespace Prisma {
     OR?: Enumerable<salaryScalarWhereWithAggregatesInput>
     NOT?: Enumerable<salaryScalarWhereWithAggregatesInput>
     guid_salary?: StringWithAggregatesFilter | string
-    salary?: StringWithAggregatesFilter | string
+    salary?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -10982,7 +11018,7 @@ export namespace Prisma {
 
   export type salaryCreateInput = {
     guid_salary?: string
-    salary: string
+    salary: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutSalaryInput
@@ -10990,7 +11026,7 @@ export namespace Prisma {
 
   export type salaryUncheckedCreateInput = {
     guid_salary?: string
-    salary: string
+    salary: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutSalaryInput
@@ -10998,7 +11034,7 @@ export namespace Prisma {
 
   export type salaryUpdateInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutSalaryNestedInput
@@ -11006,7 +11042,7 @@ export namespace Prisma {
 
   export type salaryUncheckedUpdateInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutSalaryNestedInput
@@ -11014,21 +11050,21 @@ export namespace Prisma {
 
   export type salaryCreateManyInput = {
     guid_salary?: string
-    salary: string
+    salary: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type salaryUpdateManyMutationInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type salaryUncheckedUpdateManyInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11378,11 +11414,26 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DecimalFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
+  }
+
   export type salaryCountOrderByAggregateInput = {
     guid_salary?: SortOrder
     salary?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type salaryAvgOrderByAggregateInput = {
+    salary?: SortOrder
   }
 
   export type salaryMaxOrderByAggregateInput = {
@@ -11397,6 +11448,26 @@ export namespace Prisma {
     salary?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type salarySumOrderByAggregateInput = {
+    salary?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter
+    _avg?: NestedDecimalFilter
+    _sum?: NestedDecimalFilter
+    _min?: NestedDecimalFilter
+    _max?: NestedDecimalFilter
   }
 
   export type employeesCreateNestedManyWithoutUserInput = {
@@ -11827,6 +11898,14 @@ export namespace Prisma {
     connect?: Enumerable<employeesWhereUniqueInput>
   }
 
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type employeesUpdateManyWithoutSalaryNestedInput = {
     create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
@@ -11920,6 +11999,33 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
+  }
+
+  export type NestedDecimalFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter
+    _avg?: NestedDecimalFilter
+    _sum?: NestedDecimalFilter
+    _min?: NestedDecimalFilter
+    _max?: NestedDecimalFilter
   }
 
   export type employeesCreateWithoutUserInput = {
@@ -12462,14 +12568,14 @@ export namespace Prisma {
 
   export type salaryCreateWithoutEmployeesInput = {
     guid_salary?: string
-    salary: string
+    salary: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type salaryUncheckedCreateWithoutEmployeesInput = {
     guid_salary?: string
-    salary: string
+    salary: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12531,14 +12637,14 @@ export namespace Prisma {
 
   export type salaryUpdateWithoutEmployeesInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type salaryUncheckedUpdateWithoutEmployeesInput = {
     guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: StringFieldUpdateOperationsInput | string
+    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

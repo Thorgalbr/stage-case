@@ -44,7 +44,7 @@ model role {
   roleTitle       String            @unique @db.VarChar(75)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  user_guid       String            
+  user_guid       String
   user            user              @relation(fields: [user_guid], references: [guid_user])
   role_permission role_permission[]
 }
@@ -95,7 +95,7 @@ model dept_emp {
 
 model salary {
   guid_salary String      @id @default(uuid())
-  salary      String      @db.VarChar(25)
+  salary      Decimal
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   employees   employees[]
