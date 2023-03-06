@@ -1,6 +1,6 @@
 /*
- *  Configuração base do CRUD da tabela Role/Permission 
- *              Autor: Thiago Pereira
+     Configuração base do CRUD da tabela Role/Permission 
+               Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 
@@ -13,16 +13,16 @@ const rolePermRouter = express.Router();
 import rolePermController from './rolePermController';
 
 /*
-    * Rotas da tabela de salarios importando do controller referente a ela
+    Rotas da tabela de salarios importando do controller referente a ela
 */
 
-rolePermRouter.post('/role-permission/add', rolePermController.createRolePermission);
+rolePermRouter.post('/role-permission/add/:guid_permission/:guid_role', rolePermController.createRolePermission);
 
 rolePermRouter.get('/role-permission/request', rolePermController.findAllRolePermission);
 
 rolePermRouter.get('/role-permission/request/:guid_role_perm', rolePermController.findRolePermission);
 
-rolePermRouter.patch('/role-permission/update/:guid_role_perm', rolePermController.updateRolePermission);
+rolePermRouter.patch('/role-permission/update/:guid_role_perm/:guid_permission/:guid_role', rolePermController.updateRolePermission);
 
 rolePermRouter.delete('/role-permission/delete/:guid_role_perm', rolePermController.deleteRolePermission);
 
