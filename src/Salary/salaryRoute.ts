@@ -1,6 +1,6 @@
 /*
- *  Configuração base do CRUD da tabela de salários
- *            Autor: Thiago Pereira
+      Configuração base do CRUD da tabela de salários
+             Autor: Thiago Pereira
  */
 
 // Importando o express e configurando o router
@@ -13,7 +13,7 @@ const salRouter = express.Router();
 import salaryController from "./salaryController";
 
 /*
- * Rotas da tabela de salarios importando do controller referente a ela
+     Rotas da tabela de salarios importando do controller referente a ela
  */
 
 salRouter.post("/salary/add", salaryController.createSalary);

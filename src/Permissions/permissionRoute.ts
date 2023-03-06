@@ -18,9 +18,9 @@ import permissionController from './permissionController';
 
 permissionRouter.post('/permission/add', permissionController.createPermission);
 
-permissionRouter.get('/permissions', permissionController.findAllPermissions);
+permissionRouter.get('/permissions/request', permissionController.findAllPermissions);
 
-permissionRouter.get('/permission/:guid_permission', permissionController.findPermission);
+permissionRouter.get('/permission/request/:guid_permission', permissionController.findPermission);
 
 permissionRouter.patch('/permission/update/:guid_permission', permissionController.updatePermission);
 

@@ -22,10 +22,12 @@ import { hash } from "bcryptjs";
 // Exportando os controllers para a rota
 
 export default {
+
 	// Rota de POST/CREATE
 	async createUser(req: Request, res: Response) {
 		/*
 			Rota de registro de usuários
+			Formato da rota: "/user/add"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -82,6 +84,12 @@ export default {
 
 	// Rota de GET/REQUEST
 	async findAllUsers(req: Request, res: Response) {
+
+		/*
+			Rota de request de todos os usuários
+			Formato da rota: "/users/request"
+		*/
+
 		try {
 			// Configurando o prisma para retornar todos os usuários
 			const userReq = await prisma.user.findMany();
@@ -93,18 +101,23 @@ export default {
 		};
 	},
 
+	// Rota de GET/REQUEST filtrando pelo GUID
 	async findUser(req: Request, res: Response) {
 
 	/* 
 		Rota de GET/REQUEST pelo GUID retornando um registro
 		Formato do request requer o GUID do usuário 
 		Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-		Exemplo da rota: "/user/request/:guid_user"
+		Formato da rota: "/user/request/:guid_user"
 	*/
 
 		try {
 			// Recebendo o GUID do usuario dos params
 			const guid_user = req.params.guid_user;
+			// Validação da recepção do GUID do usuário
+			if (!guid_user) {
+				res.status(422).json({ erro: "O GUID do usuário é obrigatorio" });
+			};
 			// Configurando o prisma para retornar um usuario baseando no GUID
 			const userReqId = await prisma.user.findUnique({
 				where: {
@@ -195,6 +208,15 @@ export default {
 
 	// Rota de DELETE
 	async deleteUser(req: Request, res: Response) {
+		
+		/*
+			Rota de DELETE dos registros de usuários
+			Requer o GUID do usuário para deletar
+			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
+			Exemplo da rota: "/user/delete/:guid_user"
+
+		*/
+
 		try {
 			// Recebendo o GUID do usuario dos params
 			const guid_user = req.params.guid_user;
