@@ -1,5 +1,6 @@
 /*
  * Arquivo departmentsController referente aos controllers da rota da tabela de departamentos
+ *					Autor: Thiago Pereira
  */
 
 // Importando o Request e Response do express

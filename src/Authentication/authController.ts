@@ -1,5 +1,6 @@
 /*
  * Arquivo AuthController - Controle do fluxo de autenticação da aplicação
+ *					Autor: Thiago Pereira
  */
 
 // Importando o Request e Response do express

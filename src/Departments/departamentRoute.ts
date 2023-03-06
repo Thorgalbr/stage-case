@@ -1,5 +1,6 @@
 /*
     * Configuração base do CRUD tabela de Departamentos
+    *           Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 

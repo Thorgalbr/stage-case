@@ -1,5 +1,6 @@
 /*
  * Arquivo employeesController referente aos controllers da rota da tabela de funcionários
+ *						Autor: Thiago Pereira	
  */
 
 // Importando o Request e Response do express

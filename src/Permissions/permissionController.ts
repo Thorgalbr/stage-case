@@ -1,5 +1,6 @@
 /*
  * Arquivo permissionController referente aos controllers da rota da tabela de permissions
+ *							Autor: Thiago Pereira	
  */
 
 // Importando o Request e Response do express

@@ -1,5 +1,6 @@
 /*
  * Arquivo userController referente aos controllers da rota de usuários
+ * 					Autor: Thiago Pereira
  */
 
 // Importando o Request e Response do express

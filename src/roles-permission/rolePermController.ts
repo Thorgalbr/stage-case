@@ -1,5 +1,5 @@
 /*
- * Arquivo role/Permission Controller referente as rotas de role e permissions
+ * 	Arquivo role/Permission Controller referente as rotas de role e permissions
  * 					Autor: Thiago Pereira
  */
 

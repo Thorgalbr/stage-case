@@ -1,5 +1,6 @@
 /*
     * Configuração base do CRUD da tabela Departments/Employees 
+    *               Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 

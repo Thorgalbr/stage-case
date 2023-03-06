@@ -1,7 +1,7 @@
 /*
- * Configuração inicial do projeto
- *         Stage - Case
- *      Autor: Thiago Pereira
+ * 		Configuração inicial do projeto
+ *         		Stage - Case
+ *      	Autor: Thiago Pereira
  */
 
 // Importando o express para o projeto e configurando na variavel app
@@ -28,7 +28,7 @@ import "dotenv/config";
 import cors from "cors";
 app.use(cors());
 
-// Importando as rotas para o index e passando pelo express
+// Importando as rotas para o index e passando para o express via variavel app
 
 import { authRouter } from "./Authentication/authRouter";
 app.use(authRouter);
@@ -57,7 +57,7 @@ app.use(rolePermRouter);
 import { salRouter } from "./Salary/salaryRoute";
 app.use(salRouter);
 
-// Configurando o servidor
+// Configurando a criação do servidor com retorno de mensagem no console informando o sucesso
 const port = process.env.API_PORT;
 app.listen(port, () => {
 	console.log(`API Funcionando na porta ${port}`);

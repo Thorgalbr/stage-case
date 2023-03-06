@@ -1,5 +1,5 @@
 /*
-*          Configuração base do CRUD da tabela de Roles
+*         Configuração base do CRUD da tabela de Roles
 *                Autor: Thiago Pereira
 */
 

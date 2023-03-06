@@ -1,5 +1,6 @@
 /*
     * Configuração base do CRUD da tabela de Funcionários
+    *               Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 

@@ -1,5 +1,5 @@
 /*
- * Arquivo salaryController referente aos controllers da rota da tabela de salários
+ * 	Arquivo salaryController referente aos controllers da rota da tabela de salários
  *                Autor: Thiago Pereira
  */
 

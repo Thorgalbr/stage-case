@@ -1,5 +1,6 @@
 /*
  * Arquivo Auth referente ao middleware de autenticação da aplicação
+ *					Autor: Thiago Pereira
  */
 
 // Importando o Request e Response do express

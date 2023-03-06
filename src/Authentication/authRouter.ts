@@ -1,5 +1,6 @@
 /*
- * Arquivo AuthRouter - configuração da rota de autenticação
+ *  Arquivo AuthRouter - configuração da rota de autenticação
+ *              Autor: Thiago Pereira
  */
 
 // Importando o express e configurando o router

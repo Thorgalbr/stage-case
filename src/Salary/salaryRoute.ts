@@ -1,5 +1,5 @@
 /*
- * Configuração base do CRUD da tabela de salários
+ *  Configuração base do CRUD da tabela de salários
  *            Autor: Thiago Pereira
  */
 
