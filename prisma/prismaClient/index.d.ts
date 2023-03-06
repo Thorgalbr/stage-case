@@ -92,8 +92,8 @@ export type employees = {
   lastName: string
   birthDate: Date
   hire_date: Date
+  wage: Prisma.Decimal
   user_guid: string
-  salary_guid: string
   createdBy: string
 }
 
@@ -107,17 +107,6 @@ export type dept_emp = {
   emp_guid: string
   from_date: Date
   to_date: Date
-  createdAt: Date
-  updatedAt: Date
-}
-
-/**
- * Model salary
- * 
- */
-export type salary = {
-  guid_salary: string
-  salary: Prisma.Decimal
   createdAt: Date
   updatedAt: Date
 }
@@ -319,16 +308,6 @@ export class PrismaClient<
     * ```
     */
   get dept_emp(): Prisma.dept_empDelegate<GlobalReject>;
-
-  /**
-   * `prisma.salary`: Exposes CRUD operations for the **salary** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Salaries
-    * const salaries = await prisma.salary.findMany()
-    * ```
-    */
-  get salary(): Prisma.salaryDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -805,8 +784,7 @@ export namespace Prisma {
     role_permission: 'role_permission',
     departments: 'departments',
     employees: 'employees',
-    dept_emp: 'dept_emp',
-    salary: 'salary'
+    dept_emp: 'dept_emp'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1182,49 +1160,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the EmployeesCountOutputType
      */
     select?: EmployeesCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type SalaryCountOutputType
-   */
-
-
-  export type SalaryCountOutputType = {
-    employees: number
-  }
-
-  export type SalaryCountOutputTypeSelect = {
-    employees?: boolean
-  }
-
-  export type SalaryCountOutputTypeGetPayload<S extends boolean | null | undefined | SalaryCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? SalaryCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (SalaryCountOutputTypeArgs)
-    ? SalaryCountOutputType 
-    : S extends { select: any } & (SalaryCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof SalaryCountOutputType ? SalaryCountOutputType[P] : never
-  } 
-      : SalaryCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * SalaryCountOutputType without action
-   */
-  export type SalaryCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the SalaryCountOutputType
-     */
-    select?: SalaryCountOutputTypeSelect | null
   }
 
 
@@ -6992,8 +6927,18 @@ export namespace Prisma {
 
   export type AggregateEmployees = {
     _count: EmployeesCountAggregateOutputType | null
+    _avg: EmployeesAvgAggregateOutputType | null
+    _sum: EmployeesSumAggregateOutputType | null
     _min: EmployeesMinAggregateOutputType | null
     _max: EmployeesMaxAggregateOutputType | null
+  }
+
+  export type EmployeesAvgAggregateOutputType = {
+    wage: Decimal | null
+  }
+
+  export type EmployeesSumAggregateOutputType = {
+    wage: Decimal | null
   }
 
   export type EmployeesMinAggregateOutputType = {
@@ -7002,8 +6947,8 @@ export namespace Prisma {
     lastName: string | null
     birthDate: Date | null
     hire_date: Date | null
+    wage: Decimal | null
     user_guid: string | null
-    salary_guid: string | null
     createdBy: string | null
   }
 
@@ -7013,8 +6958,8 @@ export namespace Prisma {
     lastName: string | null
     birthDate: Date | null
     hire_date: Date | null
+    wage: Decimal | null
     user_guid: string | null
-    salary_guid: string | null
     createdBy: string | null
   }
 
@@ -7024,12 +6969,20 @@ export namespace Prisma {
     lastName: number
     birthDate: number
     hire_date: number
+    wage: number
     user_guid: number
-    salary_guid: number
     createdBy: number
     _all: number
   }
 
+
+  export type EmployeesAvgAggregateInputType = {
+    wage?: true
+  }
+
+  export type EmployeesSumAggregateInputType = {
+    wage?: true
+  }
 
   export type EmployeesMinAggregateInputType = {
     guid_employee?: true
@@ -7037,8 +6990,8 @@ export namespace Prisma {
     lastName?: true
     birthDate?: true
     hire_date?: true
+    wage?: true
     user_guid?: true
-    salary_guid?: true
     createdBy?: true
   }
 
@@ -7048,8 +7001,8 @@ export namespace Prisma {
     lastName?: true
     birthDate?: true
     hire_date?: true
+    wage?: true
     user_guid?: true
-    salary_guid?: true
     createdBy?: true
   }
 
@@ -7059,8 +7012,8 @@ export namespace Prisma {
     lastName?: true
     birthDate?: true
     hire_date?: true
+    wage?: true
     user_guid?: true
-    salary_guid?: true
     createdBy?: true
     _all?: true
   }
@@ -7103,6 +7056,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: EmployeesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmployeesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: EmployeesMinAggregateInputType
@@ -7133,6 +7098,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: EmployeesCountAggregateInputType | true
+    _avg?: EmployeesAvgAggregateInputType
+    _sum?: EmployeesSumAggregateInputType
     _min?: EmployeesMinAggregateInputType
     _max?: EmployeesMaxAggregateInputType
   }
@@ -7144,10 +7111,12 @@ export namespace Prisma {
     lastName: string
     birthDate: Date
     hire_date: Date
+    wage: Decimal
     user_guid: string
-    salary_guid: string
     createdBy: string
     _count: EmployeesCountAggregateOutputType | null
+    _avg: EmployeesAvgAggregateOutputType | null
+    _sum: EmployeesSumAggregateOutputType | null
     _min: EmployeesMinAggregateOutputType | null
     _max: EmployeesMaxAggregateOutputType | null
   }
@@ -7172,11 +7141,10 @@ export namespace Prisma {
     lastName?: boolean
     birthDate?: boolean
     hire_date?: boolean
+    wage?: boolean
     user_guid?: boolean
-    salary_guid?: boolean
     createdBy?: boolean
     dept_emp?: boolean | employees$dept_empArgs
-    salary?: boolean | salaryArgs
     user?: boolean | userArgs
     _count?: boolean | EmployeesCountOutputTypeArgs
   }
@@ -7184,7 +7152,6 @@ export namespace Prisma {
 
   export type employeesInclude = {
     dept_emp?: boolean | employees$dept_empArgs
-    salary?: boolean | salaryArgs
     user?: boolean | userArgs
     _count?: boolean | EmployeesCountOutputTypeArgs
   }
@@ -7197,7 +7164,6 @@ export namespace Prisma {
     ? employees  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['include'][P]>>  :
-        P extends 'salary' ? salaryGetPayload<S['include'][P]> :
         P extends 'user' ? userGetPayload<S['include'][P]> :
         P extends '_count' ? EmployeesCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
@@ -7205,7 +7171,6 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['select'][P]>>  :
-        P extends 'salary' ? salaryGetPayload<S['select'][P]> :
         P extends 'user' ? userGetPayload<S['select'][P]> :
         P extends '_count' ? EmployeesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof employees ? employees[P] : never
   } 
@@ -7580,8 +7545,6 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
     dept_emp<T extends employees$dept_empArgs= {}>(args?: Subset<T, employees$dept_empArgs>): Prisma.PrismaPromise<Array<dept_empGetPayload<T>>| Null>;
-
-    salary<T extends salaryArgs= {}>(args?: Subset<T, salaryArgs>): Prisma__salaryClient<salaryGetPayload<T> | Null>;
 
     user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
 
@@ -8931,988 +8894,6 @@ export namespace Prisma {
 
 
   /**
-   * Model salary
-   */
-
-
-  export type AggregateSalary = {
-    _count: SalaryCountAggregateOutputType | null
-    _avg: SalaryAvgAggregateOutputType | null
-    _sum: SalarySumAggregateOutputType | null
-    _min: SalaryMinAggregateOutputType | null
-    _max: SalaryMaxAggregateOutputType | null
-  }
-
-  export type SalaryAvgAggregateOutputType = {
-    salary: Decimal | null
-  }
-
-  export type SalarySumAggregateOutputType = {
-    salary: Decimal | null
-  }
-
-  export type SalaryMinAggregateOutputType = {
-    guid_salary: string | null
-    salary: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SalaryMaxAggregateOutputType = {
-    guid_salary: string | null
-    salary: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SalaryCountAggregateOutputType = {
-    guid_salary: number
-    salary: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type SalaryAvgAggregateInputType = {
-    salary?: true
-  }
-
-  export type SalarySumAggregateInputType = {
-    salary?: true
-  }
-
-  export type SalaryMinAggregateInputType = {
-    guid_salary?: true
-    salary?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SalaryMaxAggregateInputType = {
-    guid_salary?: true
-    salary?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SalaryCountAggregateInputType = {
-    guid_salary?: true
-    salary?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type SalaryAggregateArgs = {
-    /**
-     * Filter which salary to aggregate.
-     */
-    where?: salaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of salaries to fetch.
-     */
-    orderBy?: Enumerable<salaryOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: salaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` salaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` salaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned salaries
-    **/
-    _count?: true | SalaryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SalaryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SalarySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SalaryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SalaryMaxAggregateInputType
-  }
-
-  export type GetSalaryAggregateType<T extends SalaryAggregateArgs> = {
-        [P in keyof T & keyof AggregateSalary]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSalary[P]>
-      : GetScalarType<T[P], AggregateSalary[P]>
-  }
-
-
-
-
-  export type SalaryGroupByArgs = {
-    where?: salaryWhereInput
-    orderBy?: Enumerable<salaryOrderByWithAggregationInput>
-    by: SalaryScalarFieldEnum[]
-    having?: salaryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SalaryCountAggregateInputType | true
-    _avg?: SalaryAvgAggregateInputType
-    _sum?: SalarySumAggregateInputType
-    _min?: SalaryMinAggregateInputType
-    _max?: SalaryMaxAggregateInputType
-  }
-
-
-  export type SalaryGroupByOutputType = {
-    guid_salary: string
-    salary: Decimal
-    createdAt: Date
-    updatedAt: Date
-    _count: SalaryCountAggregateOutputType | null
-    _avg: SalaryAvgAggregateOutputType | null
-    _sum: SalarySumAggregateOutputType | null
-    _min: SalaryMinAggregateOutputType | null
-    _max: SalaryMaxAggregateOutputType | null
-  }
-
-  type GetSalaryGroupByPayload<T extends SalaryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickArray<SalaryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SalaryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SalaryGroupByOutputType[P]>
-            : GetScalarType<T[P], SalaryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type salarySelect = {
-    guid_salary?: boolean
-    salary?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employees?: boolean | salary$employeesArgs
-    _count?: boolean | SalaryCountOutputTypeArgs
-  }
-
-
-  export type salaryInclude = {
-    employees?: boolean | salary$employeesArgs
-    _count?: boolean | SalaryCountOutputTypeArgs
-  }
-
-  export type salaryGetPayload<S extends boolean | null | undefined | salaryArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? salary :
-    S extends undefined ? never :
-    S extends { include: any } & (salaryArgs | salaryFindManyArgs)
-    ? salary  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'employees' ? Array < employeesGetPayload<S['include'][P]>>  :
-        P extends '_count' ? SalaryCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (salaryArgs | salaryFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'employees' ? Array < employeesGetPayload<S['select'][P]>>  :
-        P extends '_count' ? SalaryCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof salary ? salary[P] : never
-  } 
-      : salary
-
-
-  type salaryCountArgs = 
-    Omit<salaryFindManyArgs, 'select' | 'include'> & {
-      select?: SalaryCountAggregateInputType | true
-    }
-
-  export interface salaryDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
-    /**
-     * Find zero or one Salary that matches the filter.
-     * @param {salaryFindUniqueArgs} args - Arguments to find a Salary
-     * @example
-     * // Get one Salary
-     * const salary = await prisma.salary.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends salaryFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, salaryFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'salary'> extends True ? Prisma__salaryClient<salaryGetPayload<T>> : Prisma__salaryClient<salaryGetPayload<T> | null, null>
-
-    /**
-     * Find one Salary that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {salaryFindUniqueOrThrowArgs} args - Arguments to find a Salary
-     * @example
-     * // Get one Salary
-     * const salary = await prisma.salary.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends salaryFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, salaryFindUniqueOrThrowArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Find the first Salary that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {salaryFindFirstArgs} args - Arguments to find a Salary
-     * @example
-     * // Get one Salary
-     * const salary = await prisma.salary.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends salaryFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, salaryFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'salary'> extends True ? Prisma__salaryClient<salaryGetPayload<T>> : Prisma__salaryClient<salaryGetPayload<T> | null, null>
-
-    /**
-     * Find the first Salary that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {salaryFindFirstOrThrowArgs} args - Arguments to find a Salary
-     * @example
-     * // Get one Salary
-     * const salary = await prisma.salary.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends salaryFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, salaryFindFirstOrThrowArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Find zero or more Salaries that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {salaryFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Salaries
-     * const salaries = await prisma.salary.findMany()
-     * 
-     * // Get first 10 Salaries
-     * const salaries = await prisma.salary.findMany({ take: 10 })
-     * 
-     * // Only select the `guid_salary`
-     * const salaryWithGuid_salaryOnly = await prisma.salary.findMany({ select: { guid_salary: true } })
-     * 
-    **/
-    findMany<T extends salaryFindManyArgs>(
-      args?: SelectSubset<T, salaryFindManyArgs>
-    ): Prisma.PrismaPromise<Array<salaryGetPayload<T>>>
-
-    /**
-     * Create a Salary.
-     * @param {salaryCreateArgs} args - Arguments to create a Salary.
-     * @example
-     * // Create one Salary
-     * const Salary = await prisma.salary.create({
-     *   data: {
-     *     // ... data to create a Salary
-     *   }
-     * })
-     * 
-    **/
-    create<T extends salaryCreateArgs>(
-      args: SelectSubset<T, salaryCreateArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Create many Salaries.
-     *     @param {salaryCreateManyArgs} args - Arguments to create many Salaries.
-     *     @example
-     *     // Create many Salaries
-     *     const salary = await prisma.salary.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends salaryCreateManyArgs>(
-      args?: SelectSubset<T, salaryCreateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Salary.
-     * @param {salaryDeleteArgs} args - Arguments to delete one Salary.
-     * @example
-     * // Delete one Salary
-     * const Salary = await prisma.salary.delete({
-     *   where: {
-     *     // ... filter to delete one Salary
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends salaryDeleteArgs>(
-      args: SelectSubset<T, salaryDeleteArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Update one Salary.
-     * @param {salaryUpdateArgs} args - Arguments to update one Salary.
-     * @example
-     * // Update one Salary
-     * const salary = await prisma.salary.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends salaryUpdateArgs>(
-      args: SelectSubset<T, salaryUpdateArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Delete zero or more Salaries.
-     * @param {salaryDeleteManyArgs} args - Arguments to filter Salaries to delete.
-     * @example
-     * // Delete a few Salaries
-     * const { count } = await prisma.salary.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends salaryDeleteManyArgs>(
-      args?: SelectSubset<T, salaryDeleteManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Salaries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {salaryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Salaries
-     * const salary = await prisma.salary.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends salaryUpdateManyArgs>(
-      args: SelectSubset<T, salaryUpdateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Salary.
-     * @param {salaryUpsertArgs} args - Arguments to update or create a Salary.
-     * @example
-     * // Update or create a Salary
-     * const salary = await prisma.salary.upsert({
-     *   create: {
-     *     // ... data to create a Salary
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Salary we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends salaryUpsertArgs>(
-      args: SelectSubset<T, salaryUpsertArgs>
-    ): Prisma__salaryClient<salaryGetPayload<T>>
-
-    /**
-     * Count the number of Salaries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {salaryCountArgs} args - Arguments to filter Salaries to count.
-     * @example
-     * // Count the number of Salaries
-     * const count = await prisma.salary.count({
-     *   where: {
-     *     // ... the filter for the Salaries we want to count
-     *   }
-     * })
-    **/
-    count<T extends salaryCountArgs>(
-      args?: Subset<T, salaryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SalaryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Salary.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SalaryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SalaryAggregateArgs>(args: Subset<T, SalaryAggregateArgs>): Prisma.PrismaPromise<GetSalaryAggregateType<T>>
-
-    /**
-     * Group by Salary.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SalaryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SalaryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SalaryGroupByArgs['orderBy'] }
-        : { orderBy?: SalaryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SalaryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for salary.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__salaryClient<T, Null = never> implements Prisma.PrismaPromise<T> {
-    private readonly _dmmf;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-
-    employees<T extends salary$employeesArgs= {}>(args?: Subset<T, salary$employeesArgs>): Prisma.PrismaPromise<Array<employeesGetPayload<T>>| Null>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-
-
-  // Custom InputTypes
-
-  /**
-   * salary base type for findUnique actions
-   */
-  export type salaryFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter, which salary to fetch.
-     */
-    where: salaryWhereUniqueInput
-  }
-
-  /**
-   * salary findUnique
-   */
-  export interface salaryFindUniqueArgs extends salaryFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * salary findUniqueOrThrow
-   */
-  export type salaryFindUniqueOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter, which salary to fetch.
-     */
-    where: salaryWhereUniqueInput
-  }
-
-
-  /**
-   * salary base type for findFirst actions
-   */
-  export type salaryFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter, which salary to fetch.
-     */
-    where?: salaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of salaries to fetch.
-     */
-    orderBy?: Enumerable<salaryOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for salaries.
-     */
-    cursor?: salaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` salaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` salaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of salaries.
-     */
-    distinct?: Enumerable<SalaryScalarFieldEnum>
-  }
-
-  /**
-   * salary findFirst
-   */
-  export interface salaryFindFirstArgs extends salaryFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * salary findFirstOrThrow
-   */
-  export type salaryFindFirstOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter, which salary to fetch.
-     */
-    where?: salaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of salaries to fetch.
-     */
-    orderBy?: Enumerable<salaryOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for salaries.
-     */
-    cursor?: salaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` salaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` salaries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of salaries.
-     */
-    distinct?: Enumerable<SalaryScalarFieldEnum>
-  }
-
-
-  /**
-   * salary findMany
-   */
-  export type salaryFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter, which salaries to fetch.
-     */
-    where?: salaryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of salaries to fetch.
-     */
-    orderBy?: Enumerable<salaryOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing salaries.
-     */
-    cursor?: salaryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` salaries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` salaries.
-     */
-    skip?: number
-    distinct?: Enumerable<SalaryScalarFieldEnum>
-  }
-
-
-  /**
-   * salary create
-   */
-  export type salaryCreateArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * The data needed to create a salary.
-     */
-    data: XOR<salaryCreateInput, salaryUncheckedCreateInput>
-  }
-
-
-  /**
-   * salary createMany
-   */
-  export type salaryCreateManyArgs = {
-    /**
-     * The data used to create many salaries.
-     */
-    data: Enumerable<salaryCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * salary update
-   */
-  export type salaryUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * The data needed to update a salary.
-     */
-    data: XOR<salaryUpdateInput, salaryUncheckedUpdateInput>
-    /**
-     * Choose, which salary to update.
-     */
-    where: salaryWhereUniqueInput
-  }
-
-
-  /**
-   * salary updateMany
-   */
-  export type salaryUpdateManyArgs = {
-    /**
-     * The data used to update salaries.
-     */
-    data: XOR<salaryUpdateManyMutationInput, salaryUncheckedUpdateManyInput>
-    /**
-     * Filter which salaries to update
-     */
-    where?: salaryWhereInput
-  }
-
-
-  /**
-   * salary upsert
-   */
-  export type salaryUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * The filter to search for the salary to update in case it exists.
-     */
-    where: salaryWhereUniqueInput
-    /**
-     * In case the salary found by the `where` argument doesn't exist, create a new salary with this data.
-     */
-    create: XOR<salaryCreateInput, salaryUncheckedCreateInput>
-    /**
-     * In case the salary was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<salaryUpdateInput, salaryUncheckedUpdateInput>
-  }
-
-
-  /**
-   * salary delete
-   */
-  export type salaryDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-    /**
-     * Filter which salary to delete.
-     */
-    where: salaryWhereUniqueInput
-  }
-
-
-  /**
-   * salary deleteMany
-   */
-  export type salaryDeleteManyArgs = {
-    /**
-     * Filter which salaries to delete
-     */
-    where?: salaryWhereInput
-  }
-
-
-  /**
-   * salary.employees
-   */
-  export type salary$employeesArgs = {
-    /**
-     * Select specific fields to fetch from the employees
-     */
-    select?: employeesSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: employeesInclude | null
-    where?: employeesWhereInput
-    orderBy?: Enumerable<employeesOrderByWithRelationInput>
-    cursor?: employeesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<EmployeesScalarFieldEnum>
-  }
-
-
-  /**
-   * salary without action
-   */
-  export type salaryArgs = {
-    /**
-     * Select specific fields to fetch from the salary
-     */
-    select?: salarySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: salaryInclude | null
-  }
-
-
-
-  /**
    * Enums
    */
 
@@ -9948,8 +8929,8 @@ export namespace Prisma {
     lastName: 'lastName',
     birthDate: 'birthDate',
     hire_date: 'hire_date',
+    wage: 'wage',
     user_guid: 'user_guid',
-    salary_guid: 'salary_guid',
     createdBy: 'createdBy'
   };
 
@@ -9994,16 +8975,6 @@ export namespace Prisma {
   };
 
   export type Role_permissionScalarFieldEnum = (typeof Role_permissionScalarFieldEnum)[keyof typeof Role_permissionScalarFieldEnum]
-
-
-  export const SalaryScalarFieldEnum: {
-    guid_salary: 'guid_salary',
-    salary: 'salary',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type SalaryScalarFieldEnum = (typeof SalaryScalarFieldEnum)[keyof typeof SalaryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10357,11 +9328,10 @@ export namespace Prisma {
     lastName?: StringFilter | string
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
+    wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
     user_guid?: StringFilter | string
-    salary_guid?: StringFilter | string
     createdBy?: StringFilter | string
     dept_emp?: Dept_empListRelationFilter
-    salary?: XOR<SalaryRelationFilter, salaryWhereInput>
     user?: XOR<UserRelationFilter, userWhereInput>
   }
 
@@ -10371,11 +9341,10 @@ export namespace Prisma {
     lastName?: SortOrder
     birthDate?: SortOrder
     hire_date?: SortOrder
+    wage?: SortOrder
     user_guid?: SortOrder
-    salary_guid?: SortOrder
     createdBy?: SortOrder
     dept_emp?: dept_empOrderByRelationAggregateInput
-    salary?: salaryOrderByWithRelationInput
     user?: userOrderByWithRelationInput
   }
 
@@ -10389,12 +9358,14 @@ export namespace Prisma {
     lastName?: SortOrder
     birthDate?: SortOrder
     hire_date?: SortOrder
+    wage?: SortOrder
     user_guid?: SortOrder
-    salary_guid?: SortOrder
     createdBy?: SortOrder
     _count?: employeesCountOrderByAggregateInput
+    _avg?: employeesAvgOrderByAggregateInput
     _max?: employeesMaxOrderByAggregateInput
     _min?: employeesMinOrderByAggregateInput
+    _sum?: employeesSumOrderByAggregateInput
   }
 
   export type employeesScalarWhereWithAggregatesInput = {
@@ -10406,8 +9377,8 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter | string
     birthDate?: DateTimeWithAggregatesFilter | Date | string
     hire_date?: DateTimeWithAggregatesFilter | Date | string
+    wage?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     user_guid?: StringWithAggregatesFilter | string
-    salary_guid?: StringWithAggregatesFilter | string
     createdBy?: StringWithAggregatesFilter | string
   }
 
@@ -10464,51 +9435,6 @@ export namespace Prisma {
     emp_guid?: StringWithAggregatesFilter | string
     from_date?: DateTimeWithAggregatesFilter | Date | string
     to_date?: DateTimeWithAggregatesFilter | Date | string
-    createdAt?: DateTimeWithAggregatesFilter | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string
-  }
-
-  export type salaryWhereInput = {
-    AND?: Enumerable<salaryWhereInput>
-    OR?: Enumerable<salaryWhereInput>
-    NOT?: Enumerable<salaryWhereInput>
-    guid_salary?: StringFilter | string
-    salary?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    employees?: EmployeesListRelationFilter
-  }
-
-  export type salaryOrderByWithRelationInput = {
-    guid_salary?: SortOrder
-    salary?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    employees?: employeesOrderByRelationAggregateInput
-  }
-
-  export type salaryWhereUniqueInput = {
-    guid_salary?: string
-  }
-
-  export type salaryOrderByWithAggregationInput = {
-    guid_salary?: SortOrder
-    salary?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: salaryCountOrderByAggregateInput
-    _avg?: salaryAvgOrderByAggregateInput
-    _max?: salaryMaxOrderByAggregateInput
-    _min?: salaryMinOrderByAggregateInput
-    _sum?: salarySumOrderByAggregateInput
-  }
-
-  export type salaryScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<salaryScalarWhereWithAggregatesInput>
-    OR?: Enumerable<salaryScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<salaryScalarWhereWithAggregatesInput>
-    guid_salary?: StringWithAggregatesFilter | string
-    salary?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -10875,9 +9801,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     createdBy: string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    salary: salaryCreateNestedOneWithoutEmployeesInput
     user: userCreateNestedOneWithoutEmployeesInput
   }
 
@@ -10887,8 +9813,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     user_guid: string
-    salary_guid: string
     createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
@@ -10899,9 +9825,9 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    salary?: salaryUpdateOneRequiredWithoutEmployeesNestedInput
     user?: userUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
@@ -10911,8 +9837,8 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    salary_guid?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
@@ -10923,8 +9849,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     user_guid: string
-    salary_guid: string
     createdBy: string
   }
 
@@ -10934,6 +9860,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10943,8 +9870,8 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    salary_guid?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
   }
 
@@ -11012,59 +9939,6 @@ export namespace Prisma {
     emp_guid?: StringFieldUpdateOperationsInput | string
     from_date?: DateTimeFieldUpdateOperationsInput | Date | string
     to_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type salaryCreateInput = {
-    guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesCreateNestedManyWithoutSalaryInput
-  }
-
-  export type salaryUncheckedCreateInput = {
-    guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesUncheckedCreateNestedManyWithoutSalaryInput
-  }
-
-  export type salaryUpdateInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUpdateManyWithoutSalaryNestedInput
-  }
-
-  export type salaryUncheckedUpdateInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUncheckedUpdateManyWithoutSalaryNestedInput
-  }
-
-  export type salaryCreateManyInput = {
-    guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type salaryUpdateManyMutationInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type salaryUncheckedUpdateManyInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11336,9 +10210,15 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type SalaryRelationFilter = {
-    is?: salaryWhereInput
-    isNot?: salaryWhereInput
+  export type DecimalFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
   }
 
   export type employeesCountOrderByAggregateInput = {
@@ -11347,9 +10227,13 @@ export namespace Prisma {
     lastName?: SortOrder
     birthDate?: SortOrder
     hire_date?: SortOrder
+    wage?: SortOrder
     user_guid?: SortOrder
-    salary_guid?: SortOrder
     createdBy?: SortOrder
+  }
+
+  export type employeesAvgOrderByAggregateInput = {
+    wage?: SortOrder
   }
 
   export type employeesMaxOrderByAggregateInput = {
@@ -11358,8 +10242,8 @@ export namespace Prisma {
     lastName?: SortOrder
     birthDate?: SortOrder
     hire_date?: SortOrder
+    wage?: SortOrder
     user_guid?: SortOrder
-    salary_guid?: SortOrder
     createdBy?: SortOrder
   }
 
@@ -11369,9 +10253,29 @@ export namespace Prisma {
     lastName?: SortOrder
     birthDate?: SortOrder
     hire_date?: SortOrder
+    wage?: SortOrder
     user_guid?: SortOrder
-    salary_guid?: SortOrder
     createdBy?: SortOrder
+  }
+
+  export type employeesSumOrderByAggregateInput = {
+    wage?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter = {
+    equals?: Decimal | DecimalJsLike | number | string
+    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
+    lt?: Decimal | DecimalJsLike | number | string
+    lte?: Decimal | DecimalJsLike | number | string
+    gt?: Decimal | DecimalJsLike | number | string
+    gte?: Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter
+    _avg?: NestedDecimalFilter
+    _sum?: NestedDecimalFilter
+    _min?: NestedDecimalFilter
+    _max?: NestedDecimalFilter
   }
 
   export type DepartmentsRelationFilter = {
@@ -11412,62 +10316,6 @@ export namespace Prisma {
     to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DecimalFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalFilter | Decimal | DecimalJsLike | number | string
-  }
-
-  export type salaryCountOrderByAggregateInput = {
-    guid_salary?: SortOrder
-    salary?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type salaryAvgOrderByAggregateInput = {
-    salary?: SortOrder
-  }
-
-  export type salaryMaxOrderByAggregateInput = {
-    guid_salary?: SortOrder
-    salary?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type salaryMinOrderByAggregateInput = {
-    guid_salary?: SortOrder
-    salary?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type salarySumOrderByAggregateInput = {
-    salary?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter = {
-    equals?: Decimal | DecimalJsLike | number | string
-    in?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<DecimalJsLike> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | DecimalJsLike | number | string
-    lte?: Decimal | DecimalJsLike | number | string
-    gt?: Decimal | DecimalJsLike | number | string
-    gte?: Decimal | DecimalJsLike | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
   }
 
   export type employeesCreateNestedManyWithoutUserInput = {
@@ -11793,12 +10641,6 @@ export namespace Prisma {
     connect?: Enumerable<dept_empWhereUniqueInput>
   }
 
-  export type salaryCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<salaryCreateWithoutEmployeesInput, salaryUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: salaryCreateOrConnectWithoutEmployeesInput
-    connect?: salaryWhereUniqueInput
-  }
-
   export type userCreateNestedOneWithoutEmployeesInput = {
     create?: XOR<userCreateWithoutEmployeesInput, userUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: userCreateOrConnectWithoutEmployeesInput
@@ -11810,6 +10652,14 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<dept_empCreateOrConnectWithoutEmployeeInput>
     createMany?: dept_empCreateManyEmployeeInputEnvelope
     connect?: Enumerable<dept_empWhereUniqueInput>
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type dept_empUpdateManyWithoutEmployeeNestedInput = {
@@ -11824,14 +10674,6 @@ export namespace Prisma {
     update?: Enumerable<dept_empUpdateWithWhereUniqueWithoutEmployeeInput>
     updateMany?: Enumerable<dept_empUpdateManyWithWhereWithoutEmployeeInput>
     deleteMany?: Enumerable<dept_empScalarWhereInput>
-  }
-
-  export type salaryUpdateOneRequiredWithoutEmployeesNestedInput = {
-    create?: XOR<salaryCreateWithoutEmployeesInput, salaryUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: salaryCreateOrConnectWithoutEmployeesInput
-    upsert?: salaryUpsertWithoutEmployeesInput
-    connect?: salaryWhereUniqueInput
-    update?: XOR<salaryUpdateWithoutEmployeesInput, salaryUncheckedUpdateWithoutEmployeesInput>
   }
 
   export type userUpdateOneRequiredWithoutEmployeesNestedInput = {
@@ -11882,56 +10724,6 @@ export namespace Prisma {
     upsert?: employeesUpsertWithoutDept_empInput
     connect?: employeesWhereUniqueInput
     update?: XOR<employeesUpdateWithoutDept_empInput, employeesUncheckedUpdateWithoutDept_empInput>
-  }
-
-  export type employeesCreateNestedManyWithoutSalaryInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
-    createMany?: employeesCreateManySalaryInputEnvelope
-    connect?: Enumerable<employeesWhereUniqueInput>
-  }
-
-  export type employeesUncheckedCreateNestedManyWithoutSalaryInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
-    createMany?: employeesCreateManySalaryInputEnvelope
-    connect?: Enumerable<employeesWhereUniqueInput>
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type employeesUpdateManyWithoutSalaryNestedInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
-    upsert?: Enumerable<employeesUpsertWithWhereUniqueWithoutSalaryInput>
-    createMany?: employeesCreateManySalaryInputEnvelope
-    set?: Enumerable<employeesWhereUniqueInput>
-    disconnect?: Enumerable<employeesWhereUniqueInput>
-    delete?: Enumerable<employeesWhereUniqueInput>
-    connect?: Enumerable<employeesWhereUniqueInput>
-    update?: Enumerable<employeesUpdateWithWhereUniqueWithoutSalaryInput>
-    updateMany?: Enumerable<employeesUpdateManyWithWhereWithoutSalaryInput>
-    deleteMany?: Enumerable<employeesScalarWhereInput>
-  }
-
-  export type employeesUncheckedUpdateManyWithoutSalaryNestedInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutSalaryInput>, Enumerable<employeesUncheckedCreateWithoutSalaryInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutSalaryInput>
-    upsert?: Enumerable<employeesUpsertWithWhereUniqueWithoutSalaryInput>
-    createMany?: employeesCreateManySalaryInputEnvelope
-    set?: Enumerable<employeesWhereUniqueInput>
-    disconnect?: Enumerable<employeesWhereUniqueInput>
-    delete?: Enumerable<employeesWhereUniqueInput>
-    connect?: Enumerable<employeesWhereUniqueInput>
-    update?: Enumerable<employeesUpdateWithWhereUniqueWithoutSalaryInput>
-    updateMany?: Enumerable<employeesUpdateManyWithWhereWithoutSalaryInput>
-    deleteMany?: Enumerable<employeesScalarWhereInput>
   }
 
   export type NestedStringFilter = {
@@ -12034,9 +10826,9 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     createdBy: string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    salary: salaryCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateWithoutUserInput = {
@@ -12045,7 +10837,7 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    salary_guid: string
+    wage: Decimal | DecimalJsLike | number | string
     createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
@@ -12135,8 +10927,8 @@ export namespace Prisma {
     lastName?: StringFilter | string
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
+    wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
     user_guid?: StringFilter | string
-    salary_guid?: StringFilter | string
     createdBy?: StringFilter | string
   }
 
@@ -12566,25 +11358,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type salaryCreateWithoutEmployeesInput = {
-    guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type salaryUncheckedCreateWithoutEmployeesInput = {
-    guid_salary?: string
-    salary: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type salaryCreateOrConnectWithoutEmployeesInput = {
-    where: salaryWhereUniqueInput
-    create: XOR<salaryCreateWithoutEmployeesInput, salaryUncheckedCreateWithoutEmployeesInput>
-  }
-
   export type userCreateWithoutEmployeesInput = {
     guid_user?: string
     firstName: string
@@ -12628,25 +11401,6 @@ export namespace Prisma {
   export type dept_empUpdateManyWithWhereWithoutEmployeeInput = {
     where: dept_empScalarWhereInput
     data: XOR<dept_empUpdateManyMutationInput, dept_empUncheckedUpdateManyWithoutDept_empInput>
-  }
-
-  export type salaryUpsertWithoutEmployeesInput = {
-    update: XOR<salaryUpdateWithoutEmployeesInput, salaryUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<salaryCreateWithoutEmployeesInput, salaryUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type salaryUpdateWithoutEmployeesInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type salaryUncheckedUpdateWithoutEmployeesInput = {
-    guid_salary?: StringFieldUpdateOperationsInput | string
-    salary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type userUpsertWithoutEmployeesInput = {
@@ -12703,8 +11457,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     createdBy: string
-    salary: salaryCreateNestedOneWithoutEmployeesInput
     user: userCreateNestedOneWithoutEmployeesInput
   }
 
@@ -12714,8 +11468,8 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
+    wage: Decimal | DecimalJsLike | number | string
     user_guid: string
-    salary_guid: string
     createdBy: string
   }
 
@@ -12754,8 +11508,8 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
-    salary?: salaryUpdateOneRequiredWithoutEmployeesNestedInput
     user?: userUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
@@ -12765,57 +11519,9 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    salary_guid?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type employeesCreateWithoutSalaryInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    createdBy: string
-    dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    user: userCreateNestedOneWithoutEmployeesInput
-  }
-
-  export type employeesUncheckedCreateWithoutSalaryInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    user_guid: string
-    createdBy: string
-    dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type employeesCreateOrConnectWithoutSalaryInput = {
-    where: employeesWhereUniqueInput
-    create: XOR<employeesCreateWithoutSalaryInput, employeesUncheckedCreateWithoutSalaryInput>
-  }
-
-  export type employeesCreateManySalaryInputEnvelope = {
-    data: Enumerable<employeesCreateManySalaryInput>
-    skipDuplicates?: boolean
-  }
-
-  export type employeesUpsertWithWhereUniqueWithoutSalaryInput = {
-    where: employeesWhereUniqueInput
-    update: XOR<employeesUpdateWithoutSalaryInput, employeesUncheckedUpdateWithoutSalaryInput>
-    create: XOR<employeesCreateWithoutSalaryInput, employeesUncheckedCreateWithoutSalaryInput>
-  }
-
-  export type employeesUpdateWithWhereUniqueWithoutSalaryInput = {
-    where: employeesWhereUniqueInput
-    data: XOR<employeesUpdateWithoutSalaryInput, employeesUncheckedUpdateWithoutSalaryInput>
-  }
-
-  export type employeesUpdateManyWithWhereWithoutSalaryInput = {
-    where: employeesScalarWhereInput
-    data: XOR<employeesUpdateManyMutationInput, employeesUncheckedUpdateManyWithoutEmployeesInput>
   }
 
   export type employeesCreateManyUserInput = {
@@ -12824,7 +11530,7 @@ export namespace Prisma {
     lastName: string
     birthDate: Date | string
     hire_date: Date | string
-    salary_guid: string
+    wage: Decimal | DecimalJsLike | number | string
     createdBy: string
   }
 
@@ -12848,9 +11554,9 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    salary?: salaryUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
   export type employeesUncheckedUpdateWithoutUserInput = {
@@ -12859,7 +11565,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    salary_guid?: StringFieldUpdateOperationsInput | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
@@ -12870,7 +11576,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    salary_guid?: StringFieldUpdateOperationsInput | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdBy?: StringFieldUpdateOperationsInput | string
   }
 
@@ -13028,38 +11734,6 @@ export namespace Prisma {
     to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type employeesCreateManySalaryInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    user_guid: string
-    createdBy: string
-  }
-
-  export type employeesUpdateWithoutSalaryInput = {
-    guid_employee?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: StringFieldUpdateOperationsInput | string
-    dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    user?: userUpdateOneRequiredWithoutEmployeesNestedInput
-  }
-
-  export type employeesUncheckedUpdateWithoutSalaryInput = {
-    guid_employee?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
-    createdBy?: StringFieldUpdateOperationsInput | string
-    dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
 

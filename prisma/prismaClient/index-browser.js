@@ -112,8 +112,8 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
   lastName: 'lastName',
   birthDate: 'birthDate',
   hire_date: 'hire_date',
+  wage: 'wage',
   user_guid: 'user_guid',
-  salary_guid: 'salary_guid',
   createdBy: 'createdBy'
 });
 
@@ -141,13 +141,6 @@ exports.Prisma.Role_permissionScalarFieldEnum = makeEnum({
   guid_role_perm: 'guid_role_perm',
   permission_guid: 'permission_guid',
   role_guid: 'role_guid',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-});
-
-exports.Prisma.SalaryScalarFieldEnum = makeEnum({
-  guid_salary: 'guid_salary',
-  salary: 'salary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
@@ -191,8 +184,7 @@ exports.Prisma.ModelName = makeEnum({
   role_permission: 'role_permission',
   departments: 'departments',
   employees: 'employees',
-  dept_emp: 'dept_emp',
-  salary: 'salary'
+  dept_emp: 'dept_emp'
 });
 
 /**

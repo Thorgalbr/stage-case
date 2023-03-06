@@ -73,11 +73,10 @@ model employees {
   lastName      String     @db.VarChar(75)
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
+  wage          Decimal
   user_guid     String
-  salary_guid   String
   createdBy     String
   dept_emp      dept_emp[]
-  salary        salary     @relation(fields: [salary_guid], references: [guid_salary])
   user          user       @relation(fields: [user_guid], references: [guid_user])
 }
 
@@ -91,12 +90,4 @@ model dept_emp {
   updatedAt     DateTime    @updatedAt
   departments   departments @relation(fields: [dept_guid], references: [guid_dept])
   employee      employees   @relation(fields: [emp_guid], references: [guid_employee])
-}
-
-model salary {
-  guid_salary String      @id @default(uuid())
-  salary      Decimal
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  employees   employees[]
 }
