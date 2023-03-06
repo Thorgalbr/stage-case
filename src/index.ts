@@ -54,9 +54,6 @@ app.use(permissionRouter);
 import { rolePermRouter } from "./roles-permission/rolePermRoute";
 app.use(rolePermRouter);
 
-import { salRouter } from "./Salary/salaryRoute";
-app.use(salRouter);
-
 // Configurando a criação do servidor com retorno de mensagem no console informando o sucesso
 const port = process.env.API_PORT;
 app.listen(port, () => {
