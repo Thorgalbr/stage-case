@@ -196,8 +196,8 @@ export default {
 					guid_permission: guid_permission,
 				},
 			});
-			// Resposta retorna uma mensagem informando que a permissão foi deletada
-			return res.status(200).json({ Message: "A permissão foi deletada!" });
+			// Resposta retorna a permissão que foi deletada
+			return res.status(200).json(delPermit);
 		} catch (error) {
 			// Caso falhe retorna uma mensagem de erro
 			res.json(400).json({ error:"Ocorreu um erro!" });

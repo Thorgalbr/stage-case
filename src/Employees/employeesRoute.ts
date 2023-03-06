@@ -14,11 +14,11 @@ import employeesController from './employeesController';
     * Rotas da tabela de Funcionários importando dos Controller referente a ela
 */
 
-employeesRouter.post('/employee/:guid_user/:guid_salary', employeesController.createEmployee);
+employeesRouter.post('/employees/add/:guid_user/:guid_salary', employeesController.createEmployee);
 
-employeesRouter.get('/employees', employeesController.findAllEmployees);
+employeesRouter.get('/employees/request', employeesController.findAllEmployees);
 
-employeesRouter.get('/employee/:guid_employee', employeesController.findEmployee);
+employeesRouter.get('/employees/:guid_employee', employeesController.findEmployee);
 
 employeesRouter.patch('/employees/update/:guid_employee/:guid_user/:guid_salary', employeesController.updateEmployee);
 

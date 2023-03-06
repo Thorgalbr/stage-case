@@ -8,6 +8,8 @@
 import express from "express";
 const authRouter = express.Router();
 
+// Importando o authController para a rota de autenticação
+
 import authController from "./authController";
 
 /*

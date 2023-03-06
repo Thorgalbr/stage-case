@@ -25,6 +25,7 @@ export default {
 
 	// Rota de POST/CREATE
 	async createUser(req: Request, res: Response) {
+
 		/*
 			Rota de registro de usuários
 			Formato da rota: "/user/add"
@@ -87,7 +88,7 @@ export default {
 
 		/*
 			Rota de request de todos os usuários
-			Formato da rota: "/users/request"
+			Formato da rota: "/user/request"
 		*/
 
 		try {
@@ -161,7 +162,7 @@ export default {
 			// Validação do dado recebido do params
 			if (!guid_user) {
 				res.status(422).json({ erro: "GUID de usuário obrigatório" });
-			}
+			};
 			// Configurando o prisma para checar a existência do usuário
 			const userGuidCheck = await prisma.user.findUnique({
 				where: {
@@ -242,8 +243,8 @@ export default {
 					guid_user: guid_user,
 				},
 			});
-			// Em caso de sucesso retorna uma mensagem informando que o usuário foi deletado
-			return res.status(200).json({ message: "Usuário Deletado!" });
+			// Em caso de sucesso retorna o usuário que foi deletado
+			return res.status(200).json(userDel);
 		} catch (error) {
 			// Caso falhe retorna uma mensagem de erro
 			res.status(400).json({ error: "Ocorreu um erro!" });

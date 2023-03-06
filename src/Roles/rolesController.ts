@@ -48,15 +48,15 @@ export default {
 			});
 			// Checando a existência do GUID de usuário
 			if (!guidUsrReq) {
-				res.status(422).json({ erro: "O GUID de usuário não existe!" });
+				res.status(404).json({ erro: "O GUID de usuário não existe!" });
 			};
 	
 			// Validação dos dados recebidos do body e do params
 			if (!roleTitle) {
-				res.status(422).json({ erro: "O nome da role é obrigatório!" });
+				res.status(400).json({ erro: "O nome da role é obrigatório!" });
 			};
 			if (!guid_user) {
-				res.status(422).json({ erro: "O GUID de usuário é obrigatório!" });
+				res.status(400).json({ erro: "O GUID de usuário é obrigatório!" });
 			};
 			// Verificando a existência da função
 			let roleTitleCheck = await prisma.role.findUnique({
@@ -66,7 +66,7 @@ export default {
 			});
 			// Caso já exista a função retorna um erro
 			if (roleTitleCheck) {
-				return res.json({ error: "Esta função já existe!" });
+				return res.status(400).json({ error: "Esta função já existe!" });
 			};
 			// Configurando o prisma para registrar a nova função na tabela
 			const regRole = await prisma.role.create({
@@ -116,6 +116,10 @@ export default {
 		try {
 			// Recebendo o guid dos params
 			const guid_role = req.params.guid_role;
+			// Checando se o guid da função chegou no params
+			if(!guid_role){
+				res.status(400).json({ erro:"GUID da função é obrigatório!" });
+			};
 
 			// Configurando o prisma para solicitar os dados filtrado pelo GUID
 			const reqRoleGuid = await prisma.role.findUnique({
@@ -179,10 +183,10 @@ export default {
 
 			// Validação dos dados recebidos do body
 			if (!guid_role || !guid_user) {
-				res.status(422).json({ erro: "O GUID da função e do usuário são obrigatórios!" });
+				res.status(400).json({ erro: "O GUID da função e do usuário são obrigatórios!" });
 			};
 			if (!roleTitle) {
-				res.status(422).json({ erro: "O nome da função é obrigatório!" });
+				res.status(400).json({ erro: "O nome da função é obrigatório!" });
 			};
 
 			// Configurando o prisma para o update dos dados da tabela de funções
@@ -219,7 +223,7 @@ export default {
 
 			// Validação para checar se o guid da função foi recebido
 			if (!guid_role) {
-				res.status(422).json({ erro: "O GUID da função é obrigatório!" });
+				res.status(400).json({ erro: "O GUID da função é obrigatório!" });
 			};
 
 			// Validação da existencia da função a ser deletada
@@ -239,8 +243,8 @@ export default {
 					guid_role: guid_role,
 				},
 			});
-			// Resposta retorna uma mensagem informando que a função foi deletada
-			return res.status(200).json({ message: "Role deletada!" });
+			// Resposta retorna a função que foi deletada
+			return res.status(200).json(delRole);
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });

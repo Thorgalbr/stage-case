@@ -16,15 +16,15 @@ import departmentsController from './departmentsController';
     * Rotas da tabela de Departamentos importando do Controller referente a ela
 */
 
-deptRouter.post('/department/add', departmentsController.createDepartment);
+deptRouter.post('/departments/add', departmentsController.createDepartment);
 
-deptRouter.get('/departments', departmentsController.findAllDepartments);
+deptRouter.get('/departments/request', departmentsController.findAllDepartments);
 
-deptRouter.get('/department/:guid_dept', departmentsController.findDepartment);
+deptRouter.get('/departments/request/:guid_dept', departmentsController.findDepartment);
 
-deptRouter.patch('/department/update/:guid_dept', departmentsController.updateDepartment);
+deptRouter.patch('/departments/update/:guid_dept', departmentsController.updateDepartment);
 
-deptRouter.delete('/department/delete/:guid_dept',departmentsController.deleteDepartment);
+deptRouter.delete('/departments/delete/:guid_dept',departmentsController.deleteDepartment);
 
 // Exportando a rota no código
 

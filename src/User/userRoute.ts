@@ -18,7 +18,7 @@ import userController from "./userController";
 
 userRouter.post("/user/add", userController.createUser);
 
-userRouter.get("/users/request", userController.findAllUsers);
+userRouter.get("/user/request", userController.findAllUsers);
 
 userRouter.get("/user/request/:guid_user", userController.findUser);
 

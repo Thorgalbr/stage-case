@@ -3,6 +3,8 @@
  *						Autor: Thiago Pereira
  */
 
+import { Decimal } from "@prisma/client/runtime";
+
 // Exportando a interface IUser para uso no arquivo userController.ts
 
 export interface IUser {
@@ -19,6 +21,7 @@ export interface IEmployees {
 	lastName: string;
 	birthDate: string;
 	hire_date: string;
+	wage: Decimal;
 }
 
 // Exportando a interface IDeptEmp para uso no arquivo deptemployeesController.ts
