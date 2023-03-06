@@ -32,11 +32,11 @@ export default {
 
 			if (!permGuid) {
 				res.status(422).json({ error: "GUID de permissão não encontrado" });
-			}
+			};
 
 			if (!roleGuid) {
 				res.status(422).json({ error: "GUID de roles não encontrado" });
-			}
+			};
 
 			const rolePermReg = await prisma.role_permission.create({
 				data: {
@@ -47,8 +47,8 @@ export default {
 
 			res.status(201).json(rolePermReg);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllRolePermission(req: Request, res: Response) {
@@ -57,8 +57,8 @@ export default {
 
 			res.status(200).json(rolePermReq);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findRolePermission(req: Request, res: Response) {
@@ -75,7 +75,7 @@ export default {
 				res
 					.status(422)
 					.json({ message: "GUID role/Permission não encontrado" });
-			}
+			};
 
 			const rolePermReqId = await prisma.role_permission.findUnique({
 				where: {
@@ -85,7 +85,7 @@ export default {
 
 			res.status(200).json(rolePermReqId);
 		} catch (error) {
-			res.status(404).json(error);
+			res.status(404).json({ error:"Ocorreu um erro!" });
 		}
 	},
 
@@ -103,7 +103,7 @@ export default {
 				res
 					.status(422)
 					.json({ message: "GUID role/Permission não encontrado" });
-			}
+			};
 
 			const { guid_permission, guid_role } = req.params;
 
@@ -121,11 +121,11 @@ export default {
 
 			if (!permGuid) {
 				res.status(422).json({ error: "GUID de permissão não encontrado" });
-			}
+			};
 
 			if (!roleGuid) {
 				res.status(422).json({ error: "GUID de roles não encontrado" });
-			}
+			};
 
 			const rolePermUpdt = await prisma.role_permission.update({
 				where: {
@@ -139,8 +139,8 @@ export default {
 
 			res.status(201).json(rolePermUpdt);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteRolePermission(req: Request, res: Response) {
@@ -157,7 +157,7 @@ export default {
 				res
 					.status(422)
 					.json({ message: "GUID role/Permission não encontrado" });
-			}
+			};
 
 			const rolePermDel = await prisma.role_permission.delete({
 				where: {
@@ -169,7 +169,7 @@ export default {
 				.status(200)
 				.json({ message: "Dados de role_permission deletados com sucesso" });
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

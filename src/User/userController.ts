@@ -30,11 +30,11 @@ export default {
 
 			if (!firstName || !lastName) {
 				res.status(422).json({ erro: "Nome e sobrenome obrigatorios!" });
-			}
+			};
 
 			if (!email || !password) {
 				res.status(422).json({ erro: "email e senha obrigatorios!" });
-			}
+			};
 
 			let emailCheck = await prisma.user.findUnique({
 				where: {
@@ -44,7 +44,7 @@ export default {
 
 			if (emailCheck) {
 				return res.status(422).json({ error: "Este usuário já existe!" });
-			}
+			};
 
 			const userReg = await prisma.user.create({
 				data: {
@@ -57,8 +57,8 @@ export default {
 
 			return res.status(201).json(userReg);
 		} catch (error) {
-			return res.status(400).json({ error });
-		}
+			return res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllUsers(req: Request, res: Response) {
@@ -67,12 +67,12 @@ export default {
 
 			if (!userReq) {
 				res.status(422).json({ erro: "Usuários não encontrados" });
-			}
+			};
 
 			return res.status(200).json(userReq);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findUser(req: Request, res: Response) {
@@ -87,12 +87,12 @@ export default {
 
 			if (!userReqId) {
 				res.status(422).json({ erro: "Usuário não encontrado" });
-			}
+			};
 
 			return res.status(200).json(userReqId);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updateUser(req: Request, res: Response) {
@@ -101,7 +101,7 @@ export default {
 
 			if (!guid_user) {
 				res.status(422).json({ erro: "Usuário não encontrado" });
-			}
+			};
 
 			const { firstName, lastName, email, password }: IUser = req.body;
 
@@ -109,11 +109,11 @@ export default {
 
 			if (!firstName || !lastName) {
 				res.status(422).json({ erro: "Nome e sobrenome obrigatorios!" });
-			}
+			};
 
 			if (!email || !password) {
 				res.status(422).json({ erro: "email e senha obrigatorios!" });
-			}
+			};
 
 			const userUpdt = await prisma.user.update({
 				where: {
@@ -129,8 +129,8 @@ export default {
 
 			return res.status(201).json(userUpdt);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteUser(req: Request, res: Response) {
@@ -145,7 +145,7 @@ export default {
 
 			return res.status(200).json({ message: "Usuário Deletado!" });
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

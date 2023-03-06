@@ -26,11 +26,11 @@ export default {
 
 			if (!roleTitle) {
 				res.status(422).json({ erro: "O nome da role é obrigatório!" });
-			}
+			};
 
 			if (!user_guid) {
 				res.status(422).json({ erro: "O GUID de usuário é obrigatório!" });
-			}
+			};
 
 			let roleTitleCheck = await prisma.role.findUnique({
 				where: {
@@ -40,7 +40,7 @@ export default {
 
 			if (roleTitleCheck) {
 				return res.json({ error: "Esta role já existe!" });
-			}
+			};
 
 			const regRole = await prisma.role.create({
 				data: {
@@ -51,8 +51,8 @@ export default {
 
 			return res.status(201).json(regRole);
 		} catch (error) {
-			res.status(400).json({ erro: "Não foi possível adicionar a role" });
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllRoles(req: Request, res: Response) {
@@ -61,8 +61,8 @@ export default {
 
 			return res.status(200).json(reqRoles);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findRole(req: Request, res: Response) {
@@ -77,8 +77,8 @@ export default {
 
 			return res.status(200).json(reqRoleGuid);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updateRole(req: Request, res: Response) {
@@ -89,11 +89,11 @@ export default {
 
 			if (!guid_role) {
 				res.status(422).json({ erro: "O GUID da role é obrigatório!" });
-			}
+			};
 
 			if (!roleTitle) {
 				res.status(422).json({ erro: "O nome da role é obrigatório!" });
-			}
+			};
 
 			const updtRole = await prisma.role.update({
 				where: {
@@ -106,8 +106,8 @@ export default {
 
 			return res.status(201).json(updtRole);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteRole(req: Request, res: Response) {
@@ -116,7 +116,7 @@ export default {
 
 			if (!guid_role) {
 				res.status(422).json({ erro: "O GUID da role é obrigatório!" });
-			}
+			};
 
 			const delRole = await prisma.role.delete({
 				where: {
@@ -126,7 +126,7 @@ export default {
 
 			return res.status(200).json({ message: "Role deletada!" });
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

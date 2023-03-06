@@ -42,11 +42,11 @@ export default {
 
 			if (!userReqId) {
 				res.status(422).json({ error: "GUID de usuário inexistente" });
-			}
+			};
 
 			if (!salReqId) {
 				res.status(422).json({ error: "GUID de salário inexistente" });
-			}
+			};
 
 			moment(birthDate, hire_date, "DD-MM-YYYY").format();
 
@@ -78,8 +78,8 @@ export default {
 
 			res.status(201).json(emploReg);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllEmployees(req: Request, res: Response) {
@@ -88,8 +88,8 @@ export default {
 
 			res.status(200).json(emploReq);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findEmployee(req: Request, res: Response) {
@@ -104,7 +104,7 @@ export default {
 
 			if (!checkEmploId) {
 				res.status(422).json({ erro: "Funcionário inexistente" });
-			}
+			};
 
 			const emploReqId = await prisma.employees.findUnique({
 				where: {
@@ -114,8 +114,8 @@ export default {
 
 			res.status(200).json(emploReqId);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updateEmployee(req: Request, res: Response) {
@@ -130,7 +130,7 @@ export default {
 
 			if (!checkEmploId) {
 				res.status(422).json({ erro: "Funcionário inexistente" });
-			}
+			};
 
 			const { firstName, lastName, birthDate, hire_date }: IEmployees =
 				req.body;
@@ -151,11 +151,11 @@ export default {
 
 			if (!userReqId) {
 				res.status(422).json({ error: "GUID de usuário inexistente" });
-			}
+			};
 
 			if (!salReqId) {
 				res.status(422).json({ error: "GUID de salário inexistente" });
-			}
+			};
 
 			moment(birthDate, hire_date, "DD-MM-YYYY").format();
 
@@ -176,8 +176,8 @@ export default {
 
 			res.status(201).json(emploUpdt);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteEmployee(req: Request, res: Response) {
@@ -192,7 +192,7 @@ export default {
 
 			if (!checkEmploId) {
 				res.status(422).json({ erro: "Funcionário inexistente" });
-			}
+			};
 
 			const emploDel = await prisma.employees.delete({
 				where: {
@@ -202,7 +202,7 @@ export default {
 
 			res.status(200).json({ Message: "Funcionário deletado" });
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

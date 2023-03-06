@@ -25,7 +25,7 @@ export default {
 
 			if (checkPermId) {
 				res.status(422).json({ erro: "Esta permissão já existe!" });
-			}
+			};
 
 			const regPermit = await prisma.permission.create({
 				data: {
@@ -35,8 +35,8 @@ export default {
 
 			return res.status(201).json(regPermit);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllPermissions(req: Request, res: Response) {
@@ -45,8 +45,8 @@ export default {
 
 			return res.status(200).json(reqPermit);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findPermission(req: Request, res: Response) {
@@ -61,7 +61,7 @@ export default {
 
 			if (!guidCheckPermit) {
 				res.status(422).json({ error: "Este GUID de permissão não existe" });
-			}
+			};
 
 			const reqPermitId = await prisma.permission.findUnique({
 				where: {
@@ -71,8 +71,8 @@ export default {
 
 			return res.status(200).json(reqPermitId);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updatePermission(req: Request, res: Response) {
@@ -87,7 +87,7 @@ export default {
 
 			if (!guidCheckPermit) {
 				res.status(422).json({ error: "Este GUID de permissão não existe" });
-			}
+			};
 
 			const permTitle: string = req.body;
 
@@ -102,8 +102,8 @@ export default {
 
 			return res.status(201).json(updtPermit);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deletePermission(req: Request, res: Response) {
@@ -118,7 +118,7 @@ export default {
 
 			if (!guidCheckPermit) {
 				res.status(422).json({ error: "Este GUID de permissão não existe" });
-			}
+			};
 
 			const delPermit = await prisma.permission.delete({
 				where: {
@@ -128,7 +128,7 @@ export default {
 
 			return res.status(200).json({ Message: "A permissão foi deletada!" });
 		} catch (error) {
-			res.json(400).json(error);
-		}
+			res.json(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

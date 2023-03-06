@@ -9,6 +9,7 @@ import { Request, Response } from "express";
 
 // Importando o prisma client
 
+import { Decimal } from "@prisma/client/runtime";
 import { prisma } from "../utils/prisma";
 
 // Exportando os controllers para a rota
@@ -16,22 +17,22 @@ import { prisma } from "../utils/prisma";
 export default {
 	async createSalary(req: Request, res: Response) {
 		try {
-			const salary: string = req.body;
+			const salary: Decimal = req.body;
 
 			if (!salary) {
 				res.status(422).json({ erro: "Valor do salário obrigatorio" });
-			}
+			};
 
 			const salReg = await prisma.salary.create({
 				data: {
 					salary: salary,
 				},
 			});
-
+			
 			res.status(201).json(salReg);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllSalary(req: Request, res: Response) {
@@ -40,8 +41,8 @@ export default {
 
 			res.status(200).json(salReq);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findSalary(req: Request, res: Response) {
@@ -50,7 +51,7 @@ export default {
 
 			if (!guid_salary) {
 				res.status(422).json({ erro: "O GUID do salário é obrigatorio" });
-			}
+			};
 
 			const salReqId = await prisma.salary.findUnique({
 				where: {
@@ -60,7 +61,7 @@ export default {
 
 			res.status(200).json(salReqId);
 		} catch (error) {
-			res.status(404).json(error);
+			res.status(404).json({ error:"Ocorreu um erro!" });
 		}
 	},
 
@@ -70,7 +71,7 @@ export default {
 
 			if (!guid_salary) {
 				res.status(422).json({ erro: "O GUID do salário é obrigatorio" });
-			}
+			};
 
 			const checkSalGuid = await prisma.salary.findUnique({
 				where: {
@@ -80,13 +81,13 @@ export default {
 
 			if (!checkSalGuid) {
 				res.status(422).json({ erro: "Salário inexistente" });
-			}
+			};
 
-			const salary: string = req.body;
+			const salary: Decimal = req.body;
 
 			if (!salary) {
 				res.status(422).json({ erro: "Valor do salário obrigatorio" });
-			}
+			};
 
 			const salUpdt = await prisma.salary.update({
 				where: {
@@ -99,7 +100,7 @@ export default {
 
 			res.status(201).json(salUpdt);
 		} catch (error) {
-			res.status(400).json(error);
+			res.status(400).json({ error:"Ocorreu um erro!" });
 		}
 	},
 
@@ -115,7 +116,7 @@ export default {
 
 			if (!checkSalId) {
 				res.status(422).json({ erro: "Salário inexistente" });
-			}
+			};
 
 			const salDel = await prisma.salary.delete({
 				where: {
@@ -125,7 +126,7 @@ export default {
 
 			res.status(200).json({ message: "Salário deletado" });
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

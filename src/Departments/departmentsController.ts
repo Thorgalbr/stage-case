@@ -25,7 +25,7 @@ export default {
 
 			if (checkDeptName) {
 				res.status(422).json({ erro: "Este departamento já existe!" });
-			}
+			};
 
 			const deptReg = await prisma.departments.create({
 				data: {
@@ -35,8 +35,8 @@ export default {
 
 			return res.status(200).json(deptReg);
 		} catch (error) {
-			res.json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllDepartments(req: Request, res: Response) {
@@ -45,8 +45,8 @@ export default {
 
 			return res.status(200).json(deptReq);
 		} catch (error) {
-			res.json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findDepartment(req: Request, res: Response) {
@@ -61,8 +61,8 @@ export default {
 
 			return res.status(200).json(deptReqId);
 		} catch (error) {
-			res.json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updateDepartment(req: Request, res: Response) {
@@ -79,7 +79,7 @@ export default {
 
 			if (!checkDeptId) {
 				res.status(422).json({ erro: "Este departamento não existe!" });
-			}
+			};
 
 			const deptUpdt = await prisma.departments.update({
 				where: {
@@ -92,8 +92,8 @@ export default {
 
 			return res.status(200).json(deptUpdt);
 		} catch (error) {
-			res.json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteDepartment(req: Request, res: Response) {
@@ -108,7 +108,7 @@ export default {
 
 			if (!checkDeptId) {
 				res.status(422).json({ erro: "Este departamento não existe!" });
-			}
+			};
 
 			const deptDel = await prisma.departments.delete({
 				where: {
@@ -118,7 +118,7 @@ export default {
 
 			return deptDel;
 		} catch (error) {
-			res.json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };

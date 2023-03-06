@@ -64,8 +64,8 @@ export default {
 
 			res.status(201).json(deptEmpReg);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findAllDeptEmployees(req: Request, res: Response) {
@@ -74,8 +74,8 @@ export default {
 
 			res.status(200).json(deptEmpReq);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async findDeptEmployee(req: Request, res: Response) {
@@ -94,7 +94,7 @@ export default {
 					.json({
 						message: "GUID de departamentos_funcionarios não existente",
 					});
-			}
+			};
 
 			const deptEmpReqId = await prisma.dept_emp.findUnique({
 				where: {
@@ -104,8 +104,8 @@ export default {
 
 			res.status(200).json(deptEmpReqId);
 		} catch (error) {
-			res.status(404).json(error);
-		}
+			res.status(404).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async updateDeptEmployee(req: Request, res: Response) {
@@ -122,7 +122,7 @@ export default {
 				res
 					.status(422)
 					.json({ erro: "GUID de departamentos_funcionarios não encontrado" });
-			}
+			};
 
 			const { guid_dept, guid_employee } = req.params;
 
@@ -134,7 +134,7 @@ export default {
 
 			if (!deptGuid) {
 				res.status(422).json({ erro: "GUID do departamento obrigatorio" });
-			}
+			};
 
 			const empGuid = await prisma.employees.findUnique({
 				where: {
@@ -144,7 +144,7 @@ export default {
 
 			if (!empGuid) {
 				res.status(422).json({ erro: "GUID dos funcionários obrigatorio" });
-			}
+			};
 
 			const { from_date, to_date }: IDeptEmp = req.body;
 
@@ -164,8 +164,8 @@ export default {
 
 			res.status(201).json(deptEmpUpdt);
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 
 	async deleteDeptEmployee(req: Request, res: Response) {
@@ -182,7 +182,7 @@ export default {
 				res
 					.status(422)
 					.json({ erro: "GUID de departamentos_funcionarios não encontrado" });
-			}
+			};
 
 			const deptEmpDel = await prisma.dept_emp.delete({
 				where: {
@@ -196,7 +196,7 @@ export default {
 					message: "dados de Departamento/Employee deletados com sucesso!",
 				});
 		} catch (error) {
-			res.status(400).json(error);
-		}
+			res.status(400).json({ error:"Ocorreu um erro!" });
+		};
 	},
 };
