@@ -41,6 +41,12 @@ export default {
 
 			// Recebendo os guids do params
 			const { guid_dept, guid_employee } = req.params;
+			
+			// Validação do recebimento do params
+			if(!guid_dept || !guid_employee) {
+				res.status(400).json({ erro:"GUID de departamento ou funcionário não encontrado" });
+				return;
+			};
 
 			// Checando a existencia desses guids de departamentos e funcionários
 			const deptGuid = await prisma.departments.findUnique({
@@ -59,7 +65,7 @@ export default {
 				return;
 			};
 			// Recebendo os dados do body
-			const { from_date, to_date }: IDeptEmp = req.body;
+			let { from_date, to_date }: IDeptEmp = req.body;
 			// Checando o recebimento dos dados do body
 			if(!from_date || !to_date){
 				res.status(400).json({erro:"As datas de início e de término são obrigatórias"});
@@ -67,7 +73,8 @@ export default {
 			};
 
 			// Configurando o moment para manipular as datas
-			moment(from_date, to_date, "DD-MM-YYYY").format();
+			from_date = moment(from_date, "DD-MM-YYYY").format();
+			to_date = moment(to_date, "DD-MM-YYYY").format();
 			
 			// Configurando o prisma para criar os dados
 			const deptEmpReg = await prisma.dept_emp.create({
@@ -139,9 +146,13 @@ export default {
 				return;
 			};
 			// Configurando o prisma para retornar o dado pelo GUID
-			const deptEmpReqId = await prisma.dept_emp.findUnique({
+			const deptEmpReqId = await prisma.dept_emp.findMany({
 				where: {
 					guid_dept_emp: guid_dept_emp,
+				},
+				include: {
+					departments: true,
+					employee: true,
 				},
 			});
 			// Resposta retorna o dado solicitado
@@ -170,6 +181,11 @@ export default {
 			// Recebendo o GUID dos params
 			const { guid_dept_emp } = req.params;
 
+			if(!guid_dept_emp) {
+				res.status(404).json({ erro:"GUID de junção dept-funcionário não encontrado" });
+				return;
+			};
+
 			// Validação da recepção do GUID
 			if (!guid_dept_emp) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
@@ -191,6 +207,11 @@ export default {
 
 			// Recebendo os guids de permissão e função do params
 			const { guid_dept, guid_employee } = req.params;
+
+			if(!guid_dept || !guid_employee) {
+				res.status(400).json({ erro:"GUID de departamento ou funcionário não encontrado" });
+				return;
+			};
 
 			// Validando se os guids existem
 			const deptGuid = await prisma.departments.findUnique({
@@ -214,7 +235,7 @@ export default {
 			};
 
 			// Recebendo os dados do body
-			const { from_date, to_date }: IDeptEmp = req.body;
+			let { from_date, to_date }: IDeptEmp = req.body;
 			
 			// Checando o recebimento dos dados do body
 			if(!from_date || !to_date){
@@ -223,7 +244,8 @@ export default {
 			};
 
 			// Configurando o moment para manipular as datas
-			moment(from_date, to_date, "DD-MM-YYYY").format();
+			from_date = moment(from_date, "DD-MM-YYYY").format();
+			to_date = moment(to_date, "DD-MM-YYYY").format();
 
 			// Configurando o prisma para atualizar os dados da tabela
 			const deptEmpUpdt = await prisma.dept_emp.update({

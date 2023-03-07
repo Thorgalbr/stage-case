@@ -111,9 +111,13 @@ export default {
 				return;
 			};
 			// Configurando o prisma para retornar o dado pelo GUID
-			const rolePermReqId = await prisma.role_permission.findUnique({
+			const rolePermReqId = await prisma.role_permission.findMany({
 				where: {
 					guid_role_perm: guid_role_perm,
+				},
+				include: {
+					role: true,
+					permission:  true,
 				},
 			});
 			// Resposta retorna o dado solicitado
