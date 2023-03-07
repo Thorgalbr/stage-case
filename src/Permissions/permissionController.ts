@@ -30,7 +30,7 @@ export default {
 
 		try {
 			// Recebendo os dados do body para registro
-			const permTitle: string = req.body;
+			const permTitle: string = req.body.permTitle;
 			// Validando o dado recebido do body
 			if(!permTitle){
 				res.status(400).json( {erro:"O nome da permissão é obrigatório"} );
@@ -134,7 +134,7 @@ export default {
 
 		try {
 			// Recebendo a guid de função do params
-			const { guid_permission } = req.params;
+			const guid_permission = req.params.guid_permission;
 
 			// Validação para checar se o guid da função foi recebido
 			if (!guid_permission) {
@@ -154,7 +154,14 @@ export default {
 			};
 
 			// Recebendo o dado do body para atualizar
-			const permTitle: string = req.body;
+			const permTitle: string = req.body.permTitle;
+			
+			// Validando o dado recebido do body
+			if(!permTitle){
+				res.status(400).json({erro: "O nome da permissão é obrigatório"});
+				return;
+			};
+
 			// Configurando o prisma para atualizar o dado
 			const updtPermit = await prisma.permission.update({
 				where: {
@@ -184,7 +191,7 @@ export default {
 
 		try {
 			// Recebendo a guid de função do params
-			const { guid_permission } = req.params;
+			const guid_permission = req.params.guid_permission;
 
 			// Validação para checar se o guid da função foi recebido
 			const guidCheckPermit = await prisma.permission.findUnique({
