@@ -34,7 +34,7 @@ export default {
 				"firstName":"Exemplo",
 				"lastName":"Exemplo",
 				"email":"exemplo@provedor.com",
-				"password_hash":"exemplo"
+				"password":"exemplo"
 			}
  
 		*/
@@ -75,7 +75,7 @@ export default {
 					firstName: firstName,
 					lastName,
 					email,
-					password_hash: hash_password,
+					password: hash_password,
 				},
 			});
 			// Caso obtenha sucesso retorna os dados do usuário cadastrado com o password encriptado
@@ -205,7 +205,7 @@ export default {
 					firstName: firstName,
 					lastName: lastName,
 					email: email,
-					password_hash: hash_password,
+					password: hash_password,
 				},
 			});
 			// Em caso de sucesso retorna os dados atualizados
