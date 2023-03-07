@@ -113,8 +113,9 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
   birthDate: 'birthDate',
   hire_date: 'hire_date',
   wage: 'wage',
-  user_guid: 'user_guid',
-  createdBy: 'createdBy'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  user_guid: 'user_guid'
 });
 
 exports.Prisma.PermissionScalarFieldEnum = makeEnum({

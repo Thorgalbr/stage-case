@@ -93,8 +93,9 @@ export type employees = {
   birthDate: Date
   hire_date: Date
   wage: Prisma.Decimal
+  createdAt: Date
+  updatedAt: Date
   user_guid: string
-  createdBy: string
 }
 
 /**
@@ -6948,8 +6949,9 @@ export namespace Prisma {
     birthDate: Date | null
     hire_date: Date | null
     wage: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
     user_guid: string | null
-    createdBy: string | null
   }
 
   export type EmployeesMaxAggregateOutputType = {
@@ -6959,8 +6961,9 @@ export namespace Prisma {
     birthDate: Date | null
     hire_date: Date | null
     wage: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
     user_guid: string | null
-    createdBy: string | null
   }
 
   export type EmployeesCountAggregateOutputType = {
@@ -6970,8 +6973,9 @@ export namespace Prisma {
     birthDate: number
     hire_date: number
     wage: number
+    createdAt: number
+    updatedAt: number
     user_guid: number
-    createdBy: number
     _all: number
   }
 
@@ -6991,8 +6995,9 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
+    createdAt?: true
+    updatedAt?: true
     user_guid?: true
-    createdBy?: true
   }
 
   export type EmployeesMaxAggregateInputType = {
@@ -7002,8 +7007,9 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
+    createdAt?: true
+    updatedAt?: true
     user_guid?: true
-    createdBy?: true
   }
 
   export type EmployeesCountAggregateInputType = {
@@ -7013,8 +7019,9 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
+    createdAt?: true
+    updatedAt?: true
     user_guid?: true
-    createdBy?: true
     _all?: true
   }
 
@@ -7112,8 +7119,9 @@ export namespace Prisma {
     birthDate: Date
     hire_date: Date
     wage: Decimal
+    createdAt: Date
+    updatedAt: Date
     user_guid: string
-    createdBy: string
     _count: EmployeesCountAggregateOutputType | null
     _avg: EmployeesAvgAggregateOutputType | null
     _sum: EmployeesSumAggregateOutputType | null
@@ -7142,8 +7150,9 @@ export namespace Prisma {
     birthDate?: boolean
     hire_date?: boolean
     wage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user_guid?: boolean
-    createdBy?: boolean
     dept_emp?: boolean | employees$dept_empArgs
     user?: boolean | userArgs
     _count?: boolean | EmployeesCountOutputTypeArgs
@@ -8930,8 +8939,9 @@ export namespace Prisma {
     birthDate: 'birthDate',
     hire_date: 'hire_date',
     wage: 'wage',
-    user_guid: 'user_guid',
-    createdBy: 'createdBy'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    user_guid: 'user_guid'
   };
 
   export type EmployeesScalarFieldEnum = (typeof EmployeesScalarFieldEnum)[keyof typeof EmployeesScalarFieldEnum]
@@ -9329,8 +9339,9 @@ export namespace Prisma {
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
     wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
-    createdBy?: StringFilter | string
     dept_emp?: Dept_empListRelationFilter
     user?: XOR<UserRelationFilter, userWhereInput>
   }
@@ -9342,8 +9353,9 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user_guid?: SortOrder
-    createdBy?: SortOrder
     dept_emp?: dept_empOrderByRelationAggregateInput
     user?: userOrderByWithRelationInput
   }
@@ -9359,8 +9371,9 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user_guid?: SortOrder
-    createdBy?: SortOrder
     _count?: employeesCountOrderByAggregateInput
     _avg?: employeesAvgOrderByAggregateInput
     _max?: employeesMaxOrderByAggregateInput
@@ -9378,8 +9391,9 @@ export namespace Prisma {
     birthDate?: DateTimeWithAggregatesFilter | Date | string
     hire_date?: DateTimeWithAggregatesFilter | Date | string
     wage?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
     user_guid?: StringWithAggregatesFilter | string
-    createdBy?: StringWithAggregatesFilter | string
   }
 
   export type dept_empWhereInput = {
@@ -9802,7 +9816,8 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
     user: userCreateNestedOneWithoutEmployeesInput
   }
@@ -9814,8 +9829,9 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user_guid: string
-    createdBy: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -9826,7 +9842,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
     user?: userUpdateOneRequiredWithoutEmployeesNestedInput
   }
@@ -9838,8 +9855,9 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    createdBy?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
@@ -9850,8 +9868,9 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user_guid: string
-    createdBy: string
   }
 
   export type employeesUpdateManyMutationInput = {
@@ -9861,7 +9880,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type employeesUncheckedUpdateManyInput = {
@@ -9871,8 +9891,9 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    createdBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type dept_empCreateInput = {
@@ -10228,8 +10249,9 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user_guid?: SortOrder
-    createdBy?: SortOrder
   }
 
   export type employeesAvgOrderByAggregateInput = {
@@ -10243,8 +10265,9 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user_guid?: SortOrder
-    createdBy?: SortOrder
   }
 
   export type employeesMinOrderByAggregateInput = {
@@ -10254,8 +10277,9 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user_guid?: SortOrder
-    createdBy?: SortOrder
   }
 
   export type employeesSumOrderByAggregateInput = {
@@ -10827,7 +10851,8 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
   }
 
@@ -10838,7 +10863,8 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -10928,8 +10954,9 @@ export namespace Prisma {
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
     wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
-    createdBy?: StringFilter | string
   }
 
   export type tokensUpsertWithWhereUniqueWithoutUserInput = {
@@ -11458,7 +11485,8 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: userCreateNestedOneWithoutEmployeesInput
   }
 
@@ -11469,8 +11497,9 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user_guid: string
-    createdBy: string
   }
 
   export type employeesCreateOrConnectWithoutDept_empInput = {
@@ -11509,7 +11538,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
@@ -11520,8 +11550,9 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
-    createdBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type employeesCreateManyUserInput = {
@@ -11531,7 +11562,8 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tokensCreateManyUserInput = {
@@ -11555,7 +11587,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
   }
 
@@ -11566,7 +11599,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
@@ -11577,7 +11611,8 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type tokensUpdateWithoutUserInput = {

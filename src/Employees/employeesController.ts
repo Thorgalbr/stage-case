@@ -42,11 +42,13 @@ export default {
 		*/
 
 		try {
-			// Recebendo os dados para registro do body
-			const { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
-			// Recebendo os guids do params
-			const { guid_user } = req.params;
+			// Recebendo os dados do body para registro
+			let { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
 
+			// Recebendo os guids do params
+			const guid_user  = req.params.guid_user;
+
+			// Validação dos dados vindos do body
 			if(!firstName || !lastName){
 				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
 				return;
@@ -75,7 +77,9 @@ export default {
 			};
 
 			// Configurando o moment para manipular as datas
-			moment(birthDate, hire_date, "DD-MM-YYYY").format();
+			birthDate = moment(birthDate, "DD-MM-YYYY").format();
+			hire_date = moment(hire_date, "DD-MM-YYYY").format();
+
 
 			// Configurando o prisma para cadastrar o funcionário
 			const emploReg = await prisma.employees.create({
@@ -86,10 +90,31 @@ export default {
 					hire_date: hire_date,
 					wage: wage,
 					user_guid: guid_user,
-					createdBy: guid_user,
 				    },
+					select: {
+						guid_employee: true,
+						firstName: true,
+						lastName: true,
+						birthDate: true,
+						hire_date: true,
+						wage: true,
+						user:{
+							select: {
+								guid_user: true,
+								firstName: true,
+								lastName: true,
+								role: {
+									select: {
+										roleTitle: true,
+									},
+								},
+							},
+						},
+					},
 			});
-			// Resposta retorna o usuário cadastrado
+
+			
+			// Resposta retorna o funcionário cadastrado + o usuário que cadastrou
 			res.status(201).json(emploReg);
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
@@ -129,7 +154,7 @@ export default {
 		try {
 			
 			// Recebendo o GUID do funcionário dos params
-			const { guid_employee } = req.params;
+			const guid_employee = req.params.guid_employee;
 
 			// Validação da recepção do GUID do usuário
 			if (!guid_employee) {
@@ -176,7 +201,7 @@ export default {
 
 		try {
 			// Recebendo o GUID do usuario dos params
-			const { guid_employee } = req.params;
+			const guid_employee = req.params.guid_employee;
 
 			// Validação do dado recebido do params
 			if (!guid_employee) {
@@ -195,9 +220,30 @@ export default {
 			};
 
 			// Recebendo os dados do body
-			const { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
+			let { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
+
+			// Validação dos dados vindos do body
+			if(!firstName || !lastName){
+				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
+				return;
+			};
+			
+			if(!birthDate || !hire_date) {
+				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias" });
+				return;
+			};
+			if(!wage) {
+				res.status(400).json({ error: "Salário obrigatório" });
+				return;
+			};
+			
 			// Recebendo os dados do params
-			const { guid_user, guid_salary } = req.params;
+			const guid_user = req.params.guid_user;
+
+			if(!guid_user) {
+				res.status(400).json({ error: "GUID do usuário obrigatório" });
+				return;
+			};
 			// Buscando o guid_user e o guid_salary das tabelas referentes
 			const userReqId = await prisma.user.findUnique({
 				where: {
@@ -211,7 +257,9 @@ export default {
 			};
 
 			// Configurando o moment para manipular as datas
-			moment(birthDate, hire_date, "DD-MM-YYYY").format();
+			birthDate = moment(birthDate, "DD-MM-YYYY").format();
+			hire_date = moment(hire_date, "DD-MM-YYYY").format();
+
 			// Configurando o prisma para atualizar os dados da tabela de funcionários
 			const emploUpdt = await prisma.employees.update({
 				where: {
@@ -222,10 +270,29 @@ export default {
 					lastName: lastName,
 					birthDate: birthDate,
 					hire_date: hire_date,
-					wage: wage, 
+					wage: wage,
 					user_guid: guid_user,
-					createdBy: guid_user,
-				},
+				    },
+					select: {
+						guid_employee: true,
+						firstName: true,
+						lastName: true,
+						birthDate: true,
+						hire_date: true,
+						wage: true,
+						user:{
+							select: {
+								guid_user: true,
+								firstName: true,
+								lastName: true,
+								role: {
+									select: {
+										roleTitle: true,
+									},
+								},
+							},
+						},
+					},
 			});
 			// Resposta retorna os dados atualizados
 			res.status(201).json(emploUpdt);
@@ -248,7 +315,7 @@ export default {
 
 		try {
 			// Recebendo o GUID do funcionário do params
-			const { guid_employee } = req.params;
+			const guid_employee = req.params.guid_employee;
 
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido
 			if (!guid_employee) {

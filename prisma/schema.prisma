@@ -73,9 +73,10 @@ model employees {
   lastName      String     @db.VarChar(75)
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
-  wage          Decimal
+  wage          Decimal    @db.Money
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   user_guid     String
-  createdBy     String
   dept_emp      dept_emp[]
   user          user       @relation(fields: [user_guid], references: [guid_user])
 }
