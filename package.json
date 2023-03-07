@@ -4,7 +4,7 @@
   "description": "Stage Case",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/server.ts"
   },
   "repository": {
     "type": "git",
