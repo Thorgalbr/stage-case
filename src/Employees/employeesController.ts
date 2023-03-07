@@ -48,14 +48,17 @@ export default {
 			const { guid_user } = req.params;
 
 			if(!firstName || !lastName){
-				res.status(422).json({ error: "Nome e sobrenome obrigatórios!" });
+				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
+				return;
 			};
 
 			if(!birthDate || !hire_date) {
-				res.status(422).json({ error: "Datas de nascimento e contratação obrigatórias" });
+				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias" });
+				return;
 			};
 			if(!wage) {
-				res.status(422).json({ error: "Salário obrigatório" });
+				res.status(400).json({ error: "Salário obrigatório" });
+				return;
 			};
 
 			// Configurando o prisma para buscar os guids de user e salario
@@ -67,7 +70,8 @@ export default {
 
 			// Validação do recebimento da guid, retorna erro se nao for recebido
 			if (!userReqId) {
-				res.status(422).json({ error: "GUID de usuário inexistente" });
+				res.status(404).json({ error: "GUID de usuário inexistente" });
+				return;
 			};
 
 			// Configurando o moment para manipular as datas
@@ -93,6 +97,7 @@ export default {
 		};
 	},
 
+	// Rota de GET/REQUEST
 	async findAllEmployees(req: Request, res: Response) {
 
 		/*
@@ -128,7 +133,8 @@ export default {
 
 			// Validação da recepção do GUID do usuário
 			if (!guid_employee) {
-				res.status(422).json({ erro: "O GUID do funcionário é obrigatorio" });
+				res.status(400).json({ erro: "O GUID do funcionário é obrigatorio" });
+				return;
 			};
 
 			// Configurando o prisma para retornar o funcionário pelo guid
@@ -140,6 +146,7 @@ export default {
 			// Caso não encontre retorna uma mensagem de erro
 			if (!emploReqId) {
 				res.status(404).json({ erro: "Funcionário inexistente" });
+				return;
 			};
 			// Resposta retorna os dados referente ao funcionário
 			res.status(200).json(emploReqId);
@@ -173,7 +180,8 @@ export default {
 
 			// Validação do dado recebido do params
 			if (!guid_employee) {
-				res.status(422).json({ erro: "GUID de usuário obrigatório" });
+				res.status(400).json({ erro: "GUID de usuário obrigatório" });
+				return;
 			};
 			// Configurando o prisma e condição para checar a existência do funcionário
 			const checkEmploId = await prisma.employees.findUnique({
@@ -182,7 +190,8 @@ export default {
 				},
 			});
 			if (!checkEmploId) {
-				res.status(422).json({ erro: "Funcionário inexistente" });
+				res.status(404).json({ erro: "Funcionário não existe" });
+				return;
 			};
 
 			// Recebendo os dados do body
@@ -197,7 +206,8 @@ export default {
 			});
 			// Validação da existência desse funcionário
 			if (!userReqId) {
-				res.status(422).json({ error: "GUID de usuário inexistente" });
+				res.status(404).json({ error: "GUID de usuário não existe" });
+				return;
 			};
 
 			// Configurando o moment para manipular as datas
@@ -242,7 +252,8 @@ export default {
 
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido
 			if (!guid_employee) {
-				res.status(422).json({ erro: "GUID de usuário obrigatório" });
+				res.status(400).json({ erro: "GUID de usuário obrigatório" });
+				return;
 			};
 
 			// Configurando o prisma para checar se o funcionário existe
@@ -253,7 +264,8 @@ export default {
 			});
 			// Caso não exista retorna uma mensagem de erro
 			if (!checkEmploId) {
-				res.status(422).json({ erro: "Funcionário inexistente" });
+				res.status(404).json({ erro: "Funcionário não existe" });
+				return;
 			};
 			// Configurando o prisma para deletar o funcionário
 			const emploDel = await prisma.employees.delete({

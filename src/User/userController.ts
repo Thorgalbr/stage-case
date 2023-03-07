@@ -48,11 +48,13 @@ export default {
 
 			// Validação dos dados recebidos do body
 			if (!firstName || !lastName) {
-				res.status(422).json({ erro: "Nome e sobrenome obrigatorios!" });
+				res.status(400).json({ erro: "Nome e sobrenome obrigatorios!" });
+				return;
 			};
 
 			if (!email || !password) {
-				res.status(422).json({ erro: "email e senha obrigatorios!" });
+				res.status(400).json({ erro: "email e senha obrigatorios!" });
+				return;
 			};
 
 			// Validação para checar se o usuário já existe
@@ -63,7 +65,8 @@ export default {
 			});
 			// Se o usuário existir retorna uma mensagem informando
 			if (emailCheck) {
-				return res.status(422).json({ error: "Este usuário já existe!" });
+				res.status(400).json({ error: "Este usuário já existe!" });
+				return;
 			};
 
 			// Configurando o prisma para efetuar o registro do novo usuário
@@ -117,7 +120,8 @@ export default {
 			const guid_user = req.params.guid_user;
 			// Validação da recepção do GUID do usuário
 			if (!guid_user) {
-				res.status(422).json({ erro: "O GUID do usuário é obrigatorio" });
+				res.status(400).json({ erro: "O GUID do usuário é obrigatorio" });
+				return;
 			};
 			// Configurando o prisma para retornar um usuario baseando no GUID
 			const userReqId = await prisma.user.findUnique({
@@ -127,7 +131,8 @@ export default {
 			});
 			// Validação da existência do usuário no banco de dados
 			if (!userReqId) {
-				res.status(422).json({ erro: "Usuário não encontrado" });
+				res.status(400).json({ erro: "Usuário não encontrado" });
+				return;
 			};
 			// Resposta retorna os dados referente ao usuário filtrado
 			return res.status(200).json(userReqId);
@@ -161,7 +166,8 @@ export default {
 			const guid_user = req.params.guid_user;
 			// Validação do dado recebido do params
 			if (!guid_user) {
-				res.status(422).json({ erro: "GUID de usuário obrigatório" });
+				res.status(400).json({ erro: "GUID de usuário obrigatório" });
+				return;
 			};
 			// Configurando o prisma para checar a existência do usuário
 			const userGuidCheck = await prisma.user.findUnique({
@@ -172,6 +178,7 @@ export default {
 			// Caso não exista usuário retorna uma mensagem de erro
 			if (!userGuidCheck) {
 				res.status(404).json({ erro: "Usuário não encontrado!" });
+				return;
 			};
 			// Recebendo os dados do body
 			const { firstName, lastName, email, password }: IUser = req.body;
@@ -180,11 +187,13 @@ export default {
 
 			// Validação da existência dos dados recebidos, retorna erro em caso de falta de dados
 			if (!firstName || !lastName) {
-				res.status(422).json({ erro: "Nome e sobrenome obrigatorios!" });
+				res.status(400).json({ erro: "Nome e sobrenome obrigatorios!" });
+				return;
 			};
 
 			if (!email || !password) {
-				res.status(422).json({ erro: "email e senha obrigatorios!" });
+				res.status(400).json({ erro: "email e senha obrigatorios!" });
+				return;
 			};
 
 			// Configurando o prisma para a atualização dos dados
@@ -223,7 +232,8 @@ export default {
 			const guid_user = req.params.guid_user;
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido
 			if (!guid_user) {
-				res.status(422).json({ erro: "GUID de usuário obrigatório" });
+				res.status(400).json({ erro: "GUID de usuário obrigatório" });
+				return;
 			};
 
 			// Configurando o prisma para checar a existência do usuário
@@ -235,6 +245,7 @@ export default {
 			// Caso não exista usuário retorna uma mensagem de erro
 			if (!userGuidCheck) {
 				res.status(404).json({ erro: "Usuário não encontrado!" });
+				return;
 			};
 
 			// Configurando o prisma para deletar os dados do usuário

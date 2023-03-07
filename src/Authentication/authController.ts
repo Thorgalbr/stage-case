@@ -46,6 +46,7 @@ export default {
 			// Validando a existencia do email e senha para prosseguir
 			if (!email || !password) {
 				res.status(422).json({ erro: "email e senha obrigatorios!" });
+				return;
 			};
 			// Configurando o prisma para checar a existencia do eusuário
 			const user = await prisma.user.findUnique({
@@ -55,7 +56,8 @@ export default {
 			});
 			// Caso não exista usuário, retorna uma mensagem de erro
 			if (!user) {
-				return res.status(422).json({ erro: "Usuário não existe" });
+				res.status(422).json({ erro: "Usuário não existe" });
+				return;
 			};
 
 			// Comparando o password com o registrado na tabela de usuários com a função compare() do bcrypt
@@ -64,6 +66,7 @@ export default {
 			// Caso o password seja invalido, retorna uma mensagem de erro
 			if (!isValidPassword) {
 				res.status(422).json({ erro: "Senha inválida!" });
+				return;
 			};
 
 			// Configurando o token do usuário, token secret e o tempo para o token expirar

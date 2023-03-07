@@ -41,11 +41,9 @@ export default {
 				},
 			});
 			// Caso não os encontre, retorna uma mensagem de erro
-			if (!permGuid) {
-				res.status(404).json({ error: "GUID de permissão não encontrado" });
-			};
-			if (!roleGuid) {
-				res.status(404).json({ error: "GUID de roles não encontrado" });
+			if (!permGuid || !roleGuid) {
+				res.status(404).json({ error: "GUID de permissão ou role não encontrado" });
+				return;
 			};
 
 			// Configurando o prisma para registrar os dados
@@ -99,6 +97,7 @@ export default {
 			// Validação da recepção do GUID
 			if (!guid_role_perm) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 			// Checando a existencia desse GUID
 			const checkRolePermId = await prisma.role_permission.findUnique({
@@ -109,6 +108,7 @@ export default {
 			// Caso não exista retorna uma mensagem de erro
 			if (!checkRolePermId) {
 				res.status(400).json({ message: "GUID Função-Permissão não encontrado" });
+				return;
 			};
 			// Configurando o prisma para retornar o dado pelo GUID
 			const rolePermReqId = await prisma.role_permission.findUnique({
@@ -140,7 +140,8 @@ export default {
 
 			// Validação da recepção do GUID
 			if (!guid_role_perm) {
-			res.status(400).json({ erro: "O GUID é obrigatorio" });
+				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 			// Checando se o GUID existe
 			const checkRolePermId = await prisma.role_permission.findUnique({
@@ -151,6 +152,7 @@ export default {
 			// Caso o guid não exista, retorna uma mensagem de erro
 			if (!checkRolePermId) {
 				res.status(404).json({ message: "GUID role/Permission não encontrado" });
+				return;
 			};
 
 			// Recebendo os guids de permissão e função do params
@@ -168,12 +170,11 @@ export default {
 				},
 			});
 			// Caso não existam, retorna uma mensagem de erro
-			if (!permGuid) {
-				res.status(404).json({ error: "GUID de permissão não encontrado" });
+			if (!permGuid || !roleGuid) {
+				res.status(404).json({ error: "GUID de permissão ou role não encontrado" });
+				return;
 			};
-			if (!roleGuid) {
-				res.status(404).json({ error: "GUID de roles não encontrado" });
-			};
+
 			// Configurando o prisma para atualizar os dados da tabela
 			const rolePermUpdt = await prisma.role_permission.update({
 				where: {
@@ -210,6 +211,7 @@ export default {
 			// Validação da recepção do GUID
 			if (!guid_role_perm) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 
 			// Configurando o prisma para checar se o dado existe

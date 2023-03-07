@@ -11,6 +11,10 @@ import { Request, Response } from "express";
 
 import { prisma } from "../utils/prisma";
 
+// Importando a interface IDepts do arquivo de interfaces
+
+import { IDepts } from "../utils/interfaces";
+
 // Exportando os controllers para a rota
 
 export default {
@@ -30,22 +34,24 @@ export default {
 
 		try {
 			// Recebendo o dado do body para registro
-			const deptName: string = req.body;
+			const { deptName }: IDepts = req.body;
 
 			// Validação do dado recebido do body
 			if(!deptName){
-				res.status(422).json( { mensagem:"O nome do departamento é obrigatório" } );
+				res.status(400).json( { mensagem:"O nome do departamento é obrigatório" } );
+				return;
 			};
 
 			// Checando se o departamento já existe
 			const checkDeptName = await prisma.departments.findUnique({
 				where: {
-					deptName,
+					deptName: deptName,
 				},
 			});
 			// Se existir retorna uma mensagem de erro
 			if (checkDeptName) {
-				res.status(422).json({ erro: "Este departamento já existe!" });
+				res.status(400).json({ erro: "Este departamento já existe!" });
+				return;
 			};
 
 			// Configurando o prisma para efetuar o registro do departamento
@@ -97,7 +103,8 @@ export default {
 			const guid_dept = req.params.guid_dept;
 
 			if(!guid_dept){
-				res.status(422).json({erro:"GUID do Departamento não recebido"})
+				res.status(400).json({erro:"GUID do Departamento não recebido"});
+				return;
 			};
 
 			// Configurando o prisma para buscar o departamento pelo GUID
@@ -133,13 +140,15 @@ export default {
 			const guid_dept = req.params.guid_dept;
 			// Validando se o guid existe na requisição
 			if (!guid_dept) {
-				res.status(422).json({ erro: "GUID do departamento obrigatório" });
+				res.status(400).json({ erro: "GUID do departamento obrigatório" });
+				return;
 			};
 			// Recebendo o dado do body para atualização
-			const deptName: string = req.body;
+			const { deptName }: IDepts = req.body;
 			// Validando se o nome do departamento existe na requisição
 			if (!deptName) {
-				res.status(422).json({ erro: "O nome do departamento é obrigatório" });
+				res.status(400).json({ erro: "O nome do departamento é obrigatório" });
+				return;
 			};
 			// Checando se o departamento existe
 			const checkDeptId = await prisma.departments.findUnique({
@@ -150,6 +159,7 @@ export default {
 			// Caso não exista retorna uma mensagem de erro
 			if (!checkDeptId) {
 				res.status(404).json({ erro: "Este departamento não existe!" });
+				return;
 			};
 
 			// Configurando o prisma para atualizar o departamento
@@ -188,6 +198,7 @@ export default {
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido
 			if (!guid_dept) {
 				res.status(422).json({ erro: "GUID do Departamento obrigatório" });
+				return;
 			};
 			// Checando se o departamento existe
 			const checkDeptId = await prisma.departments.findUnique({
@@ -198,6 +209,7 @@ export default {
 			// Caso não exista, retorna uma mensagem de erro
 			if (!checkDeptId) {
 				res.status(404).json({ erro: "Este departamento não existe!" });
+				return;
 			};
 
 			// Configurando o prisma para deletar o departamento

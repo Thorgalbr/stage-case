@@ -34,6 +34,7 @@ export default {
 			// Validando o dado recebido do body
 			if(!permTitle){
 				res.status(400).json( {erro:"O nome da permissão é obrigatório"} );
+				return;
 			};
 			// Checando para ver se a permissão já existe
 			let checkPermId = await prisma.permission.findUnique({
@@ -44,6 +45,7 @@ export default {
 			// Se existir retorna uma mensagem informando
 			if (checkPermId) {
 				res.status(400).json({ erro: "Esta permissão já existe!" });
+				return;
 			};
 			// Configurando o prisma para registrar a permissão
 			const regPermit = await prisma.permission.create({
@@ -95,6 +97,7 @@ export default {
 
 			if(!guid_permission){
 				res.status(400).json( {erro:"GUID da permissão não recebido"} );
+				return;
 			};
 			// Configurando o prisma para solicitar o dado filtrado pelo GUID
 			const reqPermitId = await prisma.permission.findUnique({
@@ -106,6 +109,7 @@ export default {
 			// Validando se o GUID do dado solicitado existe
 			if (!reqPermitId) {
 				res.status(404).json({ error: "Este GUID de permissão não existe" });
+				return;
 			};
 			// Resposta retorna o dado solicitado
 			return res.status(200).json(reqPermitId);
@@ -135,6 +139,7 @@ export default {
 			// Validação para checar se o guid da função foi recebido
 			if (!guid_permission) {
 				res.status(400).json({ erro: "GUID da permissão não recebido" });
+				return;
 			};
 			// Checando a existencia da permissão na tabela
 			const guidCheckPermit = await prisma.permission.findUnique({
@@ -145,6 +150,7 @@ export default {
 			// Caso não exista retorna uma mensagem de erro
 			if (!guidCheckPermit) {
 				res.status(404).json({ error: "Este GUID de permissão não existe" });
+				return;
 			};
 
 			// Recebendo o dado do body para atualizar
@@ -189,6 +195,7 @@ export default {
 			// Se não receber o GUID retorna uma mensagem de erro
 			if (!guidCheckPermit) {
 				res.status(404).json({ error: "Esta permissão não existe" });
+				return;
 			};
 			// Configurando o prisma para deletar a permissão
 			const delPermit = await prisma.permission.delete({

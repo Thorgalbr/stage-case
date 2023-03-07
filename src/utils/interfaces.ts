@@ -24,6 +24,11 @@ export interface IEmployees {
 	wage: Decimal;
 }
 
+// Exportando a interface IDeptEmp para uso no arquivo departmentsController.ts
+export interface IDepts {
+	deptName: string,
+};
+
 // Exportando a interface IDeptEmp para uso no arquivo deptemployeesController.ts
 
 export interface IDeptEmp {

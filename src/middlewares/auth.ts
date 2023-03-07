@@ -30,6 +30,7 @@ export function authMiddlewares(
 		if (!token) {
 			// Caso o token seja invalido, retorna uma mensagem de erro
 			res.status(401).json({ erro: "Token não informado, usuário não autenticado!" });
+			return;
 		};
 
 		// Configurando a verificação do token e o secret 

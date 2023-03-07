@@ -56,12 +56,14 @@ export default {
 			// Em caso de não receber os Guids, retorna uma mensagem de erro
 			if (!deptGuid || !empGuid) {
 				res.status(400).json({ erro: "GUIDs de departamentos e funcionários obrigatorios" });
+				return;
 			};
 			// Recebendo os dados do body
 			const { from_date, to_date }: IDeptEmp = req.body;
 			// Checando o recebimento dos dados do body
 			if(!from_date || !to_date){
 				res.status(400).json({erro:"As datas de início e de término são obrigatórias"});
+				return;
 			};
 
 			// Configurando o moment para manipular as datas
@@ -123,6 +125,7 @@ export default {
 			// Validação da recepção do GUID
 			if (!guid_dept_emp) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 			// Checando a existencia desse GUID
 			const checkDeptEmpId = await prisma.dept_emp.findUnique({
@@ -132,7 +135,8 @@ export default {
 			});
 			// Caso não exista retorna uma mensagem de erro
 			if (!checkDeptEmpId) {
-				res.status(404).json( {message: "GUID de departamentos_funcionarios não existente"} );
+				res.status(404).json( {message: "GUID de departamentos_funcionarios não existe"} );
+				return;
 			};
 			// Configurando o prisma para retornar o dado pelo GUID
 			const deptEmpReqId = await prisma.dept_emp.findUnique({
@@ -169,6 +173,7 @@ export default {
 			// Validação da recepção do GUID
 			if (!guid_dept_emp) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 
 			// Checando se o GUID existe
@@ -181,6 +186,7 @@ export default {
 			// Caso o guid não exista, retorna uma mensagem de erro
 			if (!checkDeptEmpGuid) {
 				res.status(404).json({ erro: "GUID de departamentos_funcionarios não encontrado" });
+				return;
 			};
 
 			// Recebendo os guids de permissão e função do params
@@ -200,9 +206,11 @@ export default {
 			// Caso não existam, retorna uma mensagem de erro
 			if (!deptGuid) {
 				res.status(400).json({ erro: "GUID do departamento obrigatorio" });
+				return;
 			};
 			if (!empGuid) {
 				res.status(400).json({ erro: "GUID dos funcionários obrigatorio" });
+				return;
 			};
 
 			// Recebendo os dados do body
@@ -211,6 +219,7 @@ export default {
 			// Checando o recebimento dos dados do body
 			if(!from_date || !to_date){
 				res.status(400).json({erro:"As datas de início e de término são obrigatórias"});
+				return;
 			};
 
 			// Configurando o moment para manipular as datas
@@ -254,6 +263,7 @@ export default {
 			// Validação da recepção do GUID
 			if (!guid_dept_emp) {
 				res.status(400).json({ erro: "O GUID é obrigatorio" });
+				return;
 			};
 
 			// Configurando o prisma para checar se o dado existe
@@ -265,6 +275,7 @@ export default {
 			// Caso não exista retorna uma mensagem de erro
 			if (!checkDeptEmpGuid) {
 				res.status(404).json({ erro: "GUID de departamentos_funcionarios não encontrado" });
+				return;
 			};
 
 			// Configurando o prisma para deletar os dados
