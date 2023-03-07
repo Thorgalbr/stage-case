@@ -64,7 +64,6 @@ export type employees = {
 export type projects = {
   guid_projects: string
   name: string
-  description: string
   createdAt: Date
   updatedAt: Date
   user_guid: string
@@ -4196,7 +4195,6 @@ export namespace Prisma {
   export type ProjectsMinAggregateOutputType = {
     guid_projects: string | null
     name: string | null
-    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -4206,7 +4204,6 @@ export namespace Prisma {
   export type ProjectsMaxAggregateOutputType = {
     guid_projects: string | null
     name: string | null
-    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -4216,7 +4213,6 @@ export namespace Prisma {
   export type ProjectsCountAggregateOutputType = {
     guid_projects: number
     name: number
-    description: number
     createdAt: number
     updatedAt: number
     user_guid: number
@@ -4228,7 +4224,6 @@ export namespace Prisma {
   export type ProjectsMinAggregateInputType = {
     guid_projects?: true
     name?: true
-    description?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4238,7 +4233,6 @@ export namespace Prisma {
   export type ProjectsMaxAggregateInputType = {
     guid_projects?: true
     name?: true
-    description?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4248,7 +4242,6 @@ export namespace Prisma {
   export type ProjectsCountAggregateInputType = {
     guid_projects?: true
     name?: true
-    description?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4332,7 +4325,6 @@ export namespace Prisma {
   export type ProjectsGroupByOutputType = {
     guid_projects: string
     name: string
-    description: string
     createdAt: Date
     updatedAt: Date
     user_guid: string
@@ -4359,7 +4351,6 @@ export namespace Prisma {
   export type projectsSelect = {
     guid_projects?: boolean
     name?: boolean
-    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user_guid?: boolean
@@ -6171,7 +6162,6 @@ export namespace Prisma {
   export const ProjectsScalarFieldEnum: {
     guid_projects: 'guid_projects',
     name: 'name',
-    description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     user_guid: 'user_guid',
@@ -6434,7 +6424,6 @@ export namespace Prisma {
     NOT?: Enumerable<projectsWhereInput>
     guid_projects?: StringFilter | string
     name?: StringFilter | string
-    description?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -6447,7 +6436,6 @@ export namespace Prisma {
   export type projectsOrderByWithRelationInput = {
     guid_projects?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6459,12 +6447,12 @@ export namespace Prisma {
 
   export type projectsWhereUniqueInput = {
     guid_projects?: string
+    name?: string
   }
 
   export type projectsOrderByWithAggregationInput = {
     guid_projects?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6480,7 +6468,6 @@ export namespace Prisma {
     NOT?: Enumerable<projectsScalarWhereWithAggregatesInput>
     guid_projects?: StringWithAggregatesFilter | string
     name?: StringWithAggregatesFilter | string
-    description?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     user_guid?: StringWithAggregatesFilter | string
@@ -6813,7 +6800,6 @@ export namespace Prisma {
   export type projectsCreateInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -6824,7 +6810,6 @@ export namespace Prisma {
   export type projectsUncheckedCreateInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6835,7 +6820,6 @@ export namespace Prisma {
   export type projectsUpdateInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -6846,7 +6830,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6857,7 +6840,6 @@ export namespace Prisma {
   export type projectsCreateManyInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6867,7 +6849,6 @@ export namespace Prisma {
   export type projectsUpdateManyMutationInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6875,7 +6856,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateManyInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -7240,7 +7220,6 @@ export namespace Prisma {
   export type projectsCountOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7250,7 +7229,6 @@ export namespace Prisma {
   export type projectsMaxOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7260,7 +7238,6 @@ export namespace Prisma {
   export type projectsMinOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7887,7 +7864,6 @@ export namespace Prisma {
   export type projectsCreateWithoutUserInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     departments: departmentsCreateNestedOneWithoutProjectsInput
@@ -7897,7 +7873,6 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutUserInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_guid: string
@@ -7999,7 +7974,6 @@ export namespace Prisma {
     NOT?: Enumerable<projectsScalarWhereInput>
     guid_projects?: StringFilter | string
     name?: StringFilter | string
-    description?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -8098,7 +8072,6 @@ export namespace Prisma {
   export type projectsCreateWithoutDepartmentsInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -8108,7 +8081,6 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutDepartmentsInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8267,7 +8239,6 @@ export namespace Prisma {
   export type projectsCreateWithoutEmployeesInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -8277,7 +8248,6 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutEmployeesInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8346,7 +8316,6 @@ export namespace Prisma {
   export type projectsUpdateWithoutEmployeesInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -8356,7 +8325,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutEmployeesInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8665,7 +8633,6 @@ export namespace Prisma {
   export type projectsCreateManyUserInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_guid: string
@@ -8723,7 +8690,6 @@ export namespace Prisma {
   export type projectsUpdateWithoutUserInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departments?: departmentsUpdateOneRequiredWithoutProjectsNestedInput
@@ -8733,7 +8699,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutUserInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_guid?: StringFieldUpdateOperationsInput | string
@@ -8743,7 +8708,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateManyWithoutProjectsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_guid?: StringFieldUpdateOperationsInput | string
@@ -8789,7 +8753,6 @@ export namespace Prisma {
   export type projectsCreateManyDepartmentsInput = {
     guid_projects?: string
     name: string
-    description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8825,7 +8788,6 @@ export namespace Prisma {
   export type projectsUpdateWithoutDepartmentsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -8835,7 +8797,6 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutDepartmentsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string

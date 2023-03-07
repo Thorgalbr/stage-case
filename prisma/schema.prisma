@@ -67,8 +67,7 @@ model employees {
 
 model projects {
   guid_projects String      @id @default(uuid())
-  name          String      @db.VarChar(255)
-  description   String      @db.VarChar
+  name          String      @unique @db.VarChar(255)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   user_guid     String

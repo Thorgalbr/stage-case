@@ -125,7 +125,6 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
 exports.Prisma.ProjectsScalarFieldEnum = makeEnum({
   guid_projects: 'guid_projects',
   name: 'name',
-  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   user_guid: 'user_guid',
