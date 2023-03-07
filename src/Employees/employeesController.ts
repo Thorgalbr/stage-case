@@ -28,8 +28,8 @@ export default {
 
 		/*
 			Rota de registro de funcionários
-			Requer o guid_user
-			Formato da rota: "/employee/:guid_user"
+			Requer o guid_user e guid_projects
+			Formato da rota: "/employee/:guid_user/:guid_projects"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -47,6 +47,13 @@ export default {
 
 			// Recebendo os guids do params
 			const guid_user  = req.params.guid_user;
+			// Recebendo os guids do params
+			const guid_projects  = req.params.guid_projects;
+
+			if(!guid_user || !guid_projects){
+				res.status(400).json({ error: "GUID de usuarios e projetos obrigatórios!" });
+				return;
+			};
 
 			// Validação dos dados vindos do body
 			if(!firstName || !lastName){
@@ -63,16 +70,21 @@ export default {
 				return;
 			};
 
-			// Configurando o prisma para buscar os guids de user e salario
+			// Configurando o prisma para buscar os guids de user e projeto
 			const userReqId = await prisma.user.findUnique({
 				where: {
 					guid_user,
 				},
 			});
+			const projReqId = await prisma.projects.findUnique({
+				where: {
+					guid_projects,
+				},
+			});
 
 			// Validação do recebimento da guid, retorna erro se nao for recebido
-			if (!userReqId) {
-				res.status(404).json({ error: "GUID de usuário inexistente" });
+			if (!userReqId || !projReqId) {
+				res.status(404).json({ error: "GUIDs de usuário e projeto inexistentes" });
 				return;
 			};
 
@@ -90,6 +102,7 @@ export default {
 					hire_date: hire_date,
 					wage: wage,
 					user_guid: guid_user,
+					projects_guid: guid_projects,
 				    },
 					select: {
 						guid_employee: true,
@@ -103,11 +116,6 @@ export default {
 								guid_user: true,
 								firstName: true,
 								lastName: true,
-								role: {
-									select: {
-										roleTitle: true,
-									},
-								},
 							},
 						},
 					},
@@ -186,8 +194,8 @@ export default {
 
 		/*
 			Rota de update de funcionários
-			Requer o guid_user
-			Formato da rota: "/employees/update/:guid_employee/:guid_user"
+			Requer o guid_user e guid_projects
+			Formato da rota: "/employee/:guid_user/:guid_projects"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -237,13 +245,16 @@ export default {
 				return;
 			};
 			
-			// Recebendo os dados do params
-			const guid_user = req.params.guid_user;
+			// Recebendo os guids do params
+			const guid_user  = req.params.guid_user;
+			// Recebendo os guids do params
+			const guid_projects  = req.params.guid_projects;
 
-			if(!guid_user) {
-				res.status(400).json({ error: "GUID do usuário obrigatório" });
+			if(!guid_user || !guid_projects){
+				res.status(400).json({ error: "GUID de usuarios e projetos obrigatórios!" });
 				return;
 			};
+
 			// Buscando o guid_user e o guid_salary das tabelas referentes
 			const userReqId = await prisma.user.findUnique({
 				where: {
@@ -285,11 +296,6 @@ export default {
 								guid_user: true,
 								firstName: true,
 								lastName: true,
-								role: {
-									select: {
-										roleTitle: true,
-									},
-								},
 							},
 						},
 					},
