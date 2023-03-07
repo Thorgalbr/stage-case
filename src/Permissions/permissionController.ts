@@ -20,7 +20,7 @@ export default {
 
 		/*
 			Rota de registro de permissões
-			Formato da rota: "/permission/add"
+			Formato da rota: "/permissions/add"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"permTitle":"Admin"
@@ -33,7 +33,7 @@ export default {
 			const permTitle: string = req.body;
 			// Validando o dado recebido do body
 			if(!permTitle){
-				res.status(422).json( {erro:"O nome da permissão é obrigatório"} );
+				res.status(400).json( {erro:"O nome da permissão é obrigatório"} );
 			};
 			// Checando para ver se a permissão já existe
 			let checkPermId = await prisma.permission.findUnique({
@@ -43,7 +43,7 @@ export default {
 			});
 			// Se existir retorna uma mensagem informando
 			if (checkPermId) {
-				res.status(422).json({ erro: "Esta permissão já existe!" });
+				res.status(400).json({ erro: "Esta permissão já existe!" });
 			};
 			// Configurando o prisma para registrar a permissão
 			const regPermit = await prisma.permission.create({
@@ -86,7 +86,7 @@ export default {
 				Rota de request das funções pelo GUID
 			Formato do request requer o GUID da função
 			Formato guid_permission = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/permission/request/:guid_permission"
+			Formato da rota: "/permissions/request/:guid_permission"
 		*/
 
 		try {
@@ -105,7 +105,7 @@ export default {
 
 			// Validando se o GUID do dado solicitado existe
 			if (!reqPermitId) {
-				res.status(422).json({ error: "Este GUID de permissão não existe" });
+				res.status(404).json({ error: "Este GUID de permissão não existe" });
 			};
 			// Resposta retorna o dado solicitado
 			return res.status(200).json(reqPermitId);
@@ -121,7 +121,7 @@ export default {
 			Rota de update de permissões
 			Formato do request requer o GUID da permissão
 			Formato guid_permission = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/permission/update/:guid_permission"
+			Formato da rota: "/permissions/update/:guid_permission"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"permTitle":"Admin"
@@ -134,7 +134,7 @@ export default {
 
 			// Validação para checar se o guid da função foi recebido
 			if (!guid_permission) {
-				res.status(422).json({ erro: "GUID da permissão não recebido" });
+				res.status(400).json({ erro: "GUID da permissão não recebido" });
 			};
 			// Checando a existencia da permissão na tabela
 			const guidCheckPermit = await prisma.permission.findUnique({
@@ -170,10 +170,10 @@ export default {
 	async deletePermission(req: Request, res: Response) {
 
 		/*
-				Rota de delete das permissões
+			Rota de delete das permissões
 			Formato do request requer o GUID da permissão
 			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/permission/delete/:guid_permission"
+			Formato da rota: "/permissions/delete/:guid_permission"
 		*/
 
 		try {
@@ -188,7 +188,7 @@ export default {
 			});
 			// Se não receber o GUID retorna uma mensagem de erro
 			if (!guidCheckPermit) {
-				res.status(422).json({ error: "Esta permissão não existe" });
+				res.status(404).json({ error: "Esta permissão não existe" });
 			};
 			// Configurando o prisma para deletar a permissão
 			const delPermit = await prisma.permission.delete({
@@ -200,7 +200,7 @@ export default {
 			return res.status(200).json(delPermit);
 		} catch (error) {
 			// Caso falhe retorna uma mensagem de erro
-			res.json(400).json({ error:"Ocorreu um erro!" });
+			res.status(400).json({ error:"Ocorreu um erro!" });
 		};
 	},
 };

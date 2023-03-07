@@ -28,8 +28,8 @@ export default {
 
 		/*
 			Rota de registro de funcionários
-			Requer o guid_user + guid_salary
-			Formato da rota: "/employee/:guid_user/:guid_salary"
+			Requer o guid_user
+			Formato da rota: "/employee/:guid_user"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -154,8 +154,8 @@ export default {
 
 		/*
 			Rota de update de funcionários
-			Requer o guid_user + guid_salary
-			Formato da rota: "/employees/update/:guid_employee/:guid_user/:guid_salary"
+			Requer o guid_user
+			Formato da rota: "/employees/update/:guid_employee/:guid_user"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",

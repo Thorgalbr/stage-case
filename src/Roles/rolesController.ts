@@ -23,10 +23,10 @@ export default {
 	async createRole(req: Request, res: Response) {
 
 		/*
-				Rota de registro de funções
+			Rota de registro de funções
 			Formato do request requer o GUID do usuário
 			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/role/add/:user_guid"
+			Formato da rota: "/roles/add/:user_guid"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"roleTitle":"Administrador"
@@ -107,10 +107,10 @@ export default {
 	async findRole(req: Request, res: Response) {
 
 		/*
-				Rota de request das funções pelo GUID
+			Rota de request das funções pelo GUID
 			Formato do request requer o GUID da função
 			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/role/request/:guid_role"
+			Formato da rota: "/roles/request/:guid_role"
 		*/
 
 		try {
@@ -143,10 +143,10 @@ export default {
 	async updateRole(req: Request, res: Response) {
 
 		/*
-				Rota de update de funções
+			Rota de update de funções
 			Formato do request requer o GUID da função e o GUID do usuário
 			Formato guid_role/guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/role/update/:guid_role/:guid_user"
+			Formato da rota: "/roles/update/:guid_role/:guid_user"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"roleTitle":"Administrador"
@@ -211,10 +211,10 @@ export default {
 	async deleteRole(req: Request, res: Response) {
 
 		/*
-				Rota de delete das funções
+			Rota de delete das funções
 			Formato do request requer o GUID da função
 			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/role/delete/:guid_role"
+			Formato da rota: "/roles/delete/:guid_role"
 		*/
 
 		try {
