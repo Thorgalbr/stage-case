@@ -19,7 +19,7 @@ export type user = {
   firstName: string
   lastName: string
   email: string
-  password_hash: string
+  password: string
   role: Role
   status: Status
   createdAt: Date
@@ -1109,7 +1109,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     email: string | null
-    password_hash: string | null
+    password: string | null
     role: Role | null
     status: Status | null
     createdAt: Date | null
@@ -1121,7 +1121,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     email: string | null
-    password_hash: string | null
+    password: string | null
     role: Role | null
     status: Status | null
     createdAt: Date | null
@@ -1133,7 +1133,7 @@ export namespace Prisma {
     firstName: number
     lastName: number
     email: number
-    password_hash: number
+    password: number
     role: number
     status: number
     createdAt: number
@@ -1147,7 +1147,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     email?: true
-    password_hash?: true
+    password?: true
     role?: true
     status?: true
     createdAt?: true
@@ -1159,7 +1159,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     email?: true
-    password_hash?: true
+    password?: true
     role?: true
     status?: true
     createdAt?: true
@@ -1171,7 +1171,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     email?: true
-    password_hash?: true
+    password?: true
     role?: true
     status?: true
     createdAt?: true
@@ -1257,7 +1257,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role: Role
     status: Status
     createdAt: Date
@@ -1286,7 +1286,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     email?: boolean
-    password_hash?: boolean
+    password?: boolean
     role?: boolean
     status?: boolean
     createdAt?: boolean
@@ -6212,7 +6212,7 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     email: 'email',
-    password_hash: 'password_hash',
+    password: 'password',
     role: 'role',
     status: 'status',
     createdAt: 'createdAt',
@@ -6235,7 +6235,7 @@ export namespace Prisma {
     firstName?: StringFilter | string
     lastName?: StringFilter | string
     email?: StringFilter | string
-    password_hash?: StringFilter | string
+    password?: StringFilter | string
     role?: EnumRoleFilter | Role
     status?: EnumStatusFilter | Status
     createdAt?: DateTimeFilter | Date | string
@@ -6250,7 +6250,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
-    password_hash?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -6270,7 +6270,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
-    password_hash?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -6288,7 +6288,7 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter | string
     lastName?: StringWithAggregatesFilter | string
     email?: StringWithAggregatesFilter | string
-    password_hash?: StringWithAggregatesFilter | string
+    password?: StringWithAggregatesFilter | string
     role?: EnumRoleWithAggregatesFilter | Role
     status?: EnumStatusWithAggregatesFilter | Status
     createdAt?: DateTimeWithAggregatesFilter | Date | string
@@ -6549,7 +6549,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -6564,7 +6564,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -6579,7 +6579,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6594,7 +6594,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6609,7 +6609,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -6621,7 +6621,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6633,7 +6633,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7025,7 +7025,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
-    password_hash?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -7037,7 +7037,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
-    password_hash?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -7049,7 +7049,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
-    password_hash?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -8039,7 +8039,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8053,7 +8053,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8135,7 +8135,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8149,7 +8149,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8236,7 +8236,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8250,7 +8250,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8315,7 +8315,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8329,7 +8329,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8368,7 +8368,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8382,7 +8382,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     email: string
-    password_hash: string
+    password: string
     role?: Role
     status?: Status
     createdAt?: Date | string
@@ -8469,7 +8469,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8483,7 +8483,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password_hash?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | Role
     status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
