@@ -26,7 +26,12 @@ export interface IEmployees {
 
 // Exportando a interface IDeptEmp para uso no arquivo departmentsController.ts
 export interface IDepts {
-	deptName: string,
+	deptName: string;
+};
+
+// Exportando a interface IDeptEmp para uso no arquivo departmentsController.ts
+export interface IProjects {
+	name: string;
 };
 
 // Exportando a interface IDeptEmp para uso no arquivo deptemployeesController.ts
