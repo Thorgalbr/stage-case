@@ -24,7 +24,8 @@ export default {
 
 		/*
 			Rota de registro de departamentos
-			Formato da rota: "/department/add"
+			Formato da rota: "/department/add/:guid_user"
+			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"deptName":"Exemplo",
@@ -39,6 +40,14 @@ export default {
 			// Validação do dado recebido do body
 			if(!deptName){
 				res.status(400).json( { mensagem:"O nome do departamento é obrigatório" } );
+				return;
+			};
+
+			// Recebendo o guid_user do params
+			const guid_user = req.params.guid_user;
+			// Validando o recebimento do guid_user
+			if(!guid_user){
+				res.status(400).json( { mensagem:"O GUID do usuário é obrigatório" } );
 				return;
 			};
 
@@ -58,6 +67,7 @@ export default {
 			const deptReg = await prisma.departments.create({
 				data: {
 					deptName: deptName,
+					user_guid: guid_user
 				},
 			});
 			// Resposta retorna o departamento cadastrado
@@ -72,7 +82,7 @@ export default {
 	async findAllDepartments(req: Request, res: Response) {
 
 	/*
-		Rota de request de todos os usuários
+		Rota de request de todos os departamentos
 		Formato da rota: "/departments/request"
 	*/
 
@@ -127,7 +137,8 @@ export default {
 		/*
 			Rota de PATCH/UPDATE dos registros de departamentos
 			Requer o GUID do departamento para atualização
-			Formato da rota: "/departments/update/:guid_dept"
+			Formato guid_user e guid_dept = "8d695e19-3422-4990-b70c-d3772efb9c38"
+			Formato da rota: "/departments/update/:guid_dept/:guid_user"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"deptName":"Exemplo",
@@ -143,6 +154,15 @@ export default {
 				res.status(400).json({ erro: "GUID do departamento obrigatório" });
 				return;
 			};
+
+			// Recebendo o guid_user do params
+			const guid_user = req.params.guid_user;
+			// Validando o recebimento do guid_user
+			if(!guid_user){
+				res.status(400).json( { mensagem:"O GUID do usuário é obrigatório" } );
+				return;
+			};			
+
 			// Recebendo o dado do body para atualização
 			const { deptName }: IDepts = req.body;
 			// Validando se o nome do departamento existe na requisição
@@ -192,7 +212,7 @@ export default {
 
 		try {
 
-			// Recebendo o GUID do usuario dos params
+			// Recebendo o GUID do departamento dos params
 			const guid_dept = req.params.guid_dept;
 
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido

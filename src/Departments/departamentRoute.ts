@@ -16,7 +16,7 @@ import departmentsController from './departmentsController';
     * Rotas da tabela de Departamentos importando do Controller referente a ela
 */
 
-deptRouter.post('/departments/add', departmentsController.createDepartment);
+deptRouter.post('/departments/add/:guid_user', departmentsController.createDepartment);
 
 deptRouter.get('/departments/request', departmentsController.findAllDepartments);
 
