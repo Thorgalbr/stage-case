@@ -9,76 +9,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  Admin
+  Manager
+  Developer
+  RH
+}
+
+enum Status {
+  Active
+  Archived
+}
+
 model user {
-  guid_user String      @id @default(uuid())
-  firstName String      @db.VarChar(75)
-  lastName  String      @db.VarChar(75)
-  email     String      @unique @db.VarChar(150)
-  password  String      @db.VarChar(150)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  employees employees[]
-  tokens    tokens[]
-  role      role[]
-}
-
-model tokens {
-  guid_token String   @id @default(uuid())
-  token      String   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  users_guid String
-  user       user     @relation(fields: [users_guid], references: [guid_user])
-}
-
-model permission {
-  guid_permission String            @id @default(uuid())
-  permTitle       String            @unique @db.VarChar(75)
-  createdAt       DateTime          @default(now())
-  updatetAt       DateTime          @updatedAt
-  role_permission role_permission[]
-}
-
-model role {
-  guid_role       String            @id @default(uuid())
-  roleTitle       String            @unique @db.VarChar(75)
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  user_guid       String
-  user            user              @relation(fields: [user_guid], references: [guid_user])
-  role_permission role_permission[]
-}
-
-model role_permission {
-  guid_role_perm  String     @id @default(uuid())
-  permission_guid String
-  role_guid       String
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  permission      permission @relation(fields: [permission_guid], references: [guid_permission])
-  role            role       @relation(fields: [role_guid], references: [guid_role])
+  guid_user     String        @id @default(uuid())
+  firstName     String        @db.VarChar(255)
+  lastName      String        @db.VarChar(255)
+  email         String        @unique @db.VarChar(255)
+  password_hash String        @db.VarChar(255)
+  role          Role          @default(Developer)
+  status        Status        @default(Archived)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  employees     employees[]
+  projects      projects[]
+  departments   departments[]
 }
 
 model departments {
   guid_dept String     @id @default(uuid())
-  deptName  String     @unique @db.VarChar(75)
+  deptName  String     @unique @db.VarChar(255)
+  status    Status     @default(Archived)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+  user_guid String
+  user      user       @relation(fields: [user_guid], references: [guid_user])
   dept_emp  dept_emp[]
+  projects  projects[]
 }
 
 model employees {
   guid_employee String     @id @default(uuid())
-  firstName     String     @db.VarChar(75)
-  lastName      String     @db.VarChar(75)
+  firstName     String     @db.VarChar(255)
+  lastName      String     @db.VarChar(255)
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
   wage          Decimal    @db.Money
+  status        Status     @default(Archived)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   user_guid     String
+  projects_guid String
   dept_emp      dept_emp[]
   user          user       @relation(fields: [user_guid], references: [guid_user])
+  projects      projects   @relation(fields: [projects_guid], references: [guid_projects])
+}
+
+model projects {
+  guid_projects String      @id @default(uuid())
+  name          String      @db.VarChar(255)
+  description   String      @db.VarChar
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  user_guid     String
+  dept_guid     String
+  user          user        @relation(fields: [user_guid], references: [guid_user])
+  departments   departments @relation(fields: [dept_guid], references: [guid_dept])
+  employees     employees[]
 }
 
 model dept_emp {

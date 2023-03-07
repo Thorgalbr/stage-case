@@ -92,8 +92,10 @@ function makeEnum(x) { return x; }
 exports.Prisma.DepartmentsScalarFieldEnum = makeEnum({
   guid_dept: 'guid_dept',
   deptName: 'deptName',
+  status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  user_guid: 'user_guid'
 });
 
 exports.Prisma.Dept_empScalarFieldEnum = makeEnum({
@@ -113,16 +115,21 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
   birthDate: 'birthDate',
   hire_date: 'hire_date',
   wage: 'wage',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  user_guid: 'user_guid'
+  user_guid: 'user_guid',
+  projects_guid: 'projects_guid'
 });
 
-exports.Prisma.PermissionScalarFieldEnum = makeEnum({
-  guid_permission: 'guid_permission',
-  permTitle: 'permTitle',
+exports.Prisma.ProjectsScalarFieldEnum = makeEnum({
+  guid_projects: 'guid_projects',
+  name: 'name',
+  description: 'description',
   createdAt: 'createdAt',
-  updatetAt: 'updatetAt'
+  updatedAt: 'updatedAt',
+  user_guid: 'user_guid',
+  dept_guid: 'dept_guid'
 });
 
 exports.Prisma.QueryMode = makeEnum({
@@ -130,33 +137,9 @@ exports.Prisma.QueryMode = makeEnum({
   insensitive: 'insensitive'
 });
 
-exports.Prisma.RoleScalarFieldEnum = makeEnum({
-  guid_role: 'guid_role',
-  roleTitle: 'roleTitle',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  user_guid: 'user_guid'
-});
-
-exports.Prisma.Role_permissionScalarFieldEnum = makeEnum({
-  guid_role_perm: 'guid_role_perm',
-  permission_guid: 'permission_guid',
-  role_guid: 'role_guid',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-});
-
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
-});
-
-exports.Prisma.TokensScalarFieldEnum = makeEnum({
-  guid_token: 'guid_token',
-  token: 'token',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  users_guid: 'users_guid'
 });
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
@@ -171,20 +154,29 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'email',
-  password: 'password',
+  password_hash: 'password_hash',
+  role: 'role',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
+exports.Role = makeEnum({
+  Admin: 'Admin',
+  Manager: 'Manager',
+  Developer: 'Developer',
+  RH: 'RH'
+});
 
+exports.Status = makeEnum({
+  Active: 'Active',
+  Archived: 'Archived'
+});
 
 exports.Prisma.ModelName = makeEnum({
   user: 'user',
-  tokens: 'tokens',
-  permission: 'permission',
-  role: 'role',
-  role_permission: 'role_permission',
   departments: 'departments',
   employees: 'employees',
+  projects: 'projects',
   dept_emp: 'dept_emp'
 });
 
