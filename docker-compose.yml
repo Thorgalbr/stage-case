@@ -1,0 +1,12 @@
+version: '1.0'
+
+service:
+  api:
+    build:
+      context: .
+      target: production
+    environment:
+      - DATABASE_URL
+      - API_PORT
+    ports:
+      - 3000:3000
