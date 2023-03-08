@@ -51,7 +51,7 @@ app.use(projectRouter);
 // Configurando a criação do servidor com retorno de mensagem no console informando o sucesso
 const port = process.env.API_PORT;
 app.listen(port, () => {
-	console.log(`Servidor iniciado em localhost:${port}`);
+	console.log(`Servidor iniciado na porta:${port}`);
 });
 
 // Rota de teste da API
