@@ -102,8 +102,6 @@ exports.Prisma.Dept_empScalarFieldEnum = makeEnum({
   guid_dept_emp: 'guid_dept_emp',
   dept_guid: 'dept_guid',
   emp_guid: 'emp_guid',
-  from_date: 'from_date',
-  to_date: 'to_date',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
@@ -115,7 +113,6 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
   birthDate: 'birthDate',
   hire_date: 'hire_date',
   wage: 'wage',
-  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   user_guid: 'user_guid',
@@ -125,6 +122,7 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
 exports.Prisma.ProjectsScalarFieldEnum = makeEnum({
   guid_projects: 'guid_projects',
   name: 'name',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   user_guid: 'user_guid',
@@ -155,21 +153,10 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   email: 'email',
   password: 'password',
   role: 'role',
-  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
-exports.Role = makeEnum({
-  Admin: 'Admin',
-  Manager: 'Manager',
-  Developer: 'Developer',
-  RH: 'RH'
-});
 
-exports.Status = makeEnum({
-  Active: 'Active',
-  Archived: 'Archived'
-});
 
 exports.Prisma.ModelName = makeEnum({
   user: 'user',

@@ -9,20 +9,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  admin
-  manager
-  developer
-  rh
-}
-
 model user {
   guid_user     String        @id @default(uuid())
-  firstName     String        @db.VarChar(255)
-  lastName      String        @db.VarChar(255)
-  email         String        @unique @db.VarChar(255)
-  password      String        @db.VarChar(255)
-  role          String        @db.VarChar(255)
+  firstName     String        @db.VarChar(75)
+  lastName      String        @db.VarChar(75)
+  email         String        @unique @db.VarChar(75)
+  password      String        @db.VarChar(75)
+  role          String        @db.VarChar(75)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   employees     employees[]
@@ -32,7 +25,8 @@ model user {
 
 model departments {
   guid_dept String     @id @default(uuid())
-  deptName  String     @unique @db.VarChar(255)
+  deptName  String     @unique @db.VarChar(75)
+  status    String     @db.VarChar(75)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   user_guid String
@@ -43,8 +37,8 @@ model departments {
 
 model employees {
   guid_employee String     @id @default(uuid())
-  firstName     String     @db.VarChar(255)
-  lastName      String     @db.VarChar(255)
+  firstName     String     @db.VarChar(75)
+  lastName      String     @db.VarChar(75)
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
   wage          Decimal    @db.Money
@@ -59,7 +53,8 @@ model employees {
 
 model projects {
   guid_projects String      @id @default(uuid())
-  name          String      @unique @db.VarChar(255)
+  name          String      @unique @db.VarChar(75)
+  status        String      @db.VarChar(75)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   user_guid     String
@@ -73,8 +68,6 @@ model dept_emp {
   guid_dept_emp String      @id @default(uuid())
   dept_guid     String
   emp_guid      String
-  from_date     DateTime    @db.Date
-  to_date       DateTime    @db.Date
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   departments   departments @relation(fields: [dept_guid], references: [guid_dept])

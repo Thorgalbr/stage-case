@@ -20,8 +20,7 @@ export type user = {
   lastName: string
   email: string
   password: string
-  role: Role
-  status: Status
+  role: string
   createdAt: Date
   updatedAt: Date
 }
@@ -33,7 +32,7 @@ export type user = {
 export type departments = {
   guid_dept: string
   deptName: string
-  status: Status
+  status: string
   createdAt: Date
   updatedAt: Date
   user_guid: string
@@ -50,7 +49,6 @@ export type employees = {
   birthDate: Date
   hire_date: Date
   wage: Prisma.Decimal
-  status: Status
   createdAt: Date
   updatedAt: Date
   user_guid: string
@@ -64,6 +62,7 @@ export type employees = {
 export type projects = {
   guid_projects: string
   name: string
+  status: string
   createdAt: Date
   updatedAt: Date
   user_guid: string
@@ -78,36 +77,9 @@ export type dept_emp = {
   guid_dept_emp: string
   dept_guid: string
   emp_guid: string
-  from_date: Date
-  to_date: Date
   createdAt: Date
   updatedAt: Date
 }
-
-
-/**
- * Enums
- */
-
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-
-export const Role: {
-  Admin: 'Admin',
-  Manager: 'Manager',
-  Developer: 'Developer',
-  RH: 'RH'
-};
-
-export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const Status: {
-  Active: 'Active',
-  Archived: 'Archived'
-};
-
-export type Status = (typeof Status)[keyof typeof Status]
 
 
 /**
@@ -1109,8 +1081,7 @@ export namespace Prisma {
     lastName: string | null
     email: string | null
     password: string | null
-    role: Role | null
-    status: Status | null
+    role: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1121,8 +1092,7 @@ export namespace Prisma {
     lastName: string | null
     email: string | null
     password: string | null
-    role: Role | null
-    status: Status | null
+    role: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1134,7 +1104,6 @@ export namespace Prisma {
     email: number
     password: number
     role: number
-    status: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1148,7 +1117,6 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1160,7 +1128,6 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1172,7 +1139,6 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1257,8 +1223,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role: Role
-    status: Status
+    role: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1287,7 +1252,6 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
-    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     employees?: boolean | user$employeesArgs
@@ -2148,7 +2112,7 @@ export namespace Prisma {
   export type DepartmentsMinAggregateOutputType = {
     guid_dept: string | null
     deptName: string | null
-    status: Status | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -2157,7 +2121,7 @@ export namespace Prisma {
   export type DepartmentsMaxAggregateOutputType = {
     guid_dept: string | null
     deptName: string | null
-    status: Status | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -2278,7 +2242,7 @@ export namespace Prisma {
   export type DepartmentsGroupByOutputType = {
     guid_dept: string
     deptName: string
-    status: Status
+    status: string
     createdAt: Date
     updatedAt: Date
     user_guid: string
@@ -3159,7 +3123,6 @@ export namespace Prisma {
     birthDate: Date | null
     hire_date: Date | null
     wage: Decimal | null
-    status: Status | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -3173,7 +3136,6 @@ export namespace Prisma {
     birthDate: Date | null
     hire_date: Date | null
     wage: Decimal | null
-    status: Status | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -3187,7 +3149,6 @@ export namespace Prisma {
     birthDate: number
     hire_date: number
     wage: number
-    status: number
     createdAt: number
     updatedAt: number
     user_guid: number
@@ -3211,7 +3172,6 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -3225,7 +3185,6 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -3239,7 +3198,6 @@ export namespace Prisma {
     birthDate?: true
     hire_date?: true
     wage?: true
-    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -3341,7 +3299,6 @@ export namespace Prisma {
     birthDate: Date
     hire_date: Date
     wage: Decimal
-    status: Status
     createdAt: Date
     updatedAt: Date
     user_guid: string
@@ -3374,7 +3331,6 @@ export namespace Prisma {
     birthDate?: boolean
     hire_date?: boolean
     wage?: boolean
-    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user_guid?: boolean
@@ -4195,6 +4151,7 @@ export namespace Prisma {
   export type ProjectsMinAggregateOutputType = {
     guid_projects: string | null
     name: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -4204,6 +4161,7 @@ export namespace Prisma {
   export type ProjectsMaxAggregateOutputType = {
     guid_projects: string | null
     name: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
     user_guid: string | null
@@ -4213,6 +4171,7 @@ export namespace Prisma {
   export type ProjectsCountAggregateOutputType = {
     guid_projects: number
     name: number
+    status: number
     createdAt: number
     updatedAt: number
     user_guid: number
@@ -4224,6 +4183,7 @@ export namespace Prisma {
   export type ProjectsMinAggregateInputType = {
     guid_projects?: true
     name?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4233,6 +4193,7 @@ export namespace Prisma {
   export type ProjectsMaxAggregateInputType = {
     guid_projects?: true
     name?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4242,6 +4203,7 @@ export namespace Prisma {
   export type ProjectsCountAggregateInputType = {
     guid_projects?: true
     name?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     user_guid?: true
@@ -4325,6 +4287,7 @@ export namespace Prisma {
   export type ProjectsGroupByOutputType = {
     guid_projects: string
     name: string
+    status: string
     createdAt: Date
     updatedAt: Date
     user_guid: string
@@ -4351,6 +4314,7 @@ export namespace Prisma {
   export type projectsSelect = {
     guid_projects?: boolean
     name?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user_guid?: boolean
@@ -5172,8 +5136,6 @@ export namespace Prisma {
     guid_dept_emp: string | null
     dept_guid: string | null
     emp_guid: string | null
-    from_date: Date | null
-    to_date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5182,8 +5144,6 @@ export namespace Prisma {
     guid_dept_emp: string | null
     dept_guid: string | null
     emp_guid: string | null
-    from_date: Date | null
-    to_date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5192,8 +5152,6 @@ export namespace Prisma {
     guid_dept_emp: number
     dept_guid: number
     emp_guid: number
-    from_date: number
-    to_date: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5204,8 +5162,6 @@ export namespace Prisma {
     guid_dept_emp?: true
     dept_guid?: true
     emp_guid?: true
-    from_date?: true
-    to_date?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5214,8 +5170,6 @@ export namespace Prisma {
     guid_dept_emp?: true
     dept_guid?: true
     emp_guid?: true
-    from_date?: true
-    to_date?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5224,8 +5178,6 @@ export namespace Prisma {
     guid_dept_emp?: true
     dept_guid?: true
     emp_guid?: true
-    from_date?: true
-    to_date?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5308,8 +5260,6 @@ export namespace Prisma {
     guid_dept_emp: string
     dept_guid: string
     emp_guid: string
-    from_date: Date
-    to_date: Date
     createdAt: Date
     updatedAt: Date
     _count: Dept_empCountAggregateOutputType | null
@@ -5335,8 +5285,6 @@ export namespace Prisma {
     guid_dept_emp?: boolean
     dept_guid?: boolean
     emp_guid?: boolean
-    from_date?: boolean
-    to_date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     departments?: boolean | departmentsArgs
@@ -6133,8 +6081,6 @@ export namespace Prisma {
     guid_dept_emp: 'guid_dept_emp',
     dept_guid: 'dept_guid',
     emp_guid: 'emp_guid',
-    from_date: 'from_date',
-    to_date: 'to_date',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6149,7 +6095,6 @@ export namespace Prisma {
     birthDate: 'birthDate',
     hire_date: 'hire_date',
     wage: 'wage',
-    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     user_guid: 'user_guid',
@@ -6162,6 +6107,7 @@ export namespace Prisma {
   export const ProjectsScalarFieldEnum: {
     guid_projects: 'guid_projects',
     name: 'name',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     user_guid: 'user_guid',
@@ -6204,7 +6150,6 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     role: 'role',
-    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6226,8 +6171,7 @@ export namespace Prisma {
     lastName?: StringFilter | string
     email?: StringFilter | string
     password?: StringFilter | string
-    role?: EnumRoleFilter | Role
-    status?: EnumStatusFilter | Status
+    role?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     employees?: EmployeesListRelationFilter
@@ -6242,7 +6186,6 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     employees?: employeesOrderByRelationAggregateInput
@@ -6262,7 +6205,6 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: userCountOrderByAggregateInput
@@ -6279,8 +6221,7 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter | string
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
-    role?: EnumRoleWithAggregatesFilter | Role
-    status?: EnumStatusWithAggregatesFilter | Status
+    role?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -6291,7 +6232,7 @@ export namespace Prisma {
     NOT?: Enumerable<departmentsWhereInput>
     guid_dept?: StringFilter | string
     deptName?: StringFilter | string
-    status?: EnumStatusFilter | Status
+    status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -6335,7 +6276,7 @@ export namespace Prisma {
     NOT?: Enumerable<departmentsScalarWhereWithAggregatesInput>
     guid_dept?: StringWithAggregatesFilter | string
     deptName?: StringWithAggregatesFilter | string
-    status?: EnumStatusWithAggregatesFilter | Status
+    status?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     user_guid?: StringWithAggregatesFilter | string
@@ -6351,7 +6292,6 @@ export namespace Prisma {
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
     wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFilter | Status
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -6368,7 +6308,6 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6389,7 +6328,6 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6411,7 +6349,6 @@ export namespace Prisma {
     birthDate?: DateTimeWithAggregatesFilter | Date | string
     hire_date?: DateTimeWithAggregatesFilter | Date | string
     wage?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusWithAggregatesFilter | Status
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     user_guid?: StringWithAggregatesFilter | string
@@ -6424,6 +6361,7 @@ export namespace Prisma {
     NOT?: Enumerable<projectsWhereInput>
     guid_projects?: StringFilter | string
     name?: StringFilter | string
+    status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -6436,6 +6374,7 @@ export namespace Prisma {
   export type projectsOrderByWithRelationInput = {
     guid_projects?: SortOrder
     name?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6453,6 +6392,7 @@ export namespace Prisma {
   export type projectsOrderByWithAggregationInput = {
     guid_projects?: SortOrder
     name?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -6468,6 +6408,7 @@ export namespace Prisma {
     NOT?: Enumerable<projectsScalarWhereWithAggregatesInput>
     guid_projects?: StringWithAggregatesFilter | string
     name?: StringWithAggregatesFilter | string
+    status?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     user_guid?: StringWithAggregatesFilter | string
@@ -6481,8 +6422,6 @@ export namespace Prisma {
     guid_dept_emp?: StringFilter | string
     dept_guid?: StringFilter | string
     emp_guid?: StringFilter | string
-    from_date?: DateTimeFilter | Date | string
-    to_date?: DateTimeFilter | Date | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     departments?: XOR<DepartmentsRelationFilter, departmentsWhereInput>
@@ -6493,8 +6432,6 @@ export namespace Prisma {
     guid_dept_emp?: SortOrder
     dept_guid?: SortOrder
     emp_guid?: SortOrder
-    from_date?: SortOrder
-    to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     departments?: departmentsOrderByWithRelationInput
@@ -6509,8 +6446,6 @@ export namespace Prisma {
     guid_dept_emp?: SortOrder
     dept_guid?: SortOrder
     emp_guid?: SortOrder
-    from_date?: SortOrder
-    to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: dept_empCountOrderByAggregateInput
@@ -6525,8 +6460,6 @@ export namespace Prisma {
     guid_dept_emp?: StringWithAggregatesFilter | string
     dept_guid?: StringWithAggregatesFilter | string
     emp_guid?: StringWithAggregatesFilter | string
-    from_date?: DateTimeWithAggregatesFilter | Date | string
-    to_date?: DateTimeWithAggregatesFilter | Date | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -6537,8 +6470,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
@@ -6552,8 +6484,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
@@ -6567,8 +6498,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
@@ -6582,8 +6512,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
@@ -6597,8 +6526,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6609,8 +6537,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6621,8 +6548,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6630,7 +6556,7 @@ export namespace Prisma {
   export type departmentsCreateInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutDepartmentsInput
@@ -6641,7 +6567,7 @@ export namespace Prisma {
   export type departmentsUncheckedCreateInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6652,7 +6578,7 @@ export namespace Prisma {
   export type departmentsUpdateInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
@@ -6663,7 +6589,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6674,7 +6600,7 @@ export namespace Prisma {
   export type departmentsCreateManyInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6683,7 +6609,7 @@ export namespace Prisma {
   export type departmentsUpdateManyMutationInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6691,7 +6617,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateManyInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6704,7 +6630,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
@@ -6719,7 +6644,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6734,7 +6658,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
@@ -6749,7 +6672,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6764,7 +6686,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6778,7 +6699,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6790,7 +6710,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6800,6 +6719,7 @@ export namespace Prisma {
   export type projectsCreateInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -6810,6 +6730,7 @@ export namespace Prisma {
   export type projectsUncheckedCreateInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6820,6 +6741,7 @@ export namespace Prisma {
   export type projectsUpdateInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -6830,6 +6752,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6840,6 +6763,7 @@ export namespace Prisma {
   export type projectsCreateManyInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -6849,6 +6773,7 @@ export namespace Prisma {
   export type projectsUpdateManyMutationInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6856,6 +6781,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateManyInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -6864,8 +6790,6 @@ export namespace Prisma {
 
   export type dept_empCreateInput = {
     guid_dept_emp?: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     departments: departmentsCreateNestedOneWithoutDept_empInput
@@ -6876,16 +6800,12 @@ export namespace Prisma {
     guid_dept_emp?: string
     dept_guid: string
     emp_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type dept_empUpdateInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departments?: departmentsUpdateOneRequiredWithoutDept_empNestedInput
@@ -6896,8 +6816,6 @@ export namespace Prisma {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
     emp_guid?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6906,16 +6824,12 @@ export namespace Prisma {
     guid_dept_emp?: string
     dept_guid: string
     emp_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type dept_empUpdateManyMutationInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6924,8 +6838,6 @@ export namespace Prisma {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
     emp_guid?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6943,20 +6855,6 @@ export namespace Prisma {
     endsWith?: string
     mode?: QueryMode
     not?: NestedStringFilter | string
-  }
-
-  export type EnumRoleFilter = {
-    equals?: Role
-    in?: Enumerable<Role>
-    notIn?: Enumerable<Role>
-    not?: NestedEnumRoleFilter | Role
-  }
-
-  export type EnumStatusFilter = {
-    equals?: Status
-    in?: Enumerable<Status>
-    notIn?: Enumerable<Status>
-    not?: NestedEnumStatusFilter | Status
   }
 
   export type DateTimeFilter = {
@@ -7007,7 +6905,6 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7019,7 +6916,6 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7031,7 +6927,6 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7052,26 +6947,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedStringFilter
     _max?: NestedStringFilter
-  }
-
-  export type EnumRoleWithAggregatesFilter = {
-    equals?: Role
-    in?: Enumerable<Role>
-    notIn?: Enumerable<Role>
-    not?: NestedEnumRoleWithAggregatesFilter | Role
-    _count?: NestedIntFilter
-    _min?: NestedEnumRoleFilter
-    _max?: NestedEnumRoleFilter
-  }
-
-  export type EnumStatusWithAggregatesFilter = {
-    equals?: Status
-    in?: Enumerable<Status>
-    notIn?: Enumerable<Status>
-    not?: NestedEnumStatusWithAggregatesFilter | Status
-    _count?: NestedIntFilter
-    _min?: NestedEnumStatusFilter
-    _max?: NestedEnumStatusFilter
   }
 
   export type DateTimeWithAggregatesFilter = {
@@ -7153,7 +7028,6 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7171,7 +7045,6 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7185,7 +7058,6 @@ export namespace Prisma {
     birthDate?: SortOrder
     hire_date?: SortOrder
     wage?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7220,6 +7092,7 @@ export namespace Prisma {
   export type projectsCountOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7229,6 +7102,7 @@ export namespace Prisma {
   export type projectsMaxOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7238,6 +7112,7 @@ export namespace Prisma {
   export type projectsMinOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user_guid?: SortOrder
@@ -7253,8 +7128,6 @@ export namespace Prisma {
     guid_dept_emp?: SortOrder
     dept_guid?: SortOrder
     emp_guid?: SortOrder
-    from_date?: SortOrder
-    to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7263,8 +7136,6 @@ export namespace Prisma {
     guid_dept_emp?: SortOrder
     dept_guid?: SortOrder
     emp_guid?: SortOrder
-    from_date?: SortOrder
-    to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7273,8 +7144,6 @@ export namespace Prisma {
     guid_dept_emp?: SortOrder
     dept_guid?: SortOrder
     emp_guid?: SortOrder
-    from_date?: SortOrder
-    to_date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7323,14 +7192,6 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: Role
-  }
-
-  export type EnumStatusFieldUpdateOperationsInput = {
-    set?: Status
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -7709,20 +7570,6 @@ export namespace Prisma {
     not?: NestedStringFilter | string
   }
 
-  export type NestedEnumRoleFilter = {
-    equals?: Role
-    in?: Enumerable<Role>
-    notIn?: Enumerable<Role>
-    not?: NestedEnumRoleFilter | Role
-  }
-
-  export type NestedEnumStatusFilter = {
-    equals?: Status
-    in?: Enumerable<Status>
-    notIn?: Enumerable<Status>
-    not?: NestedEnumStatusFilter | Status
-  }
-
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -7760,26 +7607,6 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedIntFilter | number
-  }
-
-  export type NestedEnumRoleWithAggregatesFilter = {
-    equals?: Role
-    in?: Enumerable<Role>
-    notIn?: Enumerable<Role>
-    not?: NestedEnumRoleWithAggregatesFilter | Role
-    _count?: NestedIntFilter
-    _min?: NestedEnumRoleFilter
-    _max?: NestedEnumRoleFilter
-  }
-
-  export type NestedEnumStatusWithAggregatesFilter = {
-    equals?: Status
-    in?: Enumerable<Status>
-    notIn?: Enumerable<Status>
-    not?: NestedEnumStatusWithAggregatesFilter | Status
-    _count?: NestedIntFilter
-    _min?: NestedEnumStatusFilter
-    _max?: NestedEnumStatusFilter
   }
 
   export type NestedDateTimeWithAggregatesFilter = {
@@ -7830,7 +7657,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
@@ -7844,7 +7670,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     projects_guid: string
@@ -7864,6 +7689,7 @@ export namespace Prisma {
   export type projectsCreateWithoutUserInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     departments: departmentsCreateNestedOneWithoutProjectsInput
@@ -7873,6 +7699,7 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutUserInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_guid: string
@@ -7892,7 +7719,7 @@ export namespace Prisma {
   export type departmentsCreateWithoutUserInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutDepartmentsInput
@@ -7902,7 +7729,7 @@ export namespace Prisma {
   export type departmentsUncheckedCreateWithoutUserInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutDepartmentsInput
@@ -7945,7 +7772,6 @@ export namespace Prisma {
     birthDate?: DateTimeFilter | Date | string
     hire_date?: DateTimeFilter | Date | string
     wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFilter | Status
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -7974,6 +7800,7 @@ export namespace Prisma {
     NOT?: Enumerable<projectsScalarWhereInput>
     guid_projects?: StringFilter | string
     name?: StringFilter | string
+    status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -8002,7 +7829,7 @@ export namespace Prisma {
     NOT?: Enumerable<departmentsScalarWhereInput>
     guid_dept?: StringFilter | string
     deptName?: StringFilter | string
-    status?: EnumStatusFilter | Status
+    status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     user_guid?: StringFilter | string
@@ -8014,8 +7841,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
@@ -8028,8 +7854,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
@@ -8043,8 +7868,6 @@ export namespace Prisma {
 
   export type dept_empCreateWithoutDepartmentsInput = {
     guid_dept_emp?: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     employee: employeesCreateNestedOneWithoutDept_empInput
@@ -8053,8 +7876,6 @@ export namespace Prisma {
   export type dept_empUncheckedCreateWithoutDepartmentsInput = {
     guid_dept_emp?: string
     emp_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8072,6 +7893,7 @@ export namespace Prisma {
   export type projectsCreateWithoutDepartmentsInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -8081,6 +7903,7 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutDepartmentsInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8108,8 +7931,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
@@ -8122,8 +7944,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
@@ -8153,8 +7974,6 @@ export namespace Prisma {
     guid_dept_emp?: StringFilter | string
     dept_guid?: StringFilter | string
     emp_guid?: StringFilter | string
-    from_date?: DateTimeFilter | Date | string
-    to_date?: DateTimeFilter | Date | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
   }
@@ -8177,8 +7996,6 @@ export namespace Prisma {
 
   export type dept_empCreateWithoutEmployeeInput = {
     guid_dept_emp?: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     departments: departmentsCreateNestedOneWithoutDept_empInput
@@ -8187,8 +8004,6 @@ export namespace Prisma {
   export type dept_empUncheckedCreateWithoutEmployeeInput = {
     guid_dept_emp?: string
     dept_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8209,8 +8024,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: projectsCreateNestedManyWithoutUserInput
@@ -8223,8 +8037,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: projectsUncheckedCreateNestedManyWithoutUserInput
@@ -8239,6 +8052,7 @@ export namespace Prisma {
   export type projectsCreateWithoutEmployeesInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutProjectsInput
@@ -8248,6 +8062,7 @@ export namespace Prisma {
   export type projectsUncheckedCreateWithoutEmployeesInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8286,8 +8101,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: projectsUpdateManyWithoutUserNestedInput
@@ -8300,8 +8114,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: projectsUncheckedUpdateManyWithoutUserNestedInput
@@ -8316,6 +8129,7 @@ export namespace Prisma {
   export type projectsUpdateWithoutEmployeesInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -8325,6 +8139,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutEmployeesInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8337,8 +8152,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesCreateNestedManyWithoutUserInput
@@ -8351,8 +8165,7 @@ export namespace Prisma {
     lastName: string
     email: string
     password: string
-    role?: Role
-    status?: Status
+    role: string
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: employeesUncheckedCreateNestedManyWithoutUserInput
@@ -8367,7 +8180,7 @@ export namespace Prisma {
   export type departmentsCreateWithoutProjectsInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutDepartmentsInput
@@ -8377,7 +8190,7 @@ export namespace Prisma {
   export type departmentsUncheckedCreateWithoutProjectsInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8396,7 +8209,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
@@ -8410,7 +8222,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8438,8 +8249,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUpdateManyWithoutUserNestedInput
@@ -8452,8 +8262,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | Role
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
@@ -8468,7 +8277,7 @@ export namespace Prisma {
   export type departmentsUpdateWithoutProjectsInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
@@ -8478,7 +8287,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateWithoutProjectsInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8504,7 +8313,7 @@ export namespace Prisma {
   export type departmentsCreateWithoutDept_empInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutDepartmentsInput
@@ -8514,7 +8323,7 @@ export namespace Prisma {
   export type departmentsUncheckedCreateWithoutDept_empInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8533,7 +8342,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutEmployeesInput
@@ -8547,7 +8355,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8567,7 +8374,7 @@ export namespace Prisma {
   export type departmentsUpdateWithoutDept_empInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
@@ -8577,7 +8384,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateWithoutDept_empInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8596,7 +8403,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutEmployeesNestedInput
@@ -8610,7 +8416,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8624,7 +8429,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     projects_guid: string
@@ -8633,6 +8437,7 @@ export namespace Prisma {
   export type projectsCreateManyUserInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_guid: string
@@ -8641,7 +8446,7 @@ export namespace Prisma {
   export type departmentsCreateManyUserInput = {
     guid_dept?: string
     deptName: string
-    status?: Status
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8653,7 +8458,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
@@ -8667,7 +8471,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects_guid?: StringFieldUpdateOperationsInput | string
@@ -8681,7 +8484,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects_guid?: StringFieldUpdateOperationsInput | string
@@ -8690,6 +8492,7 @@ export namespace Prisma {
   export type projectsUpdateWithoutUserInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departments?: departmentsUpdateOneRequiredWithoutProjectsNestedInput
@@ -8699,6 +8502,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutUserInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_guid?: StringFieldUpdateOperationsInput | string
@@ -8708,6 +8512,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateManyWithoutProjectsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_guid?: StringFieldUpdateOperationsInput | string
@@ -8716,7 +8521,7 @@ export namespace Prisma {
   export type departmentsUpdateWithoutUserInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutDepartmentsNestedInput
@@ -8726,7 +8531,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateWithoutUserInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutDepartmentsNestedInput
@@ -8736,7 +8541,7 @@ export namespace Prisma {
   export type departmentsUncheckedUpdateManyWithoutDepartmentsInput = {
     guid_dept?: StringFieldUpdateOperationsInput | string
     deptName?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8744,8 +8549,6 @@ export namespace Prisma {
   export type dept_empCreateManyDepartmentsInput = {
     guid_dept_emp?: string
     emp_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8753,6 +8556,7 @@ export namespace Prisma {
   export type projectsCreateManyDepartmentsInput = {
     guid_projects?: string
     name: string
+    status: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8760,8 +8564,6 @@ export namespace Prisma {
 
   export type dept_empUpdateWithoutDepartmentsInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: employeesUpdateOneRequiredWithoutDept_empNestedInput
@@ -8770,8 +8572,6 @@ export namespace Prisma {
   export type dept_empUncheckedUpdateWithoutDepartmentsInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
     emp_guid?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8779,8 +8579,6 @@ export namespace Prisma {
   export type dept_empUncheckedUpdateManyWithoutDept_empInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
     emp_guid?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8788,6 +8586,7 @@ export namespace Prisma {
   export type projectsUpdateWithoutDepartmentsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutProjectsNestedInput
@@ -8797,6 +8596,7 @@ export namespace Prisma {
   export type projectsUncheckedUpdateWithoutDepartmentsInput = {
     guid_projects?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
@@ -8806,16 +8606,12 @@ export namespace Prisma {
   export type dept_empCreateManyEmployeeInput = {
     guid_dept_emp?: string
     dept_guid: string
-    from_date: Date | string
-    to_date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type dept_empUpdateWithoutEmployeeInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departments?: departmentsUpdateOneRequiredWithoutDept_empNestedInput
@@ -8824,8 +8620,6 @@ export namespace Prisma {
   export type dept_empUncheckedUpdateWithoutEmployeeInput = {
     guid_dept_emp?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
-    from_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    to_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8837,7 +8631,6 @@ export namespace Prisma {
     birthDate: Date | string
     hire_date: Date | string
     wage: Decimal | DecimalJsLike | number | string
-    status?: Status
     createdAt?: Date | string
     updatedAt?: Date | string
     user_guid: string
@@ -8850,7 +8643,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
@@ -8864,7 +8656,6 @@ export namespace Prisma {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumStatusFieldUpdateOperationsInput | Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user_guid?: StringFieldUpdateOperationsInput | string
