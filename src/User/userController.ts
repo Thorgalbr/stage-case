@@ -34,6 +34,7 @@ export default {
 				"firstName":"Exemplo",
 				"lastName":"Exemplo",
 				"email":"exemplo@provedor.com",
+				"role":"Admin"
 				"password":"exemplo"
 			}
  
@@ -41,7 +42,7 @@ export default {
 
 		try {
 			// Recebendo os dados para registro do body
-			const { firstName, lastName, email, password }: IUser = req.body;
+			const { firstName, lastName, email, role, password }: IUser = req.body;
 
 			// Passando o password na função hash do bcryptjs para criptografar o retorno
 			const hash_password = await hash(password, 8);
@@ -49,6 +50,11 @@ export default {
 			// Validação dos dados recebidos do body
 			if (!firstName || !lastName) {
 				res.status(400).json({ erro: "Nome e sobrenome obrigatorios!" });
+				return;
+			};
+
+			if (!role) {
+				res.status(400).json({ erro: "A função é obrigatoria!" });
 				return;
 			};
 
@@ -73,8 +79,9 @@ export default {
 			const userReg = await prisma.user.create({
 				data: {
 					firstName: firstName,
-					lastName,
-					email,
+					lastName: lastName,
+					email: email,
+					role: role,
 					password: hash_password,
 				},
 			});
@@ -156,6 +163,7 @@ export default {
 				"firstName":"Exemplo",
 				"lastName":"Exemplo",
 				"email":"exemplo@provedor.com",
+				"role":"Admin"
 				"password_hash":"exemplo"
 			}
  
@@ -181,13 +189,18 @@ export default {
 				return;
 			};
 			// Recebendo os dados do body
-			const { firstName, lastName, email, password }: IUser = req.body;
+			const { firstName, lastName, email, role, password }: IUser = req.body;
 			// Passando o password na função hash do bcryptjs para criptografar o retorno
 			const hash_password = await hash(password, 8);
 
 			// Validação da existência dos dados recebidos, retorna erro em caso de falta de dados
 			if (!firstName || !lastName) {
 				res.status(400).json({ erro: "Nome e sobrenome obrigatorios!" });
+				return;
+			};
+
+			if (!role) {
+				res.status(400).json({ erro: "A função é obrigatoria!" });
 				return;
 			};
 
@@ -205,6 +218,7 @@ export default {
 					firstName: firstName,
 					lastName: lastName,
 					email: email,
+					role: role,
 					password: hash_password,
 				},
 			});

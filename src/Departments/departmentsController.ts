@@ -35,11 +35,11 @@ export default {
 
 		try {
 			// Recebendo o dado do body para registro
-			const { deptName }: IDepts = req.body;
+			const { deptName, status }: IDepts = req.body;
 
 			// Validação do dado recebido do body
-			if(!deptName){
-				res.status(400).json( { mensagem:"O nome do departamento é obrigatório" } );
+			if(!deptName || !status){
+				res.status(400).json( { mensagem:"O nome do departamento e o status são obrigatórios" } );
 				return;
 			};
 
@@ -67,6 +67,7 @@ export default {
 			const deptReg = await prisma.departments.create({
 				data: {
 					deptName: deptName,
+					status: status,
 					user_guid: guid_user
 				},
 			});
@@ -164,10 +165,10 @@ export default {
 			};			
 
 			// Recebendo o dado do body para atualização
-			const { deptName }: IDepts = req.body;
+			const { deptName, status }: IDepts = req.body;
 			// Validando se o nome do departamento existe na requisição
-			if (!deptName) {
-				res.status(400).json({ erro: "O nome do departamento é obrigatório" });
+			if (!deptName || !status) {
+				res.status(400).json({ erro: "O nome do departamento e o status são obrigatórios" });
 				return;
 			};
 			// Checando se o departamento existe
@@ -189,6 +190,8 @@ export default {
 				},
 				data: {
 					deptName: deptName,
+					status: status,
+					user_guid: guid_user,
 				},
 			});
 			// Resposta retorna o departamento atualizado

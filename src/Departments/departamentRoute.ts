@@ -22,7 +22,7 @@ deptRouter.get('/departments/request', departmentsController.findAllDepartments)
 
 deptRouter.get('/departments/request/:guid_dept', departmentsController.findDepartment);
 
-deptRouter.patch('/departments/update/:guid_dept', departmentsController.updateDepartment);
+deptRouter.patch('/departments/update/:guid_dept/:guid_user', departmentsController.updateDepartment);
 
 deptRouter.delete('/departments/delete/:guid_dept',departmentsController.deleteDepartment);
 

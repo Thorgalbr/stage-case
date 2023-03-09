@@ -42,19 +42,22 @@ export default {
 		*/
 
 		try {
-			// Recebendo os dados do body para registro
-			let { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
 
 			// Recebendo os guids do params
-			const guid_user  = req.params.guid_user;
-			// Recebendo os guids do params
-			const guid_projects  = req.params.guid_projects;
+			const guid_user = req.params.guid_user;
 
+			// Recebendo os guids do params
+			const guid_projects = req.params.guid_projects;
+			
+			// Validando os dados do params
 			if(!guid_user || !guid_projects){
 				res.status(400).json({ error: "GUID de usuarios e projetos obrigatórios!" });
 				return;
 			};
 
+			// Recebendo os dados do body para registro
+			let { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
+			console.log(guid_user);
 			// Validação dos dados vindos do body
 			if(!firstName || !lastName){
 				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
@@ -62,9 +65,10 @@ export default {
 			};
 
 			if(!birthDate || !hire_date) {
-				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias" });
+				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias (DD-MM-YYYY)" });
 				return;
 			};
+
 			if(!wage) {
 				res.status(400).json({ error: "Salário obrigatório" });
 				return;
@@ -84,14 +88,13 @@ export default {
 
 			// Validação do recebimento da guid, retorna erro se nao for recebido
 			if (!userReqId || !projReqId) {
-				res.status(404).json({ error: "GUIDs de usuário e projeto inexistentes" });
+				res.status(404).json({ error: "GUIDs de usuário ou projeto inexistentes" });
 				return;
 			};
 
 			// Configurando o moment para manipular as datas
 			birthDate = moment(birthDate, "DD-MM-YYYY").format();
 			hire_date = moment(hire_date, "DD-MM-YYYY").format();
-
 
 			// Configurando o prisma para cadastrar o funcionário
 			const emploReg = await prisma.employees.create({
@@ -104,21 +107,6 @@ export default {
 					user_guid: guid_user,
 					projects_guid: guid_projects,
 				    },
-					select: {
-						guid_employee: true,
-						firstName: true,
-						lastName: true,
-						birthDate: true,
-						hire_date: true,
-						wage: true,
-						user:{
-							select: {
-								guid_user: true,
-								firstName: true,
-								lastName: true,
-							},
-						},
-					},
 			});
 
 			
@@ -235,11 +223,12 @@ export default {
 				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
 				return;
 			};
-			
+
 			if(!birthDate || !hire_date) {
-				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias" });
+				res.status(400).json({ error: "Datas de nascimento e contratação obrigatórias (DD-MM-YYYY)" });
 				return;
 			};
+
 			if(!wage) {
 				res.status(400).json({ error: "Salário obrigatório" });
 				return;
@@ -283,22 +272,8 @@ export default {
 					hire_date: hire_date,
 					wage: wage,
 					user_guid: guid_user,
+					projects_guid: guid_projects,
 				    },
-					select: {
-						guid_employee: true,
-						firstName: true,
-						lastName: true,
-						birthDate: true,
-						hire_date: true,
-						wage: true,
-						user:{
-							select: {
-								guid_user: true,
-								firstName: true,
-								lastName: true,
-							},
-						},
-					},
 			});
 			// Resposta retorna os dados atualizados
 			res.status(201).json(emploUpdt);

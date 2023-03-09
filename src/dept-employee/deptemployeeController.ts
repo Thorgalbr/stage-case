@@ -31,10 +31,7 @@ export default {
 			Requer o guid_dept e o guid_employee já inseridos no params
 			Formato da rota: "dept-employees/add/:guid_dept/:guid_employee"
 			Formato aceito dos dados em JSON:
-	 		{
-				"from_date":"DD-MM-YYYY",
-				"to_date":"DD-MM-YYYY",
-			}
+
 		*/
 
 		try {
@@ -64,25 +61,12 @@ export default {
 				res.status(400).json({ erro: "GUIDs de departamentos e funcionários obrigatorios" });
 				return;
 			};
-			// Recebendo os dados do body
-			let { from_date, to_date }: IDeptEmp = req.body;
-			// Checando o recebimento dos dados do body
-			if(!from_date || !to_date){
-				res.status(400).json({erro:"As datas de início e de término são obrigatórias"});
-				return;
-			};
-
-			// Configurando o moment para manipular as datas
-			from_date = moment(from_date, "DD-MM-YYYY").format();
-			to_date = moment(to_date, "DD-MM-YYYY").format();
 			
 			// Configurando o prisma para criar os dados
 			const deptEmpReg = await prisma.dept_emp.create({
 				data: {
 					dept_guid: guid_dept,
 					emp_guid: guid_employee,
-					from_date: from_date,
-					to_date: to_date,
 				},
 				include: {
 					departments: true,
@@ -171,10 +155,6 @@ export default {
 			Requer o guid_dept e o guid_employee já inseridos no params
 			Formato da rota: "/dept-employees/update/:guid_dept_emp/:guid_dept/:guid_employee"
 			Formato aceito dos dados em JSON:
-	 		{
-				"from_date":"DD-MM-YYYY",
-				"to_date":"DD-MM-YYYY",
-			}
 		*/
 
 		try {
@@ -234,19 +214,6 @@ export default {
 				return;
 			};
 
-			// Recebendo os dados do body
-			let { from_date, to_date }: IDeptEmp = req.body;
-			
-			// Checando o recebimento dos dados do body
-			if(!from_date || !to_date){
-				res.status(400).json({erro:"As datas de início e de término são obrigatórias"});
-				return;
-			};
-
-			// Configurando o moment para manipular as datas
-			from_date = moment(from_date, "DD-MM-YYYY").format();
-			to_date = moment(to_date, "DD-MM-YYYY").format();
-
 			// Configurando o prisma para atualizar os dados da tabela
 			const deptEmpUpdt = await prisma.dept_emp.update({
 				where: {
@@ -255,8 +222,10 @@ export default {
 				data: {
 					dept_guid: guid_dept,
 					emp_guid: guid_employee,
-					from_date: from_date,
-					to_date: to_date,
+				},
+				include: {
+					departments: true,
+					employee: true,
 				},
 			});
 			// Resposta retorna os dados atualizados

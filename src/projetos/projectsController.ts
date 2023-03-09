@@ -35,11 +35,11 @@ export default {
 
 		try {
 			// Recebendo o dado do body para registro
-			const { name }: IProjects = req.body;
+			const { name, status }: IProjects = req.body;
 
 			// Validação do dado recebido do body
-			if(!name){
-				res.status(400).json( { mensagem:"O nome do projeto é obrigatório" } );
+			if(!name || !status){
+				res.status(400).json( { mensagem:"O nome do projeto e o status são obrigatórios" } );
 				return;
 			};
 
@@ -71,6 +71,7 @@ export default {
 			const deptReg = await prisma.projects.create({
 				data: {
 					name: name,
+					status: status,
 					user_guid: guid_user,
                     dept_guid: guid_dept
 				},
@@ -173,10 +174,10 @@ export default {
 
 
 			// Recebendo o dado do body para atualização
-			const { name }: IProjects = req.body;
+			const { name, status }: IProjects = req.body;
 			// Validando se o nome do projeto existe na requisição
-			if (!name) {
-				res.status(400).json({ erro: "O nome do projeto é obrigatório" });
+			if (!name || !status) {
+				res.status(400).json( { mensagem:"O nome do projeto e o status são obrigatórios" } );
 				return;
 			};
 			// Checando se o projeto existe
@@ -198,6 +199,7 @@ export default {
 				},
 				data: {
 					name: name,
+					status: status,
 				},
 			});
 			// Resposta retorna o projeto atualizado
