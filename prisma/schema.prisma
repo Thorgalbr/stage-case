@@ -10,15 +10,10 @@ datasource db {
 }
 
 enum Role {
-  Admin
-  Manager
-  Developer
-  RH
-}
-
-enum Status {
-  Active
-  Archived
+  admin
+  manager
+  developer
+  rh
 }
 
 model user {
@@ -27,8 +22,7 @@ model user {
   lastName      String        @db.VarChar(255)
   email         String        @unique @db.VarChar(255)
   password      String        @db.VarChar(255)
-  role          Role          @default(Developer)
-  status        Status        @default(Archived)
+  role          String        @db.VarChar(255)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   employees     employees[]
@@ -39,7 +33,6 @@ model user {
 model departments {
   guid_dept String     @id @default(uuid())
   deptName  String     @unique @db.VarChar(255)
-  status    Status     @default(Archived)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   user_guid String
@@ -55,7 +48,6 @@ model employees {
   birthDate     DateTime   @db.Date
   hire_date     DateTime   @db.Date
   wage          Decimal    @db.Money
-  status        Status     @default(Archived)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   user_guid     String
