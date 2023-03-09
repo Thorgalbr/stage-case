@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-// Conectando o cors com o express
+// Conectando o cors com o express para expor a api
 app.use(cors());
 
 // Importando as rotas para o index e passando para o express via variavel app
