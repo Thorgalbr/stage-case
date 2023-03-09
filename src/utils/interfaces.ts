@@ -11,6 +11,7 @@ export interface IUser {
 	firstName: string;
 	lastName: string;
 	email: string;
+	role: string;
 	password: string;
 }
 
@@ -27,11 +28,13 @@ export interface IEmployees {
 // Exportando a interface IDeptEmp para uso no arquivo departmentsController.ts
 export interface IDepts {
 	deptName: string;
+	status: string;
 };
 
 // Exportando a interface IDeptEmp para uso no arquivo departmentsController.ts
 export interface IProjects {
 	name: string;
+	status: string;
 };
 
 // Exportando a interface IDeptEmp para uso no arquivo deptemployeesController.ts
