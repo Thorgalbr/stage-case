@@ -55,6 +55,6 @@ app.listen(port, () => {
 });
 
 // Rota de teste da API
-app.get("/teste", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
 	res.json({ message: "API funcionando!!!" });
 });
