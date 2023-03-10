@@ -19,6 +19,14 @@ import cors from "cors";
 // Importando o Dotenv para o projeto
 import "dotenv/config";
 
+// Conectando o cors com o express para expor a api
+app.use(cors());
+
+// Configurando o body parser para recebermos os parametros via url
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Importando as rotas para o index e passando para o express via variavel app
 
 import { authRouter } from "./Authentication/authRouter";
@@ -38,14 +46,6 @@ app.use(employeesRouter);
 
 import { projectRouter } from "./projetos/projectsRoute";
 app.use(projectRouter);
-
-// Conectando o cors com o express para expor a api
-app.use(cors());
-
-// Configurando o body parser para recebermos os parametros via url
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
 
 // Configurando a criação do servidor com retorno de mensagem no console informando o sucesso
 const port = process.env.API_PORT;
