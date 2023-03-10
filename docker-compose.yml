@@ -1,12 +1,12 @@
 version: '1.0'
 
-service:
-  api:
-    build:
-      context: .
-      target: production
+services:
+  app:
+    build: .
     environment:
       - DATABASE_URL
       - API_PORT
-    ports:
-      - 3000:3000
+      - RANDOM_TOKEN_SECRET
+    ports: 
+     - "4000:4000"
+    command: npm start
