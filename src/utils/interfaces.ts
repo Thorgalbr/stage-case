@@ -37,13 +37,6 @@ export interface IProjects {
 	status: string;
 };
 
-// Exportando a interface IDeptEmp para uso no arquivo deptemployeesController.ts
-
-export interface IDeptEmp {
-	from_date: string;
-	to_date: string;
-}
-
 // Exportando a interface IRoles para uso no arquivo rolesController.ts
 
 export interface IRoles {
