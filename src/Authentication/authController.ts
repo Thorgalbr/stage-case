@@ -45,7 +45,7 @@ export default {
 			const { email, password }: IUser = req.body;
 			// Validando a existencia do email e senha para prosseguir
 			if (!email || !password) {
-				res.status(422).json({ erro: "email e senha obrigatorios!" });
+				res.status(400).json({ erro: "email e senha obrigatorios!" });
 				return;
 			};
 			// Configurando o prisma para checar a existencia do eusuário
@@ -56,7 +56,7 @@ export default {
 			});
 			// Caso não exista usuário, retorna uma mensagem de erro
 			if (!user) {
-				res.status(422).json({ erro: "Usuário não existe" });
+				res.status(404).json({ erro: "Usuário não existe" });
 				return;
 			};
 
@@ -82,7 +82,7 @@ export default {
 			return res.status(200).json({ user: { guid_user, email }, token });
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
-			return res.status(400).json({erro:"Não foi possível autenticar o usuário"});
+			return res.status(401).json({erro:"Não foi possível autenticar o usuário"});
 		};
 	},
 };

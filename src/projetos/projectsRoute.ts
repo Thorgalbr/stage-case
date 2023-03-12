@@ -1,6 +1,6 @@
 /*
-    * Configuração base do CRUD tabela de Projetos
-    *           Autor: Thiago Pereira
+     Configuração base do CRUD tabela de Projetos
+               Autor: Thiago Pereira
 */
 
 // Importando o express e configurando o router 
@@ -13,7 +13,7 @@ const projectRouter = express.Router();
 import projectsController from './projectsController';
 
 /*
-    * Rotas da tabela de Projetos importando do Controller referente a ela
+    Rotas da tabela de Projetos importando do Controller referente a ela
 */
 
 projectRouter.post('/projects/add/:guid_user/:guid_dept', projectsController.createProject);

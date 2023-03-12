@@ -77,10 +77,12 @@ export default {
 				},
 			});
 			// Resposta retorna o departamento cadastrado
-			return res.status(201).json(deptReg);
+			res.status(201).json(deptReg);
+			return;
 		} catch (error) {
 			// Caso falhe, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -96,10 +98,12 @@ export default {
 			// Configurando o prisma para retornar todos os projetos
 			const projectReq = await prisma.projects.findMany();
 			// Retorna em caso de sucesso a lista dos projetos
-			return res.status(200).json(projectReq);
+			res.status(200).json(projectReq);
+			return;
 		} catch (error) {
 			// Caso falhe, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -130,10 +134,12 @@ export default {
 				},
 			});
 			// Resposta retorna o projeto
-			return res.status(200).json(deptReqId);
+			res.status(200).json(deptReqId);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -203,10 +209,12 @@ export default {
 				},
 			});
 			// Resposta retorna o projeto atualizado
-			return res.status(201).json(deptUpdt);
+			res.status(201).json(deptUpdt);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -250,10 +258,12 @@ export default {
 				},
 			});
 			// Resposta retorna o projeto deletado
-			return res.status(200).json(projDel);
+			res.status(200).json(projDel);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 };

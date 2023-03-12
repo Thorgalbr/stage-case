@@ -57,7 +57,7 @@ export default {
 
 			// Recebendo os dados do body para registro
 			let { firstName, lastName, birthDate, hire_date, wage }: IEmployees = req.body;
-			console.log(guid_user);
+
 			// Validação dos dados vindos do body
 			if(!firstName || !lastName){
 				res.status(400).json({ error: "Nome e sobrenome obrigatórios!" });
@@ -112,9 +112,11 @@ export default {
 			
 			// Resposta retorna o funcionário cadastrado + o usuário que cadastrou
 			res.status(201).json(emploReg);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -131,9 +133,11 @@ export default {
 			const emploReq = await prisma.employees.findMany();
 			// Resposta retorna todos os usuários da tabela
 			res.status(200).json(emploReq);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -171,9 +175,11 @@ export default {
 			};
 			// Resposta retorna os dados referente ao funcionário
 			res.status(200).json(emploReqId);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -277,9 +283,11 @@ export default {
 			});
 			// Resposta retorna os dados atualizados
 			res.status(201).json(emploUpdt);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -323,9 +331,11 @@ export default {
 			});
 			// Resposta retorna o funcionário que foi deletado
 			res.status(200).json(emploDel);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 };

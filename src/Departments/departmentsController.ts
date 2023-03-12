@@ -72,10 +72,12 @@ export default {
 				},
 			});
 			// Resposta retorna o departamento cadastrado
-			return res.status(201).json(deptReg);
+			res.status(201).json(deptReg);
+			return;
 		} catch (error) {
 			// Caso falhe, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -91,10 +93,12 @@ export default {
 			// Configurando o prisma para retornar todos os departamentos
 			const deptReq = await prisma.departments.findMany();
 			// Retorna em caso de sucesso a lista dos departamentos
-			return res.status(200).json(deptReq);
+			res.status(200).json(deptReq);
+			return;
 		} catch (error) {
 			// Caso falhe, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -125,10 +129,12 @@ export default {
 				},
 			});
 			// Resposta retorna o departamento
-			return res.status(200).json(deptReqId);
+			res.status(200).json(deptReqId);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -199,6 +205,7 @@ export default {
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -242,10 +249,12 @@ export default {
 				},
 			});
 			// Resposta retorna o departamento deletado
-			return res.status(200).json(deptDel);
+			res.status(200).json(deptDel);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 };

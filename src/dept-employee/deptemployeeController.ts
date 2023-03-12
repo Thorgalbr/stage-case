@@ -11,14 +11,6 @@ import { Request, Response } from "express";
 
 import { prisma } from "../utils/prisma";
 
-// Importando a interface IDeptEmp para informar os datatypes
-
-import { IDeptEmp } from "../utils/interfaces";
-
-// Importando o moment para manipular as datas do código
-
-import moment from "moment";
-
 // Exportando os controllers para a rota
 
 export default {
@@ -75,9 +67,11 @@ export default {
 			});
 			// Resposta retorna os dados registrados + os dados de dept e funcionários
 			res.status(201).json(deptEmpReg);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -94,9 +88,11 @@ export default {
 			const deptEmpReq = await prisma.dept_emp.findMany();
 			// Resposta retorna os dados da tabela
 			res.status(200).json(deptEmpReq);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -141,9 +137,11 @@ export default {
 			});
 			// Resposta retorna o dado solicitado
 			res.status(200).json(deptEmpReqId);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(404).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -230,9 +228,11 @@ export default {
 			});
 			// Resposta retorna os dados atualizados
 			res.status(201).json(deptEmpUpdt);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -277,9 +277,11 @@ export default {
 			});
 			// Resposta retorna os dados deletados
 			res.status(200).json(deptEmpDel);
+			return;
 		} catch (error) {
 			// Em caso de falha, retorna uma mensagem de erro
 			res.status(400).json({ error:"Ocorreu um erro!" });
+			return;
 		};
 	},
 };

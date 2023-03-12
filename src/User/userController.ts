@@ -41,7 +41,7 @@ export default {
 		*/
 
 		try {
-			// Recebendo os dados para registro do body
+			// Recebendo os dados para registro do body e passando as tipagens da interface IUser
 			const { firstName, lastName, email, role, password }: IUser = req.body;
 
 			// Passando o password na função hash do bcryptjs para criptografar o retorno
@@ -86,11 +86,14 @@ export default {
 				},
 			});
 			// Caso obtenha sucesso retorna os dados do usuário cadastrado com o password encriptado
-			return res.status(201).json(userReg);
+			res.status(201).json(userReg);
+			return; 
 		} catch (error) {
 			// Se não obter sucesso retorna esta mensagem de erro
-			return res.status(400).json({ error: "Ocorreu um erro!" });
+			res.status(400).json({ error: "Ocorreu um erro!" });
+			return;
 		};
+
 	},
 
 	// Rota de GET/REQUEST
@@ -105,10 +108,13 @@ export default {
 			// Configurando o prisma para retornar todos os usuários
 			const userReq = await prisma.user.findMany();
 			// Retorna em caso de sucesso a lista dos usuários
-			return res.status(200).json(userReq);
+			res.status(200).json(userReq);
+			return;
+			
 		} catch (error) {
 			// Caso não obtenha sucesso retorna uma mensagem de erro
 			res.status(404).json({ error: "Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -138,14 +144,16 @@ export default {
 			});
 			// Validação da existência do usuário no banco de dados
 			if (!userReqId) {
-				res.status(400).json({ erro: "Usuário não encontrado" });
+				res.status(404).json({ erro: "Usuário não encontrado" });
 				return;
 			};
 			// Resposta retorna os dados referente ao usuário filtrado
-			return res.status(200).json(userReqId);
+			res.status(200).json(userReqId);
+			return;
 		} catch (error) {
 			// Em caso de falha retorna uma mensagem de erro
 			res.status(404).json({ error: "Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -188,7 +196,7 @@ export default {
 				res.status(404).json({ erro: "Usuário não encontrado!" });
 				return;
 			};
-			// Recebendo os dados do body
+			// Recebendo os dados para registro do body e passando as tipagens da interface IUser
 			const { firstName, lastName, email, role, password }: IUser = req.body;
 			// Passando o password na função hash do bcryptjs para criptografar o retorno
 			const hash_password = await hash(password, 8);
@@ -223,10 +231,12 @@ export default {
 				},
 			});
 			// Em caso de sucesso retorna os dados atualizados
-			return res.status(201).json(userUpdt);
+			res.status(201).json(userUpdt);
+			return;
 		} catch (error) {
 			// Caso aconteça algum erro retorna uma mensagem informando
 			res.status(400).json({ error: "Ocorreu um erro!" });
+			return;
 		};
 	},
 
@@ -269,10 +279,12 @@ export default {
 				},
 			});
 			// Em caso de sucesso retorna o usuário que foi deletado
-			return res.status(200).json(userDel);
+				res.status(200).json(userDel);
+				return;
 		} catch (error) {
 			// Caso falhe retorna uma mensagem de erro
-			res.status(400).json({ error: "Ocorreu um erro!" });
+				res.status(400).json({ error: "Ocorreu um erro!" });
+				return;
 		};
 	},
 };
