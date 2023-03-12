@@ -16,7 +16,7 @@ COPY . .
 # Expondo a porta 4000
 EXPOSE 4000
 
-# Comando que vai rodar o rimraf apagar arquivos existentes na dist e recriar com o tsc
+# Comando que vai rodar o rimraf para apagar arquivos existentes na dist e recriar com o tsc
 RUN npm run build
 
 # Comando para rodar a aplicação no server.js na pasta dist
