@@ -3,10 +3,13 @@ version: '1.0'
 services:
   app:
     build: .
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       - DATABASE_URL
       - API_PORT
       - RANDOM_TOKEN_SECRET
     ports: 
-     - "4000:4000"
+     - "0.0.0.0:4000:4000"
     command: npm start
