@@ -35,7 +35,7 @@ app.use(authRouter);
 import { userRouter } from "./user/userRoute";
 app.use(userRouter);
 
-import { deptRouter } from "./departments/departamentRoute";
+import { deptRouter } from "./departments/departmentRoute";
 app.use(deptRouter);
 
 import { deptEmpRouter } from "./dept-employee/deptempRoute";
