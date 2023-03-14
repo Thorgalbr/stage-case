@@ -16,13 +16,13 @@ import projectsController from './projectsController';
     Rotas da tabela de Projetos importando do Controller referente a ela
 */
 
-projectRouter.post('/projects/add/:guid_user/:guid_dept', projectsController.createProject);
+projectRouter.post('/projects/add/:guid_dept', projectsController.createProject);
 
 projectRouter.get('/projects/request', projectsController.findAllProjects);
 
 projectRouter.get('/projects/request/:guid_projects', projectsController.findProject);
 
-projectRouter.patch('/projects/update/:guid_projects/:guid_user/:guid_dept', projectsController.updateProject);
+projectRouter.patch('/projects/update/:guid_projects/:guid_dept', projectsController.updateProject);
 
 projectRouter.delete('/project/delete/:guid_projects', projectsController.deleteProject);
 

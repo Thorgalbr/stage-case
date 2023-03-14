@@ -24,11 +24,12 @@ export default {
 
 		/*
 			Rota de registro de departamentos
-			Formato da rota: "/department/add/:guid_user"
+			Formato da rota: "/department/add"
 			Formato guid_user = "8d695e19-3422-4990-b70c-d3772efb9c38"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"deptName":"Exemplo",
+				"status":"Exemplo"
 			}
  
 		*/
@@ -40,14 +41,6 @@ export default {
 			// Validação do dado recebido do body
 			if(!deptName || !status){
 				res.status(400).json( { mensagem:"O nome do departamento e o status são obrigatórios" } );
-				return;
-			};
-
-			// Recebendo o guid_user do params
-			const guid_user = req.params.guid_user;
-			// Validando o recebimento do guid_user
-			if(!guid_user){
-				res.status(400).json( { mensagem:"O GUID do usuário é obrigatório" } );
 				return;
 			};
 
@@ -68,7 +61,6 @@ export default {
 				data: {
 					deptName: deptName,
 					status: status,
-					user_guid: guid_user
 				},
 			});
 			// Resposta retorna o departamento cadastrado
@@ -145,10 +137,11 @@ export default {
 			Rota de PATCH/UPDATE dos registros de departamentos
 			Requer o GUID do departamento para atualização
 			Formato guid_user e guid_dept = "8d695e19-3422-4990-b70c-d3772efb9c38"
-			Formato da rota: "/departments/update/:guid_dept/:guid_user"
+			Formato da rota: "/departments/update/:guid_dept"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"deptName":"Exemplo",
+				"status":"Exemplo"
 			}
  
 		*/
@@ -156,19 +149,12 @@ export default {
 		try {
 			// Recebendo o GUID do departamento dos params
 			const guid_dept = req.params.guid_dept;
+
 			// Validando se o guid existe na requisição
 			if (!guid_dept) {
 				res.status(400).json({ erro: "GUID do departamento obrigatório" });
 				return;
-			};
-
-			// Recebendo o guid_user do params
-			const guid_user = req.params.guid_user;
-			// Validando o recebimento do guid_user
-			if(!guid_user){
-				res.status(400).json( { mensagem:"O GUID do usuário é obrigatório" } );
-				return;
-			};			
+			};		
 
 			// Recebendo o dado do body para atualização
 			const { deptName, status }: IDepts = req.body;
@@ -197,7 +183,6 @@ export default {
 				data: {
 					deptName: deptName,
 					status: status,
-					user_guid: guid_user,
 				},
 			});
 			// Resposta retorna o departamento atualizado
@@ -227,7 +212,7 @@ export default {
 
 			// Validação do dado recebido do params, retornando erro caso o GUID não seja inserido
 			if (!guid_dept) {
-				res.status(422).json({ erro: "GUID do Departamento obrigatório" });
+				res.status(400).json({ erro: "GUID do Departamento obrigatório" });
 				return;
 			};
 			// Checando se o departamento existe

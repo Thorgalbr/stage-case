@@ -29,7 +29,7 @@ export default {
 		/*
 			Rota de registro de funcionários
 			Requer o guid_user e guid_projects
-			Formato da rota: "/employee/:guid_user/:guid_projects"
+			Formato da rota: "/employee/:guid_projects"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -44,14 +44,11 @@ export default {
 		try {
 
 			// Recebendo os guids do params
-			const guid_user = req.params.guid_user;
-
-			// Recebendo os guids do params
 			const guid_projects = req.params.guid_projects;
 			
 			// Validando os dados do params
-			if(!guid_user || !guid_projects){
-				res.status(400).json({ error: "GUID de usuarios e projetos obrigatórios!" });
+			if(!guid_projects){
+				res.status(400).json({ error: "GUID de projetos obrigatório!" });
 				return;
 			};
 
@@ -74,12 +71,7 @@ export default {
 				return;
 			};
 
-			// Configurando o prisma para buscar os guids de user e projeto
-			const userReqId = await prisma.user.findUnique({
-				where: {
-					guid_user,
-				},
-			});
+			// Configurando o prisma para buscar os guids de projeto
 			const projReqId = await prisma.projects.findUnique({
 				where: {
 					guid_projects,
@@ -87,8 +79,8 @@ export default {
 			});
 
 			// Validação do recebimento da guid, retorna erro se nao for recebido
-			if (!userReqId || !projReqId) {
-				res.status(404).json({ error: "GUIDs de usuário ou projeto inexistentes" });
+			if (!projReqId) {
+				res.status(404).json({ error: "GUIDs de projeto inexistente" });
 				return;
 			};
 
@@ -104,7 +96,6 @@ export default {
 					birthDate: birthDate,
 					hire_date: hire_date,
 					wage: wage,
-					user_guid: guid_user,
 					projects_guid: guid_projects,
 				    },
 			});
@@ -189,7 +180,7 @@ export default {
 		/*
 			Rota de update de funcionários
 			Requer o guid_user e guid_projects
-			Formato da rota: "/employee/:guid_user/:guid_projects"
+			Formato da rota: "/employee/:guid_projects"
 	 		Formato aceito dos dados em JSON:
 	 		{
 				"firstName":"Exemplo",
@@ -241,24 +232,10 @@ export default {
 			};
 			
 			// Recebendo os guids do params
-			const guid_user  = req.params.guid_user;
-			// Recebendo os guids do params
 			const guid_projects  = req.params.guid_projects;
 
-			if(!guid_user || !guid_projects){
-				res.status(400).json({ error: "GUID de usuarios e projetos obrigatórios!" });
-				return;
-			};
-
-			// Buscando o guid_user e o guid_salary das tabelas referentes
-			const userReqId = await prisma.user.findUnique({
-				where: {
-					guid_user,
-				},
-			});
-			// Validação da existência desse funcionário
-			if (!userReqId) {
-				res.status(404).json({ error: "GUID de usuário não existe" });
+			if(!guid_projects){
+				res.status(400).json({ error: "GUID de projetos obrigatório!" });
 				return;
 			};
 
@@ -277,7 +254,6 @@ export default {
 					birthDate: birthDate,
 					hire_date: hire_date,
 					wage: wage,
-					user_guid: guid_user,
 					projects_guid: guid_projects,
 				    },
 			});

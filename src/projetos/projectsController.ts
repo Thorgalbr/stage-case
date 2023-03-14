@@ -24,7 +24,7 @@ export default {
 
 		/*
 			Rota de registro de projetos
-			Formato da rota: "/projects/add/:guid_user/dept_guid"
+			Formato da rota: "/projects/add/:dept_guid"
 			Formato guid_projects e dept_guid = "8d695e19-3422-4990-b70c-d3772efb9c38"
 	 		Formato aceito dos dados em JSON:
 	 		{
@@ -43,15 +43,12 @@ export default {
 				return;
 			};
 
-			// Recebendo o guid_user do params
-			const guid_user = req.params.guid_user;
-
             // Recebendo o guid_dept do params
             const guid_dept = req.params.guid_dept
 
            // Validando o recebimento dos Guids
-			if(!guid_user || !guid_dept){
-				res.status(400).json( { mensagem:"O GUID do usuário e do departamento são obrigatórios" } );
+			if(!guid_dept){
+				res.status(400).json( { mensagem:"GUID do departamento obrigatório" } );
 				return;
 			};
 
@@ -72,7 +69,6 @@ export default {
 				data: {
 					name: name,
 					status: status,
-					user_guid: guid_user,
                     dept_guid: guid_dept
 				},
 			});
@@ -123,7 +119,7 @@ export default {
 			const guid_projects = req.params.guid_projects;
 
 			if(!guid_projects){
-				res.status(400).json({erro:"GUID do Departamento não recebido"});
+				res.status(400).json({erro:"GUID do projeto não recebido"});
 				return;
 			};
 
@@ -148,7 +144,7 @@ export default {
 
 		/*
 			Rota de atualização de projetos
-			Formato da rota: "/project/update/:guid_projects/:guid_user/dept_guid"
+			Formato da rota: "/project/update/:guid_projects/:dept_guid"
 			Formato guid_projects, guid_user, dept_guid = "8d695e19-3422-4990-b70c-d3772efb9c38"
 	 		Formato aceito dos dados em JSON:
 	 		{
@@ -166,15 +162,12 @@ export default {
 				return;
 			};
 
-			// Recebendo o guid_user do params
-			const guid_user = req.params.guid_user;
-
             // Recebendo o guid_dept do params
             const guid_dept = req.params.guid_dept
 
            // Validando o recebimento dos Guids
-			if(!guid_user || !guid_dept){
-				res.status(400).json( { mensagem:"O GUID do usuário e do departamento são obrigatórios" } );
+			if(!guid_dept){
+				res.status(400).json( { mensagem:"GUID do departamento obrigatório" } );
 				return;
 			};
 
