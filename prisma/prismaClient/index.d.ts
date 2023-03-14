@@ -35,7 +35,6 @@ export type departments = {
   status: string
   createdAt: Date
   updatedAt: Date
-  user_guid: string
 }
 
 /**
@@ -51,7 +50,6 @@ export type employees = {
   wage: Prisma.Decimal
   createdAt: Date
   updatedAt: Date
-  user_guid: string
   projects_guid: string
 }
 
@@ -65,7 +63,6 @@ export type projects = {
   status: string
   createdAt: Date
   updatedAt: Date
-  user_guid: string
   dept_guid: string
 }
 
@@ -883,53 +880,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type UserCountOutputType
-   */
-
-
-  export type UserCountOutputType = {
-    employees: number
-    projects: number
-    departments: number
-  }
-
-  export type UserCountOutputTypeSelect = {
-    employees?: boolean
-    projects?: boolean
-    departments?: boolean
-  }
-
-  export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? UserCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (UserCountOutputTypeArgs)
-    ? UserCountOutputType 
-    : S extends { select: any } & (UserCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof UserCountOutputType ? UserCountOutputType[P] : never
-  } 
-      : UserCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the UserCountOutputType
-     */
-    select?: UserCountOutputTypeSelect | null
-  }
-
-
-
-  /**
    * Count Type DepartmentsCountOutputType
    */
 
@@ -1254,39 +1204,19 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employees?: boolean | user$employeesArgs
-    projects?: boolean | user$projectsArgs
-    departments?: boolean | user$departmentsArgs
-    _count?: boolean | UserCountOutputTypeArgs
   }
 
-
-  export type userInclude = {
-    employees?: boolean | user$employeesArgs
-    projects?: boolean | user$projectsArgs
-    departments?: boolean | user$departmentsArgs
-    _count?: boolean | UserCountOutputTypeArgs
-  }
 
   export type userGetPayload<S extends boolean | null | undefined | userArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? user :
     S extends undefined ? never :
     S extends { include: any } & (userArgs | userFindManyArgs)
-    ? user  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'employees' ? Array < employeesGetPayload<S['include'][P]>>  :
-        P extends 'projects' ? Array < projectsGetPayload<S['include'][P]>>  :
-        P extends 'departments' ? Array < departmentsGetPayload<S['include'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
+    ? user 
     : S extends { select: any } & (userArgs | userFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'employees' ? Array < employeesGetPayload<S['select'][P]>>  :
-        P extends 'projects' ? Array < projectsGetPayload<S['select'][P]>>  :
-        P extends 'departments' ? Array < departmentsGetPayload<S['select'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof user ? user[P] : never
+    P extends keyof user ? user[P] : never
   } 
       : user
 
@@ -1658,11 +1588,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    employees<T extends user$employeesArgs= {}>(args?: Subset<T, user$employeesArgs>): Prisma.PrismaPromise<Array<employeesGetPayload<T>>| Null>;
-
-    projects<T extends user$projectsArgs= {}>(args?: Subset<T, user$projectsArgs>): Prisma.PrismaPromise<Array<projectsGetPayload<T>>| Null>;
-
-    departments<T extends user$departmentsArgs= {}>(args?: Subset<T, user$departmentsArgs>): Prisma.PrismaPromise<Array<departmentsGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -1700,10 +1625,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * Filter, which user to fetch.
      */
     where: userWhereUniqueInput
@@ -1730,10 +1651,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * Filter, which user to fetch.
      */
     where: userWhereUniqueInput
@@ -1748,10 +1665,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the user
      */
     select?: userSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
     /**
      * Filter, which user to fetch.
      */
@@ -1809,10 +1722,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * Filter, which user to fetch.
      */
     where?: userWhereInput
@@ -1858,10 +1767,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * Filter, which users to fetch.
      */
     where?: userWhereInput
@@ -1902,10 +1807,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * The data needed to create a user.
      */
     data: XOR<userCreateInput, userUncheckedCreateInput>
@@ -1932,10 +1833,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the user
      */
     select?: userSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
     /**
      * The data needed to update a user.
      */
@@ -1971,10 +1868,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * The filter to search for the user to update in case it exists.
      */
     where: userWhereUniqueInput
@@ -1998,10 +1891,6 @@ export namespace Prisma {
      */
     select?: userSelect | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
-    /**
      * Filter which user to delete.
      */
     where: userWhereUniqueInput
@@ -2020,69 +1909,6 @@ export namespace Prisma {
 
 
   /**
-   * user.employees
-   */
-  export type user$employeesArgs = {
-    /**
-     * Select specific fields to fetch from the employees
-     */
-    select?: employeesSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: employeesInclude | null
-    where?: employeesWhereInput
-    orderBy?: Enumerable<employeesOrderByWithRelationInput>
-    cursor?: employeesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<EmployeesScalarFieldEnum>
-  }
-
-
-  /**
-   * user.projects
-   */
-  export type user$projectsArgs = {
-    /**
-     * Select specific fields to fetch from the projects
-     */
-    select?: projectsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: projectsInclude | null
-    where?: projectsWhereInput
-    orderBy?: Enumerable<projectsOrderByWithRelationInput>
-    cursor?: projectsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<ProjectsScalarFieldEnum>
-  }
-
-
-  /**
-   * user.departments
-   */
-  export type user$departmentsArgs = {
-    /**
-     * Select specific fields to fetch from the departments
-     */
-    select?: departmentsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: departmentsInclude | null
-    where?: departmentsWhereInput
-    orderBy?: Enumerable<departmentsOrderByWithRelationInput>
-    cursor?: departmentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<DepartmentsScalarFieldEnum>
-  }
-
-
-  /**
    * user without action
    */
   export type userArgs = {
@@ -2090,10 +1916,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the user
      */
     select?: userSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: userInclude | null
   }
 
 
@@ -2115,7 +1937,6 @@ export namespace Prisma {
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
   }
 
   export type DepartmentsMaxAggregateOutputType = {
@@ -2124,7 +1945,6 @@ export namespace Prisma {
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
   }
 
   export type DepartmentsCountAggregateOutputType = {
@@ -2133,7 +1953,6 @@ export namespace Prisma {
     status: number
     createdAt: number
     updatedAt: number
-    user_guid: number
     _all: number
   }
 
@@ -2144,7 +1963,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
   }
 
   export type DepartmentsMaxAggregateInputType = {
@@ -2153,7 +1971,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
   }
 
   export type DepartmentsCountAggregateInputType = {
@@ -2162,7 +1979,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     _all?: true
   }
 
@@ -2245,7 +2061,6 @@ export namespace Prisma {
     status: string
     createdAt: Date
     updatedAt: Date
-    user_guid: string
     _count: DepartmentsCountAggregateOutputType | null
     _min: DepartmentsMinAggregateOutputType | null
     _max: DepartmentsMaxAggregateOutputType | null
@@ -2271,8 +2086,6 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_guid?: boolean
-    user?: boolean | userArgs
     dept_emp?: boolean | departments$dept_empArgs
     projects?: boolean | departments$projectsArgs
     _count?: boolean | DepartmentsCountOutputTypeArgs
@@ -2280,7 +2093,6 @@ export namespace Prisma {
 
 
   export type departmentsInclude = {
-    user?: boolean | userArgs
     dept_emp?: boolean | departments$dept_empArgs
     projects?: boolean | departments$projectsArgs
     _count?: boolean | DepartmentsCountOutputTypeArgs
@@ -2293,7 +2105,6 @@ export namespace Prisma {
     S extends { include: any } & (departmentsArgs | departmentsFindManyArgs)
     ? departments  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'user' ? userGetPayload<S['include'][P]> :
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['include'][P]>>  :
         P extends 'projects' ? Array < projectsGetPayload<S['include'][P]>>  :
         P extends '_count' ? DepartmentsCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -2301,7 +2112,6 @@ export namespace Prisma {
     : S extends { select: any } & (departmentsArgs | departmentsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'user' ? userGetPayload<S['select'][P]> :
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['select'][P]>>  :
         P extends 'projects' ? Array < projectsGetPayload<S['select'][P]>>  :
         P extends '_count' ? DepartmentsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof departments ? departments[P] : never
@@ -2675,8 +2485,6 @@ export namespace Prisma {
     private _requestPromise?;
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-
-    user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
 
     dept_emp<T extends departments$dept_empArgs= {}>(args?: Subset<T, departments$dept_empArgs>): Prisma.PrismaPromise<Array<dept_empGetPayload<T>>| Null>;
 
@@ -3125,7 +2933,6 @@ export namespace Prisma {
     wage: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
     projects_guid: string | null
   }
 
@@ -3138,7 +2945,6 @@ export namespace Prisma {
     wage: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
     projects_guid: string | null
   }
 
@@ -3151,7 +2957,6 @@ export namespace Prisma {
     wage: number
     createdAt: number
     updatedAt: number
-    user_guid: number
     projects_guid: number
     _all: number
   }
@@ -3174,7 +2979,6 @@ export namespace Prisma {
     wage?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     projects_guid?: true
   }
 
@@ -3187,7 +2991,6 @@ export namespace Prisma {
     wage?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     projects_guid?: true
   }
 
@@ -3200,7 +3003,6 @@ export namespace Prisma {
     wage?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     projects_guid?: true
     _all?: true
   }
@@ -3301,7 +3103,6 @@ export namespace Prisma {
     wage: Decimal
     createdAt: Date
     updatedAt: Date
-    user_guid: string
     projects_guid: string
     _count: EmployeesCountAggregateOutputType | null
     _avg: EmployeesAvgAggregateOutputType | null
@@ -3333,10 +3134,8 @@ export namespace Prisma {
     wage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_guid?: boolean
     projects_guid?: boolean
     dept_emp?: boolean | employees$dept_empArgs
-    user?: boolean | userArgs
     projects?: boolean | projectsArgs
     _count?: boolean | EmployeesCountOutputTypeArgs
   }
@@ -3344,7 +3143,6 @@ export namespace Prisma {
 
   export type employeesInclude = {
     dept_emp?: boolean | employees$dept_empArgs
-    user?: boolean | userArgs
     projects?: boolean | projectsArgs
     _count?: boolean | EmployeesCountOutputTypeArgs
   }
@@ -3357,7 +3155,6 @@ export namespace Prisma {
     ? employees  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['include'][P]>>  :
-        P extends 'user' ? userGetPayload<S['include'][P]> :
         P extends 'projects' ? projectsGetPayload<S['include'][P]> :
         P extends '_count' ? EmployeesCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
@@ -3365,7 +3162,6 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'dept_emp' ? Array < dept_empGetPayload<S['select'][P]>>  :
-        P extends 'user' ? userGetPayload<S['select'][P]> :
         P extends 'projects' ? projectsGetPayload<S['select'][P]> :
         P extends '_count' ? EmployeesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof employees ? employees[P] : never
   } 
@@ -3740,8 +3536,6 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
     dept_emp<T extends employees$dept_empArgs= {}>(args?: Subset<T, employees$dept_empArgs>): Prisma.PrismaPromise<Array<dept_empGetPayload<T>>| Null>;
-
-    user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
 
     projects<T extends projectsArgs= {}>(args?: Subset<T, projectsArgs>): Prisma__projectsClient<projectsGetPayload<T> | Null>;
 
@@ -4154,7 +3948,6 @@ export namespace Prisma {
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
     dept_guid: string | null
   }
 
@@ -4164,7 +3957,6 @@ export namespace Prisma {
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    user_guid: string | null
     dept_guid: string | null
   }
 
@@ -4174,7 +3966,6 @@ export namespace Prisma {
     status: number
     createdAt: number
     updatedAt: number
-    user_guid: number
     dept_guid: number
     _all: number
   }
@@ -4186,7 +3977,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     dept_guid?: true
   }
 
@@ -4196,7 +3986,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     dept_guid?: true
   }
 
@@ -4206,7 +3995,6 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
-    user_guid?: true
     dept_guid?: true
     _all?: true
   }
@@ -4290,7 +4078,6 @@ export namespace Prisma {
     status: string
     createdAt: Date
     updatedAt: Date
-    user_guid: string
     dept_guid: string
     _count: ProjectsCountAggregateOutputType | null
     _min: ProjectsMinAggregateOutputType | null
@@ -4317,9 +4104,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user_guid?: boolean
     dept_guid?: boolean
-    user?: boolean | userArgs
     departments?: boolean | departmentsArgs
     employees?: boolean | projects$employeesArgs
     _count?: boolean | ProjectsCountOutputTypeArgs
@@ -4327,7 +4112,6 @@ export namespace Prisma {
 
 
   export type projectsInclude = {
-    user?: boolean | userArgs
     departments?: boolean | departmentsArgs
     employees?: boolean | projects$employeesArgs
     _count?: boolean | ProjectsCountOutputTypeArgs
@@ -4340,7 +4124,6 @@ export namespace Prisma {
     S extends { include: any } & (projectsArgs | projectsFindManyArgs)
     ? projects  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'user' ? userGetPayload<S['include'][P]> :
         P extends 'departments' ? departmentsGetPayload<S['include'][P]> :
         P extends 'employees' ? Array < employeesGetPayload<S['include'][P]>>  :
         P extends '_count' ? ProjectsCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -4348,7 +4131,6 @@ export namespace Prisma {
     : S extends { select: any } & (projectsArgs | projectsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'user' ? userGetPayload<S['select'][P]> :
         P extends 'departments' ? departmentsGetPayload<S['select'][P]> :
         P extends 'employees' ? Array < employeesGetPayload<S['select'][P]>>  :
         P extends '_count' ? ProjectsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof projects ? projects[P] : never
@@ -4722,8 +4504,6 @@ export namespace Prisma {
     private _requestPromise?;
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-
-    user<T extends userArgs= {}>(args?: Subset<T, userArgs>): Prisma__userClient<userGetPayload<T> | Null>;
 
     departments<T extends departmentsArgs= {}>(args?: Subset<T, departmentsArgs>): Prisma__departmentsClient<departmentsGetPayload<T> | Null>;
 
@@ -6070,8 +5850,7 @@ export namespace Prisma {
     deptName: 'deptName',
     status: 'status',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    user_guid: 'user_guid'
+    updatedAt: 'updatedAt'
   };
 
   export type DepartmentsScalarFieldEnum = (typeof DepartmentsScalarFieldEnum)[keyof typeof DepartmentsScalarFieldEnum]
@@ -6097,7 +5876,6 @@ export namespace Prisma {
     wage: 'wage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    user_guid: 'user_guid',
     projects_guid: 'projects_guid'
   };
 
@@ -6110,7 +5888,6 @@ export namespace Prisma {
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    user_guid: 'user_guid',
     dept_guid: 'dept_guid'
   };
 
@@ -6174,9 +5951,6 @@ export namespace Prisma {
     role?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    employees?: EmployeesListRelationFilter
-    projects?: ProjectsListRelationFilter
-    departments?: DepartmentsListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -6188,9 +5962,6 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    employees?: employeesOrderByRelationAggregateInput
-    projects?: projectsOrderByRelationAggregateInput
-    departments?: departmentsOrderByRelationAggregateInput
   }
 
   export type userWhereUniqueInput = {
@@ -6235,8 +6006,6 @@ export namespace Prisma {
     status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
-    user?: XOR<UserRelationFilter, userWhereInput>
     dept_emp?: Dept_empListRelationFilter
     projects?: ProjectsListRelationFilter
   }
@@ -6247,8 +6016,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
-    user?: userOrderByWithRelationInput
     dept_emp?: dept_empOrderByRelationAggregateInput
     projects?: projectsOrderByRelationAggregateInput
   }
@@ -6264,7 +6031,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     _count?: departmentsCountOrderByAggregateInput
     _max?: departmentsMaxOrderByAggregateInput
     _min?: departmentsMinOrderByAggregateInput
@@ -6279,7 +6045,6 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    user_guid?: StringWithAggregatesFilter | string
   }
 
   export type employeesWhereInput = {
@@ -6294,10 +6059,8 @@ export namespace Prisma {
     wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
     projects_guid?: StringFilter | string
     dept_emp?: Dept_empListRelationFilter
-    user?: XOR<UserRelationFilter, userWhereInput>
     projects?: XOR<ProjectsRelationFilter, projectsWhereInput>
   }
 
@@ -6310,10 +6073,8 @@ export namespace Prisma {
     wage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     projects_guid?: SortOrder
     dept_emp?: dept_empOrderByRelationAggregateInput
-    user?: userOrderByWithRelationInput
     projects?: projectsOrderByWithRelationInput
   }
 
@@ -6330,7 +6091,6 @@ export namespace Prisma {
     wage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     projects_guid?: SortOrder
     _count?: employeesCountOrderByAggregateInput
     _avg?: employeesAvgOrderByAggregateInput
@@ -6351,7 +6111,6 @@ export namespace Prisma {
     wage?: DecimalWithAggregatesFilter | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    user_guid?: StringWithAggregatesFilter | string
     projects_guid?: StringWithAggregatesFilter | string
   }
 
@@ -6364,9 +6123,7 @@ export namespace Prisma {
     status?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
     dept_guid?: StringFilter | string
-    user?: XOR<UserRelationFilter, userWhereInput>
     departments?: XOR<DepartmentsRelationFilter, departmentsWhereInput>
     employees?: EmployeesListRelationFilter
   }
@@ -6377,9 +6134,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     dept_guid?: SortOrder
-    user?: userOrderByWithRelationInput
     departments?: departmentsOrderByWithRelationInput
     employees?: employeesOrderByRelationAggregateInput
   }
@@ -6395,7 +6150,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     dept_guid?: SortOrder
     _count?: projectsCountOrderByAggregateInput
     _max?: projectsMaxOrderByAggregateInput
@@ -6411,7 +6165,6 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    user_guid?: StringWithAggregatesFilter | string
     dept_guid?: StringWithAggregatesFilter | string
   }
 
@@ -6473,9 +6226,6 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: employeesCreateNestedManyWithoutUserInput
-    projects?: projectsCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -6487,9 +6237,6 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: employeesUncheckedCreateNestedManyWithoutUserInput
-    projects?: projectsUncheckedCreateNestedManyWithoutUserInput
-    departments?: departmentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -6501,9 +6248,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUpdateManyWithoutUserNestedInput
-    projects?: projectsUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -6515,9 +6259,6 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
-    projects?: projectsUncheckedUpdateManyWithoutUserNestedInput
-    departments?: departmentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -6559,7 +6300,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutDepartmentsInput
     dept_emp?: dept_empCreateNestedManyWithoutDepartmentsInput
     projects?: projectsCreateNestedManyWithoutDepartmentsInput
   }
@@ -6570,7 +6310,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutDepartmentsInput
     projects?: projectsUncheckedCreateNestedManyWithoutDepartmentsInput
   }
@@ -6581,7 +6320,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
     dept_emp?: dept_empUpdateManyWithoutDepartmentsNestedInput
     projects?: projectsUpdateManyWithoutDepartmentsNestedInput
   }
@@ -6592,7 +6330,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutDepartmentsNestedInput
     projects?: projectsUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
@@ -6603,7 +6340,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
   }
 
   export type departmentsUpdateManyMutationInput = {
@@ -6620,7 +6356,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
   }
 
   export type employeesCreateInput = {
@@ -6633,7 +6368,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    user: userCreateNestedOneWithoutEmployeesInput
     projects: projectsCreateNestedOneWithoutEmployeesInput
   }
 
@@ -6646,7 +6380,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     projects_guid: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
@@ -6661,7 +6394,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    user?: userUpdateOneRequiredWithoutEmployeesNestedInput
     projects?: projectsUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
@@ -6674,7 +6406,6 @@ export namespace Prisma {
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     projects_guid?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
   }
@@ -6688,7 +6419,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     projects_guid: string
   }
 
@@ -6712,7 +6442,6 @@ export namespace Prisma {
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     projects_guid?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6722,7 +6451,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutProjectsInput
     departments: departmentsCreateNestedOneWithoutProjectsInput
     employees?: employeesCreateNestedManyWithoutProjectsInput
   }
@@ -6733,7 +6461,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_guid: string
     employees?: employeesUncheckedCreateNestedManyWithoutProjectsInput
   }
@@ -6744,7 +6471,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutProjectsNestedInput
     departments?: departmentsUpdateOneRequiredWithoutProjectsNestedInput
     employees?: employeesUpdateManyWithoutProjectsNestedInput
   }
@@ -6755,7 +6481,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
     employees?: employeesUncheckedUpdateManyWithoutProjectsNestedInput
   }
@@ -6766,7 +6491,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_guid: string
   }
 
@@ -6784,7 +6508,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6868,36 +6591,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
-  export type EmployeesListRelationFilter = {
-    every?: employeesWhereInput
-    some?: employeesWhereInput
-    none?: employeesWhereInput
-  }
-
-  export type ProjectsListRelationFilter = {
-    every?: projectsWhereInput
-    some?: projectsWhereInput
-    none?: projectsWhereInput
-  }
-
-  export type DepartmentsListRelationFilter = {
-    every?: departmentsWhereInput
-    some?: departmentsWhereInput
-    none?: departmentsWhereInput
-  }
-
-  export type employeesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type projectsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type departmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type userCountOrderByAggregateInput = {
     guid_user?: SortOrder
     firstName?: SortOrder
@@ -6963,18 +6656,23 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type UserRelationFilter = {
-    is?: userWhereInput
-    isNot?: userWhereInput
-  }
-
   export type Dept_empListRelationFilter = {
     every?: dept_empWhereInput
     some?: dept_empWhereInput
     none?: dept_empWhereInput
   }
 
+  export type ProjectsListRelationFilter = {
+    every?: projectsWhereInput
+    some?: projectsWhereInput
+    none?: projectsWhereInput
+  }
+
   export type dept_empOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type projectsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6984,7 +6682,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
   }
 
   export type departmentsMaxOrderByAggregateInput = {
@@ -6993,7 +6690,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
   }
 
   export type departmentsMinOrderByAggregateInput = {
@@ -7002,7 +6698,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
   }
 
   export type DecimalFilter = {
@@ -7030,7 +6725,6 @@ export namespace Prisma {
     wage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     projects_guid?: SortOrder
   }
 
@@ -7047,7 +6741,6 @@ export namespace Prisma {
     wage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     projects_guid?: SortOrder
   }
 
@@ -7060,7 +6753,6 @@ export namespace Prisma {
     wage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     projects_guid?: SortOrder
   }
 
@@ -7089,13 +6781,22 @@ export namespace Prisma {
     isNot?: departmentsWhereInput
   }
 
+  export type EmployeesListRelationFilter = {
+    every?: employeesWhereInput
+    some?: employeesWhereInput
+    none?: employeesWhereInput
+  }
+
+  export type employeesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type projectsCountOrderByAggregateInput = {
     guid_projects?: SortOrder
     name?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     dept_guid?: SortOrder
   }
 
@@ -7105,7 +6806,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     dept_guid?: SortOrder
   }
 
@@ -7115,7 +6815,6 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user_guid?: SortOrder
     dept_guid?: SortOrder
   }
 
@@ -7148,144 +6847,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type employeesCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
-    createMany?: employeesCreateManyUserInputEnvelope
-    connect?: Enumerable<employeesWhereUniqueInput>
-  }
-
-  export type projectsCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<projectsCreateWithoutUserInput>, Enumerable<projectsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<projectsCreateOrConnectWithoutUserInput>
-    createMany?: projectsCreateManyUserInputEnvelope
-    connect?: Enumerable<projectsWhereUniqueInput>
-  }
-
-  export type departmentsCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<departmentsCreateWithoutUserInput>, Enumerable<departmentsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<departmentsCreateOrConnectWithoutUserInput>
-    createMany?: departmentsCreateManyUserInputEnvelope
-    connect?: Enumerable<departmentsWhereUniqueInput>
-  }
-
-  export type employeesUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
-    createMany?: employeesCreateManyUserInputEnvelope
-    connect?: Enumerable<employeesWhereUniqueInput>
-  }
-
-  export type projectsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<projectsCreateWithoutUserInput>, Enumerable<projectsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<projectsCreateOrConnectWithoutUserInput>
-    createMany?: projectsCreateManyUserInputEnvelope
-    connect?: Enumerable<projectsWhereUniqueInput>
-  }
-
-  export type departmentsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<departmentsCreateWithoutUserInput>, Enumerable<departmentsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<departmentsCreateOrConnectWithoutUserInput>
-    createMany?: departmentsCreateManyUserInputEnvelope
-    connect?: Enumerable<departmentsWhereUniqueInput>
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type employeesUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<employeesUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: employeesCreateManyUserInputEnvelope
-    set?: Enumerable<employeesWhereUniqueInput>
-    disconnect?: Enumerable<employeesWhereUniqueInput>
-    delete?: Enumerable<employeesWhereUniqueInput>
-    connect?: Enumerable<employeesWhereUniqueInput>
-    update?: Enumerable<employeesUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<employeesUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<employeesScalarWhereInput>
-  }
-
-  export type projectsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<projectsCreateWithoutUserInput>, Enumerable<projectsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<projectsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<projectsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: projectsCreateManyUserInputEnvelope
-    set?: Enumerable<projectsWhereUniqueInput>
-    disconnect?: Enumerable<projectsWhereUniqueInput>
-    delete?: Enumerable<projectsWhereUniqueInput>
-    connect?: Enumerable<projectsWhereUniqueInput>
-    update?: Enumerable<projectsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<projectsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<projectsScalarWhereInput>
-  }
-
-  export type departmentsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<departmentsCreateWithoutUserInput>, Enumerable<departmentsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<departmentsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<departmentsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: departmentsCreateManyUserInputEnvelope
-    set?: Enumerable<departmentsWhereUniqueInput>
-    disconnect?: Enumerable<departmentsWhereUniqueInput>
-    delete?: Enumerable<departmentsWhereUniqueInput>
-    connect?: Enumerable<departmentsWhereUniqueInput>
-    update?: Enumerable<departmentsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<departmentsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<departmentsScalarWhereInput>
-  }
-
-  export type employeesUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<employeesCreateWithoutUserInput>, Enumerable<employeesUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<employeesUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: employeesCreateManyUserInputEnvelope
-    set?: Enumerable<employeesWhereUniqueInput>
-    disconnect?: Enumerable<employeesWhereUniqueInput>
-    delete?: Enumerable<employeesWhereUniqueInput>
-    connect?: Enumerable<employeesWhereUniqueInput>
-    update?: Enumerable<employeesUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<employeesUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<employeesScalarWhereInput>
-  }
-
-  export type projectsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<projectsCreateWithoutUserInput>, Enumerable<projectsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<projectsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<projectsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: projectsCreateManyUserInputEnvelope
-    set?: Enumerable<projectsWhereUniqueInput>
-    disconnect?: Enumerable<projectsWhereUniqueInput>
-    delete?: Enumerable<projectsWhereUniqueInput>
-    connect?: Enumerable<projectsWhereUniqueInput>
-    update?: Enumerable<projectsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<projectsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<projectsScalarWhereInput>
-  }
-
-  export type departmentsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<departmentsCreateWithoutUserInput>, Enumerable<departmentsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<departmentsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<departmentsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: departmentsCreateManyUserInputEnvelope
-    set?: Enumerable<departmentsWhereUniqueInput>
-    disconnect?: Enumerable<departmentsWhereUniqueInput>
-    delete?: Enumerable<departmentsWhereUniqueInput>
-    connect?: Enumerable<departmentsWhereUniqueInput>
-    update?: Enumerable<departmentsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<departmentsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<departmentsScalarWhereInput>
-  }
-
-  export type userCreateNestedOneWithoutDepartmentsInput = {
-    create?: XOR<userCreateWithoutDepartmentsInput, userUncheckedCreateWithoutDepartmentsInput>
-    connectOrCreate?: userCreateOrConnectWithoutDepartmentsInput
-    connect?: userWhereUniqueInput
   }
 
   export type dept_empCreateNestedManyWithoutDepartmentsInput = {
@@ -7314,14 +6881,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<projectsCreateOrConnectWithoutDepartmentsInput>
     createMany?: projectsCreateManyDepartmentsInputEnvelope
     connect?: Enumerable<projectsWhereUniqueInput>
-  }
-
-  export type userUpdateOneRequiredWithoutDepartmentsNestedInput = {
-    create?: XOR<userCreateWithoutDepartmentsInput, userUncheckedCreateWithoutDepartmentsInput>
-    connectOrCreate?: userCreateOrConnectWithoutDepartmentsInput
-    upsert?: userUpsertWithoutDepartmentsInput
-    connect?: userWhereUniqueInput
-    update?: XOR<userUpdateWithoutDepartmentsInput, userUncheckedUpdateWithoutDepartmentsInput>
   }
 
   export type dept_empUpdateManyWithoutDepartmentsNestedInput = {
@@ -7387,12 +6946,6 @@ export namespace Prisma {
     connect?: Enumerable<dept_empWhereUniqueInput>
   }
 
-  export type userCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<userCreateWithoutEmployeesInput, userUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: userCreateOrConnectWithoutEmployeesInput
-    connect?: userWhereUniqueInput
-  }
-
   export type projectsCreateNestedOneWithoutEmployeesInput = {
     create?: XOR<projectsCreateWithoutEmployeesInput, projectsUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: projectsCreateOrConnectWithoutEmployeesInput
@@ -7428,14 +6981,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<dept_empScalarWhereInput>
   }
 
-  export type userUpdateOneRequiredWithoutEmployeesNestedInput = {
-    create?: XOR<userCreateWithoutEmployeesInput, userUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: userCreateOrConnectWithoutEmployeesInput
-    upsert?: userUpsertWithoutEmployeesInput
-    connect?: userWhereUniqueInput
-    update?: XOR<userUpdateWithoutEmployeesInput, userUncheckedUpdateWithoutEmployeesInput>
-  }
-
   export type projectsUpdateOneRequiredWithoutEmployeesNestedInput = {
     create?: XOR<projectsCreateWithoutEmployeesInput, projectsUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: projectsCreateOrConnectWithoutEmployeesInput
@@ -7458,12 +7003,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<dept_empScalarWhereInput>
   }
 
-  export type userCreateNestedOneWithoutProjectsInput = {
-    create?: XOR<userCreateWithoutProjectsInput, userUncheckedCreateWithoutProjectsInput>
-    connectOrCreate?: userCreateOrConnectWithoutProjectsInput
-    connect?: userWhereUniqueInput
-  }
-
   export type departmentsCreateNestedOneWithoutProjectsInput = {
     create?: XOR<departmentsCreateWithoutProjectsInput, departmentsUncheckedCreateWithoutProjectsInput>
     connectOrCreate?: departmentsCreateOrConnectWithoutProjectsInput
@@ -7482,14 +7021,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<employeesCreateOrConnectWithoutProjectsInput>
     createMany?: employeesCreateManyProjectsInputEnvelope
     connect?: Enumerable<employeesWhereUniqueInput>
-  }
-
-  export type userUpdateOneRequiredWithoutProjectsNestedInput = {
-    create?: XOR<userCreateWithoutProjectsInput, userUncheckedCreateWithoutProjectsInput>
-    connectOrCreate?: userCreateOrConnectWithoutProjectsInput
-    upsert?: userUpsertWithoutProjectsInput
-    connect?: userWhereUniqueInput
-    update?: XOR<userUpdateWithoutProjectsInput, userUncheckedUpdateWithoutProjectsInput>
   }
 
   export type departmentsUpdateOneRequiredWithoutProjectsNestedInput = {
@@ -7650,222 +7181,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter
   }
 
-  export type employeesCreateWithoutUserInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    wage: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    projects: projectsCreateNestedOneWithoutEmployeesInput
-  }
-
-  export type employeesUncheckedCreateWithoutUserInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    wage: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects_guid: string
-    dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type employeesCreateOrConnectWithoutUserInput = {
-    where: employeesWhereUniqueInput
-    create: XOR<employeesCreateWithoutUserInput, employeesUncheckedCreateWithoutUserInput>
-  }
-
-  export type employeesCreateManyUserInputEnvelope = {
-    data: Enumerable<employeesCreateManyUserInput>
-    skipDuplicates?: boolean
-  }
-
-  export type projectsCreateWithoutUserInput = {
-    guid_projects?: string
-    name: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    departments: departmentsCreateNestedOneWithoutProjectsInput
-    employees?: employeesCreateNestedManyWithoutProjectsInput
-  }
-
-  export type projectsUncheckedCreateWithoutUserInput = {
-    guid_projects?: string
-    name: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dept_guid: string
-    employees?: employeesUncheckedCreateNestedManyWithoutProjectsInput
-  }
-
-  export type projectsCreateOrConnectWithoutUserInput = {
-    where: projectsWhereUniqueInput
-    create: XOR<projectsCreateWithoutUserInput, projectsUncheckedCreateWithoutUserInput>
-  }
-
-  export type projectsCreateManyUserInputEnvelope = {
-    data: Enumerable<projectsCreateManyUserInput>
-    skipDuplicates?: boolean
-  }
-
-  export type departmentsCreateWithoutUserInput = {
-    guid_dept?: string
-    deptName: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dept_emp?: dept_empCreateNestedManyWithoutDepartmentsInput
-    projects?: projectsCreateNestedManyWithoutDepartmentsInput
-  }
-
-  export type departmentsUncheckedCreateWithoutUserInput = {
-    guid_dept?: string
-    deptName: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dept_emp?: dept_empUncheckedCreateNestedManyWithoutDepartmentsInput
-    projects?: projectsUncheckedCreateNestedManyWithoutDepartmentsInput
-  }
-
-  export type departmentsCreateOrConnectWithoutUserInput = {
-    where: departmentsWhereUniqueInput
-    create: XOR<departmentsCreateWithoutUserInput, departmentsUncheckedCreateWithoutUserInput>
-  }
-
-  export type departmentsCreateManyUserInputEnvelope = {
-    data: Enumerable<departmentsCreateManyUserInput>
-    skipDuplicates?: boolean
-  }
-
-  export type employeesUpsertWithWhereUniqueWithoutUserInput = {
-    where: employeesWhereUniqueInput
-    update: XOR<employeesUpdateWithoutUserInput, employeesUncheckedUpdateWithoutUserInput>
-    create: XOR<employeesCreateWithoutUserInput, employeesUncheckedCreateWithoutUserInput>
-  }
-
-  export type employeesUpdateWithWhereUniqueWithoutUserInput = {
-    where: employeesWhereUniqueInput
-    data: XOR<employeesUpdateWithoutUserInput, employeesUncheckedUpdateWithoutUserInput>
-  }
-
-  export type employeesUpdateManyWithWhereWithoutUserInput = {
-    where: employeesScalarWhereInput
-    data: XOR<employeesUpdateManyMutationInput, employeesUncheckedUpdateManyWithoutEmployeesInput>
-  }
-
-  export type employeesScalarWhereInput = {
-    AND?: Enumerable<employeesScalarWhereInput>
-    OR?: Enumerable<employeesScalarWhereInput>
-    NOT?: Enumerable<employeesScalarWhereInput>
-    guid_employee?: StringFilter | string
-    firstName?: StringFilter | string
-    lastName?: StringFilter | string
-    birthDate?: DateTimeFilter | Date | string
-    hire_date?: DateTimeFilter | Date | string
-    wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
-    projects_guid?: StringFilter | string
-  }
-
-  export type projectsUpsertWithWhereUniqueWithoutUserInput = {
-    where: projectsWhereUniqueInput
-    update: XOR<projectsUpdateWithoutUserInput, projectsUncheckedUpdateWithoutUserInput>
-    create: XOR<projectsCreateWithoutUserInput, projectsUncheckedCreateWithoutUserInput>
-  }
-
-  export type projectsUpdateWithWhereUniqueWithoutUserInput = {
-    where: projectsWhereUniqueInput
-    data: XOR<projectsUpdateWithoutUserInput, projectsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type projectsUpdateManyWithWhereWithoutUserInput = {
-    where: projectsScalarWhereInput
-    data: XOR<projectsUpdateManyMutationInput, projectsUncheckedUpdateManyWithoutProjectsInput>
-  }
-
-  export type projectsScalarWhereInput = {
-    AND?: Enumerable<projectsScalarWhereInput>
-    OR?: Enumerable<projectsScalarWhereInput>
-    NOT?: Enumerable<projectsScalarWhereInput>
-    guid_projects?: StringFilter | string
-    name?: StringFilter | string
-    status?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
-    dept_guid?: StringFilter | string
-  }
-
-  export type departmentsUpsertWithWhereUniqueWithoutUserInput = {
-    where: departmentsWhereUniqueInput
-    update: XOR<departmentsUpdateWithoutUserInput, departmentsUncheckedUpdateWithoutUserInput>
-    create: XOR<departmentsCreateWithoutUserInput, departmentsUncheckedCreateWithoutUserInput>
-  }
-
-  export type departmentsUpdateWithWhereUniqueWithoutUserInput = {
-    where: departmentsWhereUniqueInput
-    data: XOR<departmentsUpdateWithoutUserInput, departmentsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type departmentsUpdateManyWithWhereWithoutUserInput = {
-    where: departmentsScalarWhereInput
-    data: XOR<departmentsUpdateManyMutationInput, departmentsUncheckedUpdateManyWithoutDepartmentsInput>
-  }
-
-  export type departmentsScalarWhereInput = {
-    AND?: Enumerable<departmentsScalarWhereInput>
-    OR?: Enumerable<departmentsScalarWhereInput>
-    NOT?: Enumerable<departmentsScalarWhereInput>
-    guid_dept?: StringFilter | string
-    deptName?: StringFilter | string
-    status?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    user_guid?: StringFilter | string
-  }
-
-  export type userCreateWithoutDepartmentsInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesCreateNestedManyWithoutUserInput
-    projects?: projectsCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutDepartmentsInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesUncheckedCreateNestedManyWithoutUserInput
-    projects?: projectsUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutDepartmentsInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutDepartmentsInput, userUncheckedCreateWithoutDepartmentsInput>
-  }
-
   export type dept_empCreateWithoutDepartmentsInput = {
     guid_dept_emp?: string
     createdAt?: Date | string
@@ -7896,7 +7211,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutProjectsInput
     employees?: employeesCreateNestedManyWithoutProjectsInput
   }
 
@@ -7906,7 +7220,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     employees?: employeesUncheckedCreateNestedManyWithoutProjectsInput
   }
 
@@ -7918,37 +7231,6 @@ export namespace Prisma {
   export type projectsCreateManyDepartmentsInputEnvelope = {
     data: Enumerable<projectsCreateManyDepartmentsInput>
     skipDuplicates?: boolean
-  }
-
-  export type userUpsertWithoutDepartmentsInput = {
-    update: XOR<userUpdateWithoutDepartmentsInput, userUncheckedUpdateWithoutDepartmentsInput>
-    create: XOR<userCreateWithoutDepartmentsInput, userUncheckedCreateWithoutDepartmentsInput>
-  }
-
-  export type userUpdateWithoutDepartmentsInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUpdateManyWithoutUserNestedInput
-    projects?: projectsUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutDepartmentsInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
-    projects?: projectsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type dept_empUpsertWithWhereUniqueWithoutDepartmentsInput = {
@@ -7994,6 +7276,18 @@ export namespace Prisma {
     data: XOR<projectsUpdateManyMutationInput, projectsUncheckedUpdateManyWithoutProjectsInput>
   }
 
+  export type projectsScalarWhereInput = {
+    AND?: Enumerable<projectsScalarWhereInput>
+    OR?: Enumerable<projectsScalarWhereInput>
+    NOT?: Enumerable<projectsScalarWhereInput>
+    guid_projects?: StringFilter | string
+    name?: StringFilter | string
+    status?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    dept_guid?: StringFilter | string
+  }
+
   export type dept_empCreateWithoutEmployeeInput = {
     guid_dept_emp?: string
     createdAt?: Date | string
@@ -8018,44 +7312,12 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type userCreateWithoutEmployeesInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects?: projectsCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutEmployeesInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects?: projectsUncheckedCreateNestedManyWithoutUserInput
-    departments?: departmentsUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutEmployeesInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutEmployeesInput, userUncheckedCreateWithoutEmployeesInput>
-  }
-
   export type projectsCreateWithoutEmployeesInput = {
     guid_projects?: string
     name: string
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutProjectsInput
     departments: departmentsCreateNestedOneWithoutProjectsInput
   }
 
@@ -8065,7 +7327,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_guid: string
   }
 
@@ -8090,37 +7351,6 @@ export namespace Prisma {
     data: XOR<dept_empUpdateManyMutationInput, dept_empUncheckedUpdateManyWithoutDept_empInput>
   }
 
-  export type userUpsertWithoutEmployeesInput = {
-    update: XOR<userUpdateWithoutEmployeesInput, userUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<userCreateWithoutEmployeesInput, userUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type userUpdateWithoutEmployeesInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: projectsUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutEmployeesInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: projectsUncheckedUpdateManyWithoutUserNestedInput
-    departments?: departmentsUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type projectsUpsertWithoutEmployeesInput = {
     update: XOR<projectsUpdateWithoutEmployeesInput, projectsUncheckedUpdateWithoutEmployeesInput>
     create: XOR<projectsCreateWithoutEmployeesInput, projectsUncheckedCreateWithoutEmployeesInput>
@@ -8132,7 +7362,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutProjectsNestedInput
     departments?: departmentsUpdateOneRequiredWithoutProjectsNestedInput
   }
 
@@ -8142,39 +7371,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_guid?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type userCreateWithoutProjectsInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesCreateNestedManyWithoutUserInput
-    departments?: departmentsCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutProjectsInput = {
-    guid_user?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    role: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: employeesUncheckedCreateNestedManyWithoutUserInput
-    departments?: departmentsUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutProjectsInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutProjectsInput, userUncheckedCreateWithoutProjectsInput>
   }
 
   export type departmentsCreateWithoutProjectsInput = {
@@ -8183,7 +7380,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutDepartmentsInput
     dept_emp?: dept_empCreateNestedManyWithoutDepartmentsInput
   }
 
@@ -8193,7 +7389,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutDepartmentsInput
   }
 
@@ -8212,7 +7407,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     dept_emp?: dept_empCreateNestedManyWithoutEmployeeInput
-    user: userCreateNestedOneWithoutEmployeesInput
   }
 
   export type employeesUncheckedCreateWithoutProjectsInput = {
@@ -8224,7 +7418,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     dept_emp?: dept_empUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -8238,37 +7431,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type userUpsertWithoutProjectsInput = {
-    update: XOR<userUpdateWithoutProjectsInput, userUncheckedUpdateWithoutProjectsInput>
-    create: XOR<userCreateWithoutProjectsInput, userUncheckedCreateWithoutProjectsInput>
-  }
-
-  export type userUpdateWithoutProjectsInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUpdateManyWithoutUserNestedInput
-    departments?: departmentsUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutProjectsInput = {
-    guid_user?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: employeesUncheckedUpdateManyWithoutUserNestedInput
-    departments?: departmentsUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type departmentsUpsertWithoutProjectsInput = {
     update: XOR<departmentsUpdateWithoutProjectsInput, departmentsUncheckedUpdateWithoutProjectsInput>
     create: XOR<departmentsCreateWithoutProjectsInput, departmentsUncheckedCreateWithoutProjectsInput>
@@ -8280,7 +7442,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
     dept_emp?: dept_empUpdateManyWithoutDepartmentsNestedInput
   }
 
@@ -8290,7 +7451,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
 
@@ -8310,13 +7470,27 @@ export namespace Prisma {
     data: XOR<employeesUpdateManyMutationInput, employeesUncheckedUpdateManyWithoutEmployeesInput>
   }
 
+  export type employeesScalarWhereInput = {
+    AND?: Enumerable<employeesScalarWhereInput>
+    OR?: Enumerable<employeesScalarWhereInput>
+    NOT?: Enumerable<employeesScalarWhereInput>
+    guid_employee?: StringFilter | string
+    firstName?: StringFilter | string
+    lastName?: StringFilter | string
+    birthDate?: DateTimeFilter | Date | string
+    hire_date?: DateTimeFilter | Date | string
+    wage?: DecimalFilter | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    projects_guid?: StringFilter | string
+  }
+
   export type departmentsCreateWithoutDept_empInput = {
     guid_dept?: string
     deptName: string
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutDepartmentsInput
     projects?: projectsCreateNestedManyWithoutDepartmentsInput
   }
 
@@ -8326,7 +7500,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     projects?: projectsUncheckedCreateNestedManyWithoutDepartmentsInput
   }
 
@@ -8344,7 +7517,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: userCreateNestedOneWithoutEmployeesInput
     projects: projectsCreateNestedOneWithoutEmployeesInput
   }
 
@@ -8357,7 +7529,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
     projects_guid: string
   }
 
@@ -8377,7 +7548,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutDepartmentsNestedInput
     projects?: projectsUpdateManyWithoutDepartmentsNestedInput
   }
 
@@ -8387,7 +7557,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     projects?: projectsUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
 
@@ -8405,7 +7574,6 @@ export namespace Prisma {
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutEmployeesNestedInput
     projects?: projectsUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
@@ -8418,132 +7586,7 @@ export namespace Prisma {
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     projects_guid?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type employeesCreateManyUserInput = {
-    guid_employee?: string
-    firstName: string
-    lastName: string
-    birthDate: Date | string
-    hire_date: Date | string
-    wage: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects_guid: string
-  }
-
-  export type projectsCreateManyUserInput = {
-    guid_projects?: string
-    name: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dept_guid: string
-  }
-
-  export type departmentsCreateManyUserInput = {
-    guid_dept?: string
-    deptName: string
-    status: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type employeesUpdateWithoutUserInput = {
-    guid_employee?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    projects?: projectsUpdateOneRequiredWithoutEmployeesNestedInput
-  }
-
-  export type employeesUncheckedUpdateWithoutUserInput = {
-    guid_employee?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects_guid?: StringFieldUpdateOperationsInput | string
-    dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type employeesUncheckedUpdateManyWithoutEmployeesInput = {
-    guid_employee?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects_guid?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type projectsUpdateWithoutUserInput = {
-    guid_projects?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departments?: departmentsUpdateOneRequiredWithoutProjectsNestedInput
-    employees?: employeesUpdateManyWithoutProjectsNestedInput
-  }
-
-  export type projectsUncheckedUpdateWithoutUserInput = {
-    guid_projects?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dept_guid?: StringFieldUpdateOperationsInput | string
-    employees?: employeesUncheckedUpdateManyWithoutProjectsNestedInput
-  }
-
-  export type projectsUncheckedUpdateManyWithoutProjectsInput = {
-    guid_projects?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dept_guid?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type departmentsUpdateWithoutUserInput = {
-    guid_dept?: StringFieldUpdateOperationsInput | string
-    deptName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dept_emp?: dept_empUpdateManyWithoutDepartmentsNestedInput
-    projects?: projectsUpdateManyWithoutDepartmentsNestedInput
-  }
-
-  export type departmentsUncheckedUpdateWithoutUserInput = {
-    guid_dept?: StringFieldUpdateOperationsInput | string
-    deptName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dept_emp?: dept_empUncheckedUpdateManyWithoutDepartmentsNestedInput
-    projects?: projectsUncheckedUpdateManyWithoutDepartmentsNestedInput
-  }
-
-  export type departmentsUncheckedUpdateManyWithoutDepartmentsInput = {
-    guid_dept?: StringFieldUpdateOperationsInput | string
-    deptName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type dept_empCreateManyDepartmentsInput = {
@@ -8559,7 +7602,6 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
   }
 
   export type dept_empUpdateWithoutDepartmentsInput = {
@@ -8589,7 +7631,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: userUpdateOneRequiredWithoutProjectsNestedInput
     employees?: employeesUpdateManyWithoutProjectsNestedInput
   }
 
@@ -8599,8 +7640,15 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     employees?: employeesUncheckedUpdateManyWithoutProjectsNestedInput
+  }
+
+  export type projectsUncheckedUpdateManyWithoutProjectsInput = {
+    guid_projects?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type dept_empCreateManyEmployeeInput = {
@@ -8633,7 +7681,6 @@ export namespace Prisma {
     wage: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user_guid: string
   }
 
   export type employeesUpdateWithoutProjectsInput = {
@@ -8646,7 +7693,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dept_emp?: dept_empUpdateManyWithoutEmployeeNestedInput
-    user?: userUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
   export type employeesUncheckedUpdateWithoutProjectsInput = {
@@ -8658,8 +7704,18 @@ export namespace Prisma {
     wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user_guid?: StringFieldUpdateOperationsInput | string
     dept_emp?: dept_empUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type employeesUncheckedUpdateManyWithoutEmployeesInput = {
+    guid_employee?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    hire_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    wage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

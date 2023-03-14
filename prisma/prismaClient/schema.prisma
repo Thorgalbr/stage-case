@@ -18,9 +18,6 @@ model user {
   role          String        @db.VarChar(75)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  employees     employees[]
-  projects      projects[]
-  departments   departments[]
 }
 
 model departments {
@@ -29,8 +26,6 @@ model departments {
   status    String     @db.VarChar(75)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  user_guid String
-  user      user       @relation(fields: [user_guid], references: [guid_user])
   dept_emp  dept_emp[]
   projects  projects[]
 }
@@ -44,10 +39,8 @@ model employees {
   wage          Decimal    @db.Money
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
-  user_guid     String
   projects_guid String
   dept_emp      dept_emp[]
-  user          user       @relation(fields: [user_guid], references: [guid_user])
   projects      projects   @relation(fields: [projects_guid], references: [guid_projects])
 }
 
@@ -57,9 +50,7 @@ model projects {
   status        String      @db.VarChar(75)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  user_guid     String
   dept_guid     String
-  user          user        @relation(fields: [user_guid], references: [guid_user])
   departments   departments @relation(fields: [dept_guid], references: [guid_dept])
   employees     employees[]
 }

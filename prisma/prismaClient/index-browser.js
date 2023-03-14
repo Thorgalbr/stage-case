@@ -94,8 +94,7 @@ exports.Prisma.DepartmentsScalarFieldEnum = makeEnum({
   deptName: 'deptName',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  user_guid: 'user_guid'
+  updatedAt: 'updatedAt'
 });
 
 exports.Prisma.Dept_empScalarFieldEnum = makeEnum({
@@ -115,7 +114,6 @@ exports.Prisma.EmployeesScalarFieldEnum = makeEnum({
   wage: 'wage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  user_guid: 'user_guid',
   projects_guid: 'projects_guid'
 });
 
@@ -125,7 +123,6 @@ exports.Prisma.ProjectsScalarFieldEnum = makeEnum({
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  user_guid: 'user_guid',
   dept_guid: 'dept_guid'
 });
 
