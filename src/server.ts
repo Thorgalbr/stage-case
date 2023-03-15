@@ -4,7 +4,8 @@
  *      	Autor: Thiago Pereira
  */
 
-// Importando o express para o projeto 
+// Importando o express para o projeto
+
 import express, { Request, Response } from "express";
 
 // Configurando o express para comunicar com o AdminJS
@@ -46,6 +47,7 @@ app.use(employeesRouter);
 
 import { projectRouter } from "./projetos/projectsRoute";
 app.use(projectRouter);
+
 
 // Configurando a criação do servidor com retorno de mensagem no console informando o sucesso
 const port = process.env.API_PORT;

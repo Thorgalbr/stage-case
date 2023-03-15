@@ -21,10 +21,12 @@
   "homepage": "https://gitlab.com/thiago_pereiraa/stage-case#readme",
   "dependencies": {
     "@prisma/client": "^4.11.0",
+    "@types/aws-lambda": "^8.10.113",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.13",
     "@types/jsonwebtoken": "^9.0.1",
+    "aws-lambda": "^1.0.7",
     "aws-serverless-express": "^3.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -34,14 +36,18 @@
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "serverless-http": "^3.2.0"
+    
   },
   "devDependencies": {
+    "@serverless/typescript": "^3.27.0",
     "@types/express": "^4.17.17",
     "@types/node": "^18.14.4",
     "prisma": "^4.11.0",
     "rimraf": "^4.1.3",
+    "serverless": "^3.28.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "serverless-plugin-typescript": "^2.1.4"
   }
 }
