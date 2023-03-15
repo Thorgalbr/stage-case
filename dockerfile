@@ -1,6 +1,9 @@
 # Definindo o sistema
 FROM node:18-alpine3.16
 
+# Criando o diretório para o workdir
+RUN mkdir -p /usr/src/app
+
 # Definindo o workdir
 WORKDIR /usr/src/app 
 
